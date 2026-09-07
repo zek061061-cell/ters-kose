@@ -54,14 +54,14 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:#0b0b0b;backdro
 </head>
 <body>
 <div class="app">
-<header><div class="row" style="gap:12px;flex-wrap:nowrap"><div class="tklogo" aria-label="Ters Köşe logo"><svg viewBox="0 0 100 100" width="54" height="54" role="img"><circle cx="50" cy="50" r="47" fill="#f4c542" stroke="#050505" stroke-width="6"/><circle cx="50" cy="50" r="34" fill="#0b0b0c"/><text x="50" y="45" text-anchor="middle" fill="#f4c542" font-family="Inter,Arial" font-size="19" font-weight="900">TERS</text><text x="50" y="65" text-anchor="middle" fill="#f4c542" font-family="Inter,Arial" font-size="17" font-weight="900">KÖŞE</text><circle cx="76" cy="76" r="16" fill="#f4c542" stroke="#0b0b0c" stroke-width="4"/><text x="76" y="82" text-anchor="middle" fill="#0b0b0c" font-family="Inter,Arial" font-size="16" font-weight="900">6+</text></svg></div><div><div class="brand">TERS <span>KÖŞE</span> <small style="font-size:10px;color:#a5a5ad">Model v3.4</small></div><div class="sub"><span class="statusdot" id="connectionDot"></span>Maç analizi • bülten • haftalık radar • Excel/CSV <span id="connectionText" style="margin-left:6px">bağlantı kontrol ediliyor</span></div></div></div></header>
+<header><div class="row" style="gap:12px;flex-wrap:nowrap"><div class="tklogo" aria-label="Ters Köşe logo"><svg viewBox="0 0 100 100" width="54" height="54" role="img"><circle cx="50" cy="50" r="47" fill="#f4c542" stroke="#050505" stroke-width="6"/><circle cx="50" cy="50" r="34" fill="#0b0b0c"/><text x="50" y="45" text-anchor="middle" fill="#f4c542" font-family="Inter,Arial" font-size="19" font-weight="900">TERS</text><text x="50" y="65" text-anchor="middle" fill="#f4c542" font-family="Inter,Arial" font-size="17" font-weight="900">KÖŞE</text><circle cx="76" cy="76" r="16" fill="#f4c542" stroke="#0b0b0c" stroke-width="4"/><text x="76" y="82" text-anchor="middle" fill="#0b0b0c" font-family="Inter,Arial" font-size="16" font-weight="900">6+</text></svg></div><div><div class="brand">TERS <span>KÖŞE</span> <small style="font-size:10px;color:#a5a5ad">Model v3.5</small></div><div class="sub"><span class="statusdot" id="connectionDot"></span>Maç analizi • bülten • haftalık radar • Excel/CSV <span id="connectionText" style="margin-left:6px">bağlantı kontrol ediliyor</span></div></div></div></header>
 <main>
 
 <section id="tab-match">
 <div class="notice">Yüzdeler geçmiş veriler, gol modeli, form, iç/dış saha, eşleşme ve örüntü sinyallerinden üretilen model tahminleridir; garanti sonuç değildir.</div>
 <h2>Maç Analizi</h2>
 <div class="card">
-<div class="twocol"><div><label>Lig</label><select id="matchLeague"></select></div><div><label>Sezon</label><select id="matchSeason"></select></div></div>
+<div class="twocol"><div><label>Lig</label><select id="matchLeague"><option value="">Tüm Ligler</option></select></div><div><label>Sezon</label><select id="matchSeason"></select></div></div>
 <div class="twocol"><div><label>Hafta</label><select id="matchWeek"></select></div><div><label>Maç</label><select id="matchSelect"></select></div></div>
 <div class="row" style="margin-top:12px"><button onclick="analyzeSelectedMatch()">Tek tuşla tam analiz</button><button class="secondary" onclick="selectLatestFixture()">Son maçı/haftayı seç</button></div>
 </div>
@@ -93,7 +93,7 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:#0b0b0b;backdro
 <section id="tab-radar" class="hidden">
 <h2>Haftalık Radar</h2>
 <div class="card">
-<div class="twocol"><div><label>Lig</label><select id="radarLeague"></select></div><div><label>Sezon</label><select id="radarSeason"></select></div></div>
+<div class="twocol"><div><label>Lig</label><select id="radarLeague"><option value="">Tüm Ligler</option></select></div><div><label>Sezon</label><select id="radarSeason"></select></div></div>
 <div class="twocol"><div><label>Hafta</label><select id="radarWeek"></select></div><div><label>Sıralama</label><select id="radarSort"><option value="overall">Genel güven</option><option value="surprise">Sürpriz</option><option value="result">Maç sonucu</option><option value="btts">KG Var</option><option value="over">Üst 2.5</option></select></div></div>
 <div class="row" style="margin-top:12px"><button onclick="runWeeklyRadar()">Haftanın tamamını analiz et</button><button class="secondary" onclick="radarLatestWeek()">Son haftayı seç</button><button class="secondary" onclick="exportRadarExcel()">Radar Excel indir</button><button class="secondary" id="radarStrongBtn" onclick="toggleRadarStrong()">Sadece güçlü adaylar</button></div>
 </div>
@@ -123,7 +123,7 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:#0b0b0b;backdro
 </div>
 <script>
 const SOURCES={"Türkiye Süper Lig":"T1","İngiltere Premier League":"E0","İngiltere EFL Championship":"E1","İngiltere EFL League One":"E2","İngiltere EFL League Two":"E3","İskoçya Premiership":"SC0","İskoçya Championship":"SC1","Almanya Bundesliga":"D1","Almanya 2. Bundesliga":"D2","İspanya La Liga":"SP1","İspanya LaLiga 2":"SP2","İtalya Serie A":"I1","İtalya Serie B":"I2","Fransa Ligue 1":"F1","Fransa Ligue 2":"F2","Hollanda Eredivisie":"N1","Belçika Pro League":"B1","Portekiz Primeira Liga":"P1","Yunanistan Super League":"G1"};
-const CURRENT_START=26,MODEL_VERSION="3.4";let lastRuntimeError="";
+const CURRENT_START=26,MODEL_VERSION="3.5";let lastRuntimeError="";
 let matches=[], sourceName="Henüz veri yüklenmedi", importedRows=[], currentReport=null, currentRadar=[], radarStrongOnly=false, bulletinRows=[], logoBook={},teamNameBook={};try{logoBook=JSON.parse(localStorage.getItem("terskose_logo_book")||"{}")||{}}catch(e){logoBook={}}try{teamNameBook=JSON.parse(localStorage.getItem("terskose_team_name_book")||"{}")||{}}catch(e){teamNameBook={}}
 try{matches=JSON.parse(localStorage.getItem("terskose_v2_matches")||localStorage.getItem("terskose_matches_final")||"[]")||[]}catch(e){matches=[]}
 sourceName=localStorage.getItem("terskose_v2_source")||localStorage.getItem("terskose_source")||sourceName;
@@ -484,8 +484,8 @@ function runSelfTest(){
  el("selfTestReport").innerHTML='<div class="row"><span class="pill '+(ok===checks.length?"green":"red")+'">'+ok+'/'+checks.length+' test geçti</span>'+(ok===checks.length?'<span class="pill green">Sürüm kontrolü temiz</span>':'')+'</div><div style="margin-top:10px">'+checks.map(function(x){return '<div class="scoreline"><b>'+(x.ok?"✓ ":"✗ ")+esc(x.name)+'</b><span style="color:'+(x.ok?"#9af0ce":"#ffb9bf")+'">'+esc(x.detail)+'</span></div>'}).join("")+'</div>'
 }
 async function hydrateTeamAssets(){try{var r=await fetch("/teams",{cache:"no-store"});if(!r.ok)return;var j=await r.json();(j.teams||[]).forEach(function(t){var full=String(t.name||"").trim();if(!full)return;[t.name,t.short,t.abbreviation,t.slug].filter(Boolean).forEach(function(v){teamNameBook[teamKey(v)]=full});if(t.logo){[t.name,t.short,t.abbreviation,t.slug].filter(Boolean).forEach(function(v){logoBook[teamKey(v)]=t.logo});logoBook[teamKey(full)]=t.logo}});try{localStorage.setItem("terskose_team_name_book",JSON.stringify(teamNameBook));localStorage.setItem("terskose_logo_book",JSON.stringify(logoBook))}catch(e){}matches=dedupe(normalizeStoredMatches(matches));save();renderAll();if(bulletinRows.length)renderBulletin()}catch(e){}}
-function fillSource(){el("sourceLeague").innerHTML=Object.keys(SOURCES).map(function(x){return"<option>"+esc(x)+"</option>"}).join("");if(el("bulletinDate")&&!el("bulletinDate").value)el("bulletinDate").value=todayISO();if(el("bulletinLeague"))el("bulletinLeague").onchange=renderBulletin}
+function fillSource(){el("sourceLeague").innerHTML='<option value="">Tüm Ligler</option>'+Object.keys(SOURCES).map(function(x){return"<option>"+esc(x)+"</option>"}).join("");if(el("bulletinDate")&&!el("bulletinDate").value)el("bulletinDate").value=todayISO();if(el("bulletinLeague"))el("bulletinLeague").onchange=renderBulletin}
 updateConnectionState();matches=dedupe(normalizeStoredMatches(matches));save();fillSource();renderAll();setTimeout(function(){try{runSelfTest()}catch(e){}},300);setTimeout(function(){if(navigator.onLine){hydrateTeamAssets();loadBulletin(true)}},500);
-if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js?v=20260907b").catch(function(){})})}
+if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js?v=20260907c").catch(function(){})})}
 </script>
 </body></html>
