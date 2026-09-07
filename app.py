@@ -2,6 +2,7 @@ from flask import Flask, request, Response, jsonify, send_from_directory
 import requests
 import time
 import os
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from urllib.parse import urlparse
 
 app = Flask(__name__)
@@ -73,16 +74,16 @@ def fixtures():
     date = request.args.get("date", "").strip().replace("-", "")
     if len(date) != 8 or not date.isdigit():
         return jsonify({"error": "date YYYY-MM-DD gerekli"}), 400
-    all_matches = []
-    errors = []
-    for league_code, league_name in ESPN_LEAGUES.items():
+
+    def fetch_league(item):
+        league_code, league_name = item
         url = f"https://site.api.espn.com/apis/site/v2/sports/soccer/{league_code}/scoreboard?dates={date}&limit=100"
         try:
-            r = requests.get(url, timeout=12, headers={"User-Agent": "Mozilla/5.0"})
+            r = requests.get(url, timeout=10, headers={"User-Agent": "Mozilla/5.0"})
             if not r.ok:
-                errors.append({"league": league_name, "status": r.status_code})
-                continue
+                return [], {"league": league_name, "status": r.status_code}
             data = r.json()
+            out = []
             for event in data.get("events", []):
                 comps = event.get("competitions") or []
                 if not comps:
@@ -96,7 +97,7 @@ def fixtures():
                 ht = home.get("team", {})
                 at = away.get("team", {})
                 status = event.get("status", {}).get("type", {})
-                all_matches.append({
+                out.append({
                     "event_id": event.get("id", ""),
                     "date": (event.get("date") or "")[:10],
                     "kickoff": event.get("date", ""),
@@ -109,8 +110,18 @@ def fixtures():
                     "status": status.get("description") or status.get("detail") or "",
                     "completed": bool(status.get("completed")),
                 })
+            return out, None
         except Exception as e:
-            errors.append({"league": league_name, "detail": str(e)})
+            return [], {"league": league_name, "detail": str(e)}
+
+    all_matches, errors = [], []
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        futures = [pool.submit(fetch_league, item) for item in ESPN_LEAGUES.items()]
+        for fut in as_completed(futures):
+            rows, err = fut.result()
+            all_matches.extend(rows)
+            if err:
+                errors.append(err)
     all_matches.sort(key=lambda x: (x.get("kickoff") or "", x.get("league") or "", x.get("home") or ""))
     return jsonify({"ok": True, "date": date, "matches": all_matches, "count": len(all_matches), "errors": errors})
 
