@@ -11,12 +11,20 @@ headers={"User-Agent":"Mozilla/5.0","Accept":"application/json"}
 
 def fetch_league(item):
     code,league=item
-    url=f"https://site.api.espn.com/apis/site/v2/sports/soccer/{code}/scoreboard?dates={today.strftime('%Y%m%d')}-{end.strftime('%Y%m%d')}&limit=1000"
-    try:
-        r=requests.get(url,headers=headers,timeout=25)
-        if not r.ok:return []
-        data=r.json(); out=[]
-        for ev in data.get("events",[]):
+    out=[]
+    # ESPN's soccer scoreboard is reliable with date-scoped calls; query weekly anchors
+    # so we can collect announced fixtures without one oversized range request.
+    cursor=today
+    while cursor<=end:
+      url=f"https://site.api.espn.com/apis/site/v2/sports/soccer/{code}/scoreboard?dates={cursor.strftime('%Y%m%d')}&limit=100"
+      try:
+        r=requests.get(url,headers=headers,timeout=15)
+        if not r.ok:
+            cursor+=timedelta(days=7); continue
+        data=r.json()
+      except Exception:
+        cursor+=timedelta(days=7); continue
+      for ev in data.get("events",[]):
             comp=(ev.get("competitions") or [{}])[0]
             cs=comp.get("competitors") or []
             home=next((x for x in cs if x.get("homeAway")=="home"),None)
@@ -31,8 +39,8 @@ def fetch_league(item):
               "home":ht.get("displayName") or ht.get("name") or "","away":at.get("displayName") or at.get("name") or "",
               "home_logo":ht.get("logo") or "","away_logo":at.get("logo") or "","status":st.get("description") or "Planlandı",
               "completed":False,"state":"pre","referee":"","source":"ESPN sezon fikstürü"})
-        return out
-    except Exception:return []
+      cursor+=timedelta(days=7)
+    return out
 
 rows=[]
 with ThreadPoolExecutor(max_workers=12) as ex:
