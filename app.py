@@ -1,4 +1,4 @@
-from flask import Flask, request, Response, jsonify
+from flask import Flask, request, Response, jsonify, send_from_directory
 import requests
 from urllib.parse import urlparse
 
@@ -15,6 +15,10 @@ def add_cors_headers(resp):
 
 @app.get("/")
 def home():
+    return send_from_directory(".", "index.html")
+
+@app.get("/api")
+def api_info():
     return jsonify({"ok": True, "service": "Ters Kose data proxy"})
 
 @app.get("/health")
