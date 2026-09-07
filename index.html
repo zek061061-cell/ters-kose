@@ -74,7 +74,12 @@ function dateNorm(x){if(!x)return'';const p=x.split(/[\/.-]/);if(p.length===3){l
 function assignWeeks(rows){rows.sort((a,b)=>String(a.date).localeCompare(String(b.date)));const teams=[...new Set(rows.flatMap(x=>[x.home,x.away]))];const perRound=Math.max(1,Math.floor(teams.length/2));rows.forEach((r,i)=>r.week=Math.floor(i/perRound)+1)}
 function seasonCode(start){return String(start).padStart(2,'0')+String((start+1)%100).padStart(2,'0')}
 function seasonLabel(start){return `20${String(start).padStart(2,'0')}/${String((start+1)%100).padStart(2,'0')}`}
-async function fetchText(url){try{const r=await fetch(url,{cache:'no-store'});if(r.ok)return await r.text()}catch(e){}const proxy='https://api.allorigins.win/raw?url='+encodeURIComponent(url);const r2=await fetch(proxy,{cache:'no-store'});if(!r2.ok)throw new Error('Veri kaynağına ulaşılamadı');return await r2.text()}
+async function fetchText(url){
+  const proxy='https://ters-kose.onrender.com/proxy?url='+encodeURIComponent(url);
+  const r=await fetch(proxy,{cache:'no-store'});
+  if(!r.ok)throw new Error('Veri kaynağına ulaşılamadı');
+  return await r.text();
+}
 async function loadAutomatic(){const name=sourceLeague.value,code=SOURCES[name],count=+seasonCount.value;autoBtn.disabled=true;autoStatus.textContent='Veriler indiriliyor...';let all=[],failed=[];for(let i=count-1;i>=0;i--){const st=CURRENT_START-i,sc=seasonCode(st),label=seasonLabel(st),url=`https://www.football-data.co.uk/mmz4281/${sc}/${code}.csv`;try{autoStatus.textContent=`${label} indiriliyor...`;const txt=await fetchText(url);const r=parseAnyCSV(txt,name,label);if(r.length)all.push(...r);else failed.push(label)}catch(e){failed.push(label)}}autoBtn.disabled=false;if(!all.length){autoStatus.innerHTML='Otomatik indirme başarısız oldu. Tarayıcı veri kaynağını engellemiş olabilir; aşağıdan CSV yükleyebilirsin.';return}matches=all;sourceName=`${name} • son ${count} sezon • otomatik`;save();render();autoStatus.innerHTML=`<b>${all.length} maç yüklendi.</b>${failed.length?' Alınamayan: '+failed.join(', '):''}`;goTab('home')}
 async function loadCsv(){const f=csvFile.files[0];if(!f){importStatus.textContent='Önce CSV seç.';return}try{const r=parseAnyCSV(await f.text());if(!r.length)throw Error();matches=r;sourceName=`${f.name} • CSV`;save();render();importStatus.textContent=`${r.length} maç başarıyla yüklendi.`;goTab('home')}catch(e){importStatus.textContent='CSV okunamadı veya gerekli sütunlar bulunamadı.'}}
 function clearData(){if(!confirm('Yüklü maç verileri silinsin mi?'))return;matches=[];sourceName='Henüz veri yüklenmedi';save();render();autoStatus.textContent='Veri temizlendi.'}
