@@ -6,7 +6,7 @@ from urllib.parse import urlparse
 app = Flask(__name__)
 
 ALLOWED_HOSTS = {"www.football-data.co.uk", "football-data.co.uk"}
-APP_VERSION = "3.1"
+APP_VERSION = "3.2"
 SOURCE_CACHE = {}
 
 @app.after_request
