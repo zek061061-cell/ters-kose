@@ -152,12 +152,13 @@ function renderCandidates(rows){
  const c=rows.map(m=>({m,...scoreMatch(m)})).filter(x=>x.score>=min).sort((a,b)=>b.score-a.score);
  candidateList.innerHTML=c.length?c.map(x=>{
    const predictions=[...new Set((x.chainHits||[]).flatMap(predictedTypes))];
+   const predictionSummary=predictions.length?predictions.join(' + '):'Örüntü tekrarı';
    const evidence=(x.chainHits||[]).map(h=>{
      const b=h.best,a=b.a,z=b.b;
      const oppA=a.home===h.team?a.away:a.home, oppB=z.home===h.team?z.away:z.home;
      return `<div class="reason" style="margin-top:8px;color:#d7e2f2"><b>${esc(h.team)}</b>: ${esc(a.season)} H${a.week} vs ${esc(oppA)} [${esc(resultText(a))}] ${esc(eventTypes(a).join('/'))} → ${esc(z.season)} H${z.week} vs ${esc(oppB)} [${esc(resultText(z))}] ${esc(eventTypes(z).join('/'))}<br><span style="color:#90a2bd">${esc(relationLabel(a,z,h.team))} • bu sezon beklenen hafta: H${b.expectedWeek}</span></div>`
    }).join('');
-   const badge=predictions.length?`<div class="row" style="margin-top:8px">${predictions.map(p=>`<span class="pill gold">Beklenti: ${esc(p)}</span>`).join('')}</div>`:'';
+   const badge=`<div class="row" style="margin-top:10px;align-items:center"><span class="pill gold" style="font-size:15px;font-weight:900;padding:8px 12px">🎯 BEKLENTİ: ${esc(predictionSummary)}</span>${x.chainHits?.length?`<span class="meta">Destekleyen örüntü: ${esc([...new Set(x.chainHits.map(h=>h.team))].join(', '))}</span>`:''}</div>`;
    return `<div class="match candidate"><div><div class="teams">${esc(x.m.home)} — ${esc(x.m.away)}</div><div class="meta">${esc(x.m.league)} • ${esc(x.m.season)} • ${x.m.week}. hafta</div>${badge}<div class="reason" style="margin-top:7px">${esc((x.reasons||[]).join(' • '))}</div>${evidence}</div><div class="confidence">${x.score}%</div></div>`
  }).join(''):'<div class="empty">Bu hafta için minimum puanı geçen aday yok. Ayarlardan eşik puanı düşürebilirsin.</div>';
  renderPatterns(rows)
