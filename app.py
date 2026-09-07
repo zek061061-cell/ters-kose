@@ -166,6 +166,15 @@ def _num(v):
     except Exception:
         return None
 
+def _float_num(v):
+    """Parse decimal market values without truncating bookmaker odds."""
+    try:
+        if v is None or str(v).strip() == "":
+            return None
+        return float(str(v).strip().replace(",", "."))
+    except Exception:
+        return None
+
 def _date(v):
     v = str(v or "").strip()
     for fmt in ("%d/%m/%Y", "%d/%m/%y", "%Y-%m-%d", "%d-%m-%Y", "%d.%m.%Y"):
@@ -211,11 +220,11 @@ def _parse_history_csv(content, league_name, season_label=""):
 
         # Prefer market-average closing prices when football-data provides them.
         # Fallbacks keep older seasons useful because column availability changes by year.
-        odds_h = _num(r.get("AvgH") or r.get("B365H") or r.get("PSH") or r.get("MaxH"))
-        odds_d = _num(r.get("AvgD") or r.get("B365D") or r.get("PSD") or r.get("MaxD"))
-        odds_a = _num(r.get("AvgA") or r.get("B365A") or r.get("PSA") or r.get("MaxA"))
-        odds_o25 = _num(r.get("Avg>2.5") or r.get("B365>2.5") or r.get("P>2.5") or r.get("Max>2.5"))
-        odds_u25 = _num(r.get("Avg<2.5") or r.get("B365<2.5") or r.get("P<2.5") or r.get("Max<2.5"))
+        odds_h = _float_num(r.get("AvgH") or r.get("B365H") or r.get("PSH") or r.get("MaxH"))
+        odds_d = _float_num(r.get("AvgD") or r.get("B365D") or r.get("PSD") or r.get("MaxD"))
+        odds_a = _float_num(r.get("AvgA") or r.get("B365A") or r.get("PSA") or r.get("MaxA"))
+        odds_o25 = _float_num(r.get("Avg>2.5") or r.get("B365>2.5") or r.get("P>2.5") or r.get("Max>2.5"))
+        odds_u25 = _float_num(r.get("Avg<2.5") or r.get("B365<2.5") or r.get("P<2.5") or r.get("Max<2.5"))
 
         out.append({
             "date": date, "league": league_name, "season": season_label or _season_from_row(r, date),
@@ -226,6 +235,43 @@ def _parse_history_csv(content, league_name, season_label=""):
             "odds_over25": odds_o25, "odds_under25": odds_u25,
         })
     return out
+
+def _infer_history_weeks(rows):
+    """Fill missing matchweeks deterministically within each league/season.
+
+    football-data historical CSVs generally do not provide a matchweek column.
+    We preserve any source-provided week and infer only missing values from each
+    team's chronological appearance count. Postponements can make an inferred
+    week differ from an official round, so those rows are explicitly marked.
+    """
+    groups = {}
+    for row in rows:
+        key = (str(row.get("league") or ""), str(row.get("season") or ""))
+        groups.setdefault(key, []).append(row)
+
+    for group_rows in groups.values():
+        counts = {}
+        ordered = sorted(
+            group_rows,
+            key=lambda x: (
+                str(x.get("date") or "9999-99-99"),
+                str(x.get("home") or "").casefold(),
+                str(x.get("away") or "").casefold(),
+            ),
+        )
+        for row in ordered:
+            if row.get("week"):
+                row["week_inferred"] = False
+            else:
+                home = str(row.get("home") or "")
+                away = str(row.get("away") or "")
+                row["week"] = max(counts.get(home, 0), counts.get(away, 0)) + 1
+                row["week_inferred"] = True
+            home = str(row.get("home") or "")
+            away = str(row.get("away") or "")
+            counts[home] = counts.get(home, 0) + 1
+            counts[away] = counts.get(away, 0) + 1
+    return rows
 
 def _dedupe_history(rows):
     best = {}
@@ -379,6 +425,7 @@ def build_history_10y():
 
         audit.sort(key=lambda a: (str(a.get("league","")), str(a.get("season",""))))
         all_rows = _dedupe_history(all_rows)
+        all_rows = _infer_history_weeks(all_rows)
         quality = _audit_history_rows(all_rows)
         league_counts = {}
         for x in all_rows:
