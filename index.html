@@ -256,6 +256,15 @@ function deepPatternSuite(target){
    // Hafta sürpriz
    if(target.week){var wh=sur.filter(function(x){return +x.week===+target.week});if(wh.length)push("Hafta sürpriz",Math.min(.96,.34+wh.length*.12),team+" geçmiş sezonlarda tam "+target.week+". haftada "+wh.length+" sürpriz üretmiş",surpriseTypes(wh))}
 
+   // Fikstür şikesi: hedef rakibin sezonlar boyunca sürpriz haftaları ile hedef haftayı karşılaştır
+   var opp=opponentOf(target,team),oppHist=teamHistory(opp,target),oppSur=oppHist.filter(function(x){return classify(x).length}),oppNear=oppSur.filter(function(x){return !target.week||Math.abs((+x.week)-(+target.week))<=2});
+   if(oppNear.length)push("Fikstür şikesi",Math.min(.94,.34+oppNear.length*.12),opp+" geçmiş sezonlarda hedef hafta çevresinde "+oppNear.length+" sürpriz/+6 üretmiş; "+team+" maçıyla temas ediyor",surpriseTypes(oppNear));
+
+   // Lig sürpriz şeması: takımın sezonlar arası sürpriz dağılımı
+   var seasonMap={};hist.forEach(function(x){var sy=x.season||(dateParts(x.date).y||"");if(!seasonMap[sy])seasonMap[sy]={n:0,s:0,types:[]};seasonMap[sy].n++;if(classify(x).length){seasonMap[sy].s++;seasonMap[sy].types=seasonMap[sy].types.concat(classify(x))}});
+   var seasonKeys=Object.keys(seasonMap),hitSeasons=seasonKeys.filter(function(k){return seasonMap[k].s>0});
+   if(seasonKeys.length>=2&&hitSeasons.length)push("Lig sürpriz şeması",Math.min(.9,.28+(hitSeasons.length/seasonKeys.length)*.48),team+" "+seasonKeys.length+" sezonda incelendi; "+hitSeasons.length+" sezonda sürpriz izi var", [...new Set(hitSeasons.flatMap(function(k){return seasonMap[k].types}))]);
+
    // Aylık profil / aylık akış
    if(dp.m){var mh=hist.filter(function(x){return dateParts(x.date).m===dp.m}),ms=mh.filter(function(x){return classify(x).length});if(mh.length>=4)push("Aylık sürpriz profil",Math.min(.9,.25+(ms.length/mh.length)*.55),team+" "+dp.m+". ayda "+ms.length+"/"+mh.length+" sürpriz maç üretmiş",surpriseTypes(ms));if(mh.length>=3)push("Aylık maç akışı",Math.min(.86,.22+Math.min(8,mh.length)*.045+(ms.length?0.12:0)),team+" aynı ayda "+mh.length+" geçmiş maç; "+ms.length+" sürpriz",surpriseTypes(ms))}
 
