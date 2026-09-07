@@ -26,7 +26,7 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:rgba(6,16,29,.9
 </head>
 <body>
 <div class="app">
-<header><div class="brand">TERS <span>KÖŞE</span> <small style="font-size:10px;color:#90a2bd">Model v2.9</small></div><div class="sub"><span class="statusdot"></span>Tek tuş maç analizi • haftalık radar • Excel/CSV</div></header>
+<header><div class="brand">TERS <span>KÖŞE</span> <small style="font-size:10px;color:#90a2bd">Model v3.0</small></div><div class="sub"><span class="statusdot"></span>Tek tuş maç analizi • haftalık radar • Excel/CSV</div></header>
 <main>
 
 <section id="tab-match">
@@ -84,7 +84,7 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:rgba(6,16,29,.9
 </div>
 <script>
 const SOURCES={"Türkiye Süper Lig":"T1","İngiltere Premier League":"E0","İngiltere Championship":"E1","İngiltere League One":"E2","İngiltere League Two":"E3","İskoçya Premiership":"SC0","İskoçya Championship":"SC1","Almanya Bundesliga":"D1","Almanya 2. Bundesliga":"D2","İspanya La Liga":"SP1","İspanya Segunda":"SP2","İtalya Serie A":"I1","İtalya Serie B":"I2","Fransa Ligue 1":"F1","Fransa Ligue 2":"F2","Hollanda Eredivisie":"N1","Belçika Pro League":"B1","Portekiz Primeira Liga":"P1","Yunanistan Super League":"G1"};
-const CURRENT_START=26,MODEL_VERSION="2.9";
+const CURRENT_START=26,MODEL_VERSION="3.0";
 let matches=[], sourceName="Henüz veri yüklenmedi", importedRows=[], currentReport=null, currentRadar=[], radarStrongOnly=false;
 try{matches=JSON.parse(localStorage.getItem("terskose_v2_matches")||localStorage.getItem("terskose_matches_final")||"[]")||[]}catch(e){matches=[]}
 sourceName=localStorage.getItem("terskose_v2_source")||localStorage.getItem("terskose_source")||sourceName;
@@ -391,7 +391,7 @@ async function runBacktest(){
  var rows=matches.filter(played).filter(function(x){return x.date||(x.season&&x.week)}).sort(function(a,b){return matchOrderKey(a).localeCompare(matchOrderKey(b))});
  if(rows.length<20){el("backtestReport").textContent="Geriye dönük test için yeterli sonuçlu maç yok.";btn.disabled=false;return}
  rows=rows.slice(Math.max(0,rows.length-limit));
- var correct=0,brier=0,logloss=0,bttsCorrect=0,o25Correct=0,o45Correct=0,used=0,buckets={},profiles={r1:{},rx:{},r2:{},btts:{},o15:{},o25:{},o35:{},o45:{},p12:{},p21:{},p6:{}},surBrier={"1/2":0,"2/1":0,"6+":0};
+ var correct=0,brier=0,logloss=0,bttsCorrect=0,o25Correct=0,o45Correct=0,used=0,htUsed=0,buckets={},profiles={r1:{},rx:{},r2:{},btts:{},o15:{},o25:{},o35:{},o45:{},p12:{},p21:{},p6:{}},surBrier={"1/2":0,"2/1":0,"6+":0};
  for(var i=0;i<rows.length;i++){
    var m=rows[i],a=modelMatch(m,true);
    if(a.hs.n<4||a.as.n<4)continue;
@@ -400,7 +400,7 @@ async function runBacktest(){
    var y1=act==="1"?1:0,yx=act==="X"?1:0,y2=act==="2"?1:0;brier+=(Math.pow(a.p1-y1,2)+Math.pow(a.px-yx,2)+Math.pow(a.p2-y2,2))/3;var pAct=act==="1"?a.p1:act==="X"?a.px:a.p2;logloss+=-Math.log(Math.max(.001,pAct));
    var abtts=(+m.ft_home>0&&+m.ft_away>0),goals=+m.ft_home + +m.ft_away,ao15=goals>=2,ao25=goals>=3,ao35=goals>=4,ao45=goals>=5,hasHT=Number.isFinite(+m.ht_home)&&Number.isFinite(+m.ht_away),types=classify(m),ap12=hasHT&&types.includes("1/2"),ap21=hasHT&&types.includes("2/1"),ap6=types.includes("6+");
    var tests=[["r1",a.p1,act==="1"],["rx",a.px,act==="X"],["r2",a.p2,act==="2"],["btts",a.btts,abtts],["o15",a.o15,ao15],["o25",a.o25,ao25],["o35",a.o35,ao35],["o45",a.o45,ao45],["p6",a.patterns.p6,ap6]];if(hasHT)tests.push(["p12",a.patterns.p12,ap12],["p21",a.patterns.p21,ap21]);tests.forEach(function(z){var k=calBin(z[1]),obj=profiles[z[0]][k]||(profiles[z[0]][k]={n:0,ok:0,sum:0});obj.n++;obj.ok+=z[2]?1:0;obj.sum+=z[1]});
-   if(hasHT){surBrier["1/2"]+=Math.pow(a.patterns.p12-(ap12?1:0),2);surBrier["2/1"]+=Math.pow(a.patterns.p21-(ap21?1:0),2)}surBrier["6+"]+=Math.pow(a.patterns.p6-(ap6?1:0),2);
+   if(hasHT){surBrier["1/2"]+=Math.pow(a.patterns.p12-(ap12?1:0),2);surBrier["2/1"]+=Math.pow(a.patterns.p21-(ap21?1:0),2);htUsed++}surBrier["6+"]+=Math.pow(a.patterns.p6-(ap6?1:0),2);
    if((a.btts>=.5)===abtts)bttsCorrect++;
    if((a.o25>=.5)===ao25)o25Correct++;if((a.o45>=.5)===ao45)o45Correct++;
    var bn=bucketName(conf);if(!buckets[bn])buckets[bn]={n:0,ok:0,sum:0};buckets[bn].n++;buckets[bn].ok+=pred===act?1:0;buckets[bn].sum+=conf;used++;
@@ -409,7 +409,7 @@ async function runBacktest(){
  if(!used){el("backtestReport").textContent="Yeterli geçmiş veri oluşmadı.";btn.disabled=false;return}
  var cal=Object.keys(buckets).sort().map(function(k){var b=buckets[k];return k+": model "+pct(b.sum/b.n)+"% → gerçekleşen "+pct(b.ok/b.n)+"% ("+b.n+" maç)"}).join("<br>"),profileCells=Object.values(profiles).reduce(function(a,o){return a+Object.values(o).filter(function(b){return b.n>=8}).length},0);
  calibration=profiles;localStorage.setItem("terskose_calibration",JSON.stringify(calibration));localStorage.setItem("terskose_calibration_meta",JSON.stringify({played:matches.filter(played).length,at:new Date().toISOString()}));renderModelHealth();
- el("backtestReport").innerHTML="<b>"+used+" maç gerçek geçmiş testi</b><br>1-X-2 doğruluk: <b>"+pct(correct/used)+"%</b> • KG Var/Yok doğruluk: <b>"+pct(bttsCorrect/used)+"%</b> • Alt/Üst 2.5 doğruluk: <b>"+pct(o25Correct/used)+"%</b> • Alt/Üst 4.5 doğruluk: <b>"+pct(o45Correct/used)+"%</b> • 1-X-2 Brier: <b>"+(brier/used).toFixed(3)+"</b> • Log loss: <b>"+(logloss/used).toFixed(3)+"</b><br>Kalibrasyon örnek hücresi: <b>"+profileCells+"</b><br>Sürpriz Brier — 1/2: <b>"+(surBrier["1/2"]/used).toFixed(3)+"</b> • 2/1: <b>"+(surBrier["2/1"]/used).toFixed(3)+"</b> • 6+: <b>"+(surBrier["6+"]/used).toFixed(3)+"</b><br><br><b>Güven kalibrasyonu</b><br>"+cal+"<br><br><b>Kalibrasyon profili kaydedildi.</b> Artık 1-X-2, KG, 1.5/2.5/3.5/4.5 ve 1/2-2/1-6+ yüzdeleri yeterli örnek bulunan aralıklarda geçmiş gerçekleşme oranlarına göre düzeltilir.<br><br><span style='color:#90a2bd'>Bu testte her maç için yalnızca o tarihten önceki veriler kullanıldı; gelecek verisi sızdırılmadı.</span>";
+ el("backtestReport").innerHTML="<b>"+used+" maç gerçek geçmiş testi</b><br>1-X-2 doğruluk: <b>"+pct(correct/used)+"%</b> • KG Var/Yok doğruluk: <b>"+pct(bttsCorrect/used)+"%</b> • Alt/Üst 2.5 doğruluk: <b>"+pct(o25Correct/used)+"%</b> • Alt/Üst 4.5 doğruluk: <b>"+pct(o45Correct/used)+"%</b> • 1-X-2 Brier: <b>"+(brier/used).toFixed(3)+"</b> • Log loss: <b>"+(logloss/used).toFixed(3)+"</b><br>Kalibrasyon örnek hücresi: <b>"+profileCells+"</b><br>Sürpriz Brier — 1/2: <b>"+(htUsed?(surBrier["1/2"]/htUsed).toFixed(3):"-")+"</b> • 2/1: <b>"+(htUsed?(surBrier["2/1"]/htUsed).toFixed(3):"-")+"</b> • 6+: <b>"+(surBrier["6+"]/used).toFixed(3)+"</b> <span style='color:#90a2bd'>(İY örneği: "+htUsed+")</span><br><br><b>Güven kalibrasyonu</b><br>"+cal+"<br><br><b>Kalibrasyon profili kaydedildi.</b> Artık 1-X-2, KG, 1.5/2.5/3.5/4.5 ve 1/2-2/1-6+ yüzdeleri yeterli örnek bulunan aralıklarda geçmiş gerçekleşme oranlarına göre düzeltilir.<br><br><span style='color:#90a2bd'>Bu testte her maç için yalnızca o tarihten önceki veriler kullanıldı; gelecek verisi sızdırılmadı.</span>";
  btn.disabled=false
 }
 
@@ -421,7 +421,7 @@ function runSelfTest(){
  try{var bad=matches.filter(function(x){return !x.home||!x.away}).length;add("Takım alanları",bad===0,bad+" hatalı satır")}catch(e){add("Takım alanları",false,e.message)}
  try{var sample=matches.find(function(x){return x.home&&x.away});if(sample){var a=modelMatch(sample,true),mc=marketConsistency(a);add("Model çalıştırma",Number.isFinite(a.p1)&&Number.isFinite(a.o25),"1="+pct(a.p1)+"%, Üst2.5="+pct(a.o25)+"%");add("Pazar tutarlılığı",mc.ok,mc.issues.join(", "))}else add("Model çalıştırma",false,"Örnek maç yok")}catch(e){add("Model çalıştırma",false,e.message)}
  try{add("Excel modülü",!!window.XLSX,window.XLSX?"Hazır":"Yüklenemedi")}catch(e){add("Excel modülü",false,e.message)}
- try{add("PWA desteği","serviceWorker" in navigator,("serviceWorker" in navigator)?"Destekleniyor":"Tarayıcı desteklemiyor")}catch(e){add("PWA desteği",false,e.message)}try{add("Model kimliği",!!MODEL_VERSION,"v"+MODEL_VERSION+" • veri #"+dataFingerprint())}catch(e){add("Model kimliği",false,e.message)}try{add("Takım anahtar motoru",typeof canonicalTeamKey==="function",canonicalTeamKey("Trabzonspor"))}catch(e){add("Takım anahtar motoru",false,e.message)}try{add("Radar filtre eşlemesi",Array.isArray(currentRadar),"Hazır")}catch(e){add("Radar filtre eşlemesi",false,e.message)}
+ try{add("PWA desteği","serviceWorker" in navigator,("serviceWorker" in navigator)?"Destekleniyor":"Tarayıcı desteklemiyor")}catch(e){add("PWA desteği",false,e.message)}try{add("Model kimliği",!!MODEL_VERSION,"v"+MODEL_VERSION+" • veri #"+dataFingerprint())}catch(e){add("Model kimliği",false,e.message)}try{add("Takım anahtar motoru",typeof canonicalTeamKey==="function",canonicalTeamKey("Trabzonspor"))}catch(e){add("Takım anahtar motoru",false,e.message)}try{add("Radar filtre eşlemesi",Array.isArray(currentRadar),"Hazır")}catch(e){add("Radar filtre eşlemesi",false,e.message)}try{var ids=["matchReport","decisionSummary","whyPanel","radarList","qualityReport","healthReport","selfTestReport"],missing=ids.filter(function(id){return !el(id)});add("Kritik arayüz alanları",missing.length===0,missing.length?missing.join(", "):ids.length+" alan hazır")}catch(e){add("Kritik arayüz alanları",false,e.message)}try{var bt=matches.filter(played).filter(function(x){return x.date||(x.season&&x.week)}).length;add("Backtest veri uygunluğu",bt>=20,bt+" sonuçlu/sıralanabilir maç")}catch(e){add("Backtest veri uygunluğu",false,e.message)}
  var ok=checks.filter(function(x){return x.ok}).length;
  el("selfTestReport").innerHTML='<div class="row"><span class="pill '+(ok===checks.length?"green":"red")+'">'+ok+'/'+checks.length+' test geçti</span></div><div style="margin-top:10px">'+checks.map(function(x){return '<div class="scoreline"><b>'+(x.ok?"✓ ":"✗ ")+esc(x.name)+'</b><span style="color:'+(x.ok?"#9af0ce":"#ffb9bf")+'">'+esc(x.detail)+'</span></div>'}).join("")+'</div>'
 }
