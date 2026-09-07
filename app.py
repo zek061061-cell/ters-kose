@@ -455,9 +455,13 @@ def build_history_10y():
                              for a in audit if not a["ok"] and not a.get("expected_partial")]
         thin_completed = [g for g in quality.get("group_audit", [])
                           if g.get("thin") and str(g.get("season","")) != f"{current_start}/{str(current_start+1)[-2:]}"]
+        ht_covered = max(0, len(all_rows) - int(quality.get("missing_ht") or 0))
+        odds_covered = max(0, len(all_rows) - int(quality.get("missing_odds") or 0))
         meta = {
             "ok": True, "generated_at": datetime.utcnow().isoformat()+"Z", "matches": len(all_rows),
             "leagues": len(league_counts), "league_counts": league_counts, "audit": audit,
+            "ht_coverage": round(ht_covered / max(1, len(all_rows)), 4),
+            "odds_coverage": round(odds_covered / max(1, len(all_rows)), 4),
             "critical_failures": failures, "current_partial_failures": current_partial_failures,
             "missing_completed": missing_completed, "thin_completed": thin_completed,
             "current_season": f"{current_start}/{str(current_start+1)[-2:]}", "quality": quality,
