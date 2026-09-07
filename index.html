@@ -310,9 +310,31 @@ function openBulletinMatchByKey(key){var l=el("bulletinLeague").value,rows=bulle
 async function fetchBulletinDate(date){var r=await apiFetch("/fixtures?date="+encodeURIComponent(date),{cache:"no-store"});if(!r.ok)throw new Error("Bülten alınamadı");var j=await r.json(),rows=(j.matches||[]).filter(function(x){return !x.completed&&(x.state?x.state==="pre":true)}).map(function(x){return Object.assign({},x,{league:canonicalLeague(x.league),home:canonicalTeam(x.home),away:canonicalTeam(x.away),season:seasonForDate(x.date||date),week:0,referee:x.referee||"",ft_home:NaN,ft_away:NaN,ht_home:NaN,ht_away:NaN})});rows.forEach(function(x){if(x.home_logo)logoBook[canonicalTeamKey(x.home)]=x.home_logo;if(x.away_logo)logoBook[canonicalTeamKey(x.away)]=x.away_logo});try{localStorage.setItem("terskose_logo_book",JSON.stringify(logoBook))}catch(e){}return rows}
 async function loadBulletin(autoNearest){var date=el("bulletinDate").value||todayISO(),btn=el("bulletinBtn");btn.disabled=true;el("bulletinStatus").textContent="Bülten yükleniyor...";try{bulletinRows=await fetchBulletinDate(date);if(!bulletinRows.length&&autoNearest){for(var i=1;i<=7;i++){var nd=addDaysISO(date,i),nr=await fetchBulletinDate(nd);if(nr.length){date=nd;el("bulletinDate").value=nd;bulletinRows=nr;break}}}fillBulletinLeague();renderBulletin();el("bulletinStatus").innerHTML=bulletinRows.length?'<b>'+bulletinRows.length+' oynanacak maç bulundu.</b> Tarih: '+esc(date):'Seçilen tarihte maç bulunamadı. Sonraki maç günü düğmesini kullanabilirsin.'}catch(e){el("bulletinStatus").textContent=e.message||"Bülten yüklenemedi."}btn.disabled=false}
 function openBulletinMatch(i){var l=el("bulletinLeague").value,rows=bulletinRows.filter(function(x){return !l||x.league===l}),m=rows[i];if(!m)return;openBulletinMatchByKey(matchIdentity(m))}
-function getLeagues(){return[...new Set(leagueCatalog.concat(matches.map(function(x){return canonicalLeague(x.league)})).filter(Boolean))].sort()}
-function getSeasons(l){return[...new Set(matches.filter(function(x){return !l||canonicalLeague(x.league)===l}).map(function(x){return x.season}).filter(Boolean))].sort().reverse()}
-function getWeeks(l,s){return[...new Set(matches.filter(function(x){return (!l||canonicalLeague(x.league)===l)&&x.season===s}).map(function(x){return+x.week}).filter(Boolean))].sort(function(a,b){return a-b})}
+var FILTER_INDEX={ref:null,leagues:[],seasonsAll:[],seasonsByLeague:new Map(),weeksByKey:new Map()};
+function ensureFilterIndex(){
+ if(FILTER_INDEX.ref===matches)return FILTER_INDEX;
+ var leagues=new Set(leagueCatalog.filter(Boolean)),seasonsAll=new Set(),seasonsByLeague=new Map(),weeksByKey=new Map();
+ matches.forEach(function(x){
+   var l=canonicalLeague(x.league),sn=x.season,w=+x.week;
+   if(l)leagues.add(l);
+   if(sn)seasonsAll.add(sn);
+   if(l&&sn){
+     if(!seasonsByLeague.has(l))seasonsByLeague.set(l,new Set());
+     seasonsByLeague.get(l).add(sn);
+     if(w){
+       var k=l+"|"+sn;if(!weeksByKey.has(k))weeksByKey.set(k,new Set());weeksByKey.get(k).add(w)
+     }
+   }
+ });
+ var seasonMap=new Map(),weekMap=new Map();
+ seasonsByLeague.forEach(function(v,k){seasonMap.set(k,[...v].sort().reverse())});
+ weeksByKey.forEach(function(v,k){weekMap.set(k,[...v].sort(function(a,b){return a-b}))});
+ FILTER_INDEX={ref:matches,leagues:[...leagues].sort(),seasonsAll:[...seasonsAll].sort().reverse(),seasonsByLeague:seasonMap,weeksByKey:weekMap};
+ return FILTER_INDEX
+}
+function getLeagues(){return ensureFilterIndex().leagues}
+function getSeasons(l){var ix=ensureFilterIndex();return l?(ix.seasonsByLeague.get(canonicalLeague(l))||[]):ix.seasonsAll}
+function getWeeks(l,s){if(!l||!s)return[];return ensureFilterIndex().weeksByKey.get(canonicalLeague(l)+"|"+s)||[]}
 function fillSelect(sel,arr,keep){var old=keep!==undefined?keep:sel.value;sel.innerHTML=arr.map(function(x){return"<option>"+esc(x)+"</option>"}).join("");if(arr.map(String).includes(String(old)))sel.value=old}
 function fillLeagueSelect(sel,keep){var old=keep!==undefined?keep:sel.value,arr=getLeagues();sel.innerHTML='<option value="">Tüm Ligler</option>'+arr.map(function(x){return'<option value="'+esc(x)+'">'+esc(x)+'</option>'}).join("");if(old===""||arr.includes(old))sel.value=old}
 function syncMatchFilters(){fillLeagueSelect(el("matchLeague"));var l=el("matchLeague").value,seasons=getSeasons(l);fillSelect(el("matchSeason"),seasons);var ss=el("matchSeason").value,weeks=getWeeks(l,ss);fillSelect(el("matchWeek"),weeks);syncMatchList()}
