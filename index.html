@@ -83,7 +83,92 @@ async function fetchText(url){
 async function loadAutomatic(){const name=sourceLeague.value,code=SOURCES[name],count=+seasonCount.value;autoBtn.disabled=true;autoStatus.textContent='Veriler indiriliyor...';let all=[],failed=[];for(let i=count-1;i>=0;i--){const st=CURRENT_START-i,sc=seasonCode(st),label=seasonLabel(st),url=`https://www.football-data.co.uk/mmz4281/${sc}/${code}.csv`;try{autoStatus.textContent=`${label} indiriliyor...`;const txt=await fetchText(url);const r=parseAnyCSV(txt,name,label);if(r.length)all.push(...r);else failed.push(label)}catch(e){failed.push(label)}}autoBtn.disabled=false;if(!all.length){autoStatus.innerHTML='Otomatik indirme başarısız oldu. Tarayıcı veri kaynağını engellemiş olabilir; aşağıdan CSV yükleyebilirsin.';return}matches=all;sourceName=`${name} • son ${count} sezon • otomatik`;save();render();autoStatus.innerHTML=`<b>${all.length} maç yüklendi.</b>${failed.length?' Alınamayan: '+failed.join(', '):''}`;goTab('home')}
 async function loadCsv(){const f=csvFile.files[0];if(!f){importStatus.textContent='Önce CSV seç.';return}try{const r=parseAnyCSV(await f.text());if(!r.length)throw Error();matches=r;sourceName=`${f.name} • CSV`;save();render();importStatus.textContent=`${r.length} maç başarıyla yüklendi.`;goTab('home')}catch(e){importStatus.textContent='CSV okunamadı veya gerekli sütunlar bulunamadı.'}}
 function clearData(){if(!confirm('Yüklü maç verileri silinsin mi?'))return;matches=[];sourceName='Henüz veri yüklenmedi';save();render();autoStatus.textContent='Veri temizlendi.'}
-function scoreMatch(target){const teams=[target.home,target.away];const hist=matches.filter(x=>x!==target&&teams.some(t=>x.home===t||x.away===t));const sur=hist.filter(x=>classify(x).length);let score=20,reasons=[];const teamCnt=sur.length;if(teamCnt){const add=Math.min(25,teamCnt*2);score+=add;reasons.push(`${teamCnt} geçmiş sürpriz`)}const near=sur.filter(x=>Math.abs(+x.week-+target.week)<=1).length;if(near){score+=Math.min(25,near*7);reasons.push(`${near} kez aynı/komşu hafta`)}const same=sur.filter(x=>[x.home,x.away].includes(target.home)&&[x.home,x.away].includes(target.away)).length;if(same){score+=Math.min(20,same*10);reasons.push(`${same} aynı eşleşme`)}const seasons=new Set(sur.map(x=>x.season));if(seasons.size>=2){score+=Math.min(15,(seasons.size-1)*5);reasons.push(`${seasons.size} sezona yayılıyor`)}return{score:Math.min(95,score),reasons}}
+
+function eventTypes(m){return classify(m)}
+function seasonStart(s){const m=String(s||'').match(/(\d{4})/);return m?+m[1]:0}
+function teamEvents(team){return matches.filter(x=>(x.home===team||x.away===team)&&eventTypes(x).length).sort((a,b)=>seasonStart(a.season)-seasonStart(b.season)||(+a.week)-(+b.week)||String(a.date).localeCompare(String(b.date)))}
+function sharedOpponent(a,b,team){const oa=a.home===team?a.away:a.home,ob=b.home===team?b.away:b.home;return oa&&ob&&oa===ob?oa:''}
+function relationLabel(a,b,team){
+ const sa=seasonStart(a.season),sb=seasonStart(b.season),dw=(+b.week)-(+a.week),sameOpp=sharedOpponent(a,b,team);
+ const parts=[];
+ if(sb-sa===1)parts.push('ertesi sezon');
+ else if(sb===sa)parts.push('aynı sezon');
+ else if(sb>sa)parts.push((sb-sa)+' sezon sonra');
+ if(Math.abs(dw)<=1)parts.push(dw===0?'aynı hafta':(dw>0?'+'+dw+' hafta':dw+' hafta'));
+ else parts.push((dw>0?'+':'')+dw+' hafta kayma');
+ if(sameOpp)parts.push('aynı rakip: '+sameOpp);
+ return parts.join(' • ')
+}
+function findChainsForTeam(team,targetWeek){
+ const ev=teamEvents(team), chains=[];
+ for(let i=0;i<ev.length;i++){
+  for(let j=i+1;j<ev.length;j++){
+   const a=ev[i],b=ev[j],sa=seasonStart(a.season),sb=seasonStart(b.season),gap=sb-sa;
+   if(gap<1||gap>2)continue;
+   const wa=+a.week,wb=+b.week,shift=wb-wa;
+   if(Math.abs(shift)>2)continue;
+   const sameOpp=sharedOpponent(a,b,team);
+   const strength=(sameOpp?3:0)+(gap===1?2:1)+(Math.abs(shift)<=1?2:1);
+   chains.push({a,b,gap,shift,sameOpp,strength});
+  }
+ }
+ const latestSeason=Math.max(0,...matches.map(x=>seasonStart(x.season)));
+ return chains.map(c=>{
+   const expectedWeek=(+c.b.week)+c.shift;
+   const targetDelta=Math.abs(expectedWeek-targetWeek);
+   const score=c.strength*12 + Math.max(0,18-targetDelta*6) + (c.sameOpp?12:0);
+   return {...c,expectedWeek,targetDelta,score}
+ }).filter(c=>c.targetDelta<=2).sort((a,b)=>b.score-a.score).slice(0,6)
+}
+function scoreMatch(target){
+ const teams=[target.home,target.away], reasons=[], chainHits=[];
+ let score=18;
+ for(const team of teams){
+   const ev=teamEvents(team);
+   const histCount=ev.length;
+   if(histCount){score+=Math.min(18,histCount);reasons.push(team+': '+histCount+' sürpriz kayıt')}
+   const near=ev.filter(x=>Math.abs((+x.week)-(+target.week))<=1).length;
+   if(near){score+=Math.min(14,near*4);reasons.push(team+': '+near+' aynı/komşu hafta')}
+   const chains=findChainsForTeam(team,+target.week);
+   if(chains.length){
+     const best=chains[0];
+     score+=Math.min(32,Math.round(best.score/4));
+     chainHits.push({team,best});
+     reasons.push(team+': sezonlar arası zincir eşleşmesi')
+   }
+ }
+ const pairHist=matches.filter(x=>x!==target&&[x.home,x.away].includes(target.home)&&[x.home,x.away].includes(target.away)&&eventTypes(x).length);
+ if(pairHist.length){score+=Math.min(15,pairHist.length*7);reasons.push(pairHist.length+' aynı eşleşme sürprizi')}
+ return{score:Math.min(95,score),reasons,chainHits}
+}
+function runScan(){const l=leagueSelect.value,s=seasonSelect.value,w=+weekInput.value;const rows=matches.filter(x=>x.league===l&&x.season===s&&+x.week===w);renderCandidates(rows)}
+function renderCandidates(rows){
+ const min=+minScore.value;
+ const c=rows.map(m=>({m,...scoreMatch(m)})).filter(x=>x.score>=min).sort((a,b)=>b.score-a.score);
+ candidateList.innerHTML=c.length?c.map(x=>{
+   const chainText=(x.chainHits||[]).map(h=>{
+     const b=h.best;
+     return h.team+': '+b.a.season+' H'+b.a.week+' '+eventTypes(b.a).join('/')+' → '+b.b.season+' H'+b.b.week+' '+eventTypes(b.b).join('/')+' ('+relationLabel(b.a,b.b,h.team)+')';
+   }).join(' | ');
+   return `<div class="match candidate"><div><div class="teams">${esc(x.m.home)} — ${esc(x.m.away)}</div><div class="meta">${esc(x.m.league)} • ${esc(x.m.season)} • ${x.m.week}. hafta</div><div class="reason">${esc((x.reasons||[]).join(' • '))}</div>${chainText?`<div class="reason" style="margin-top:6px;color:#d7e2f2">${esc(chainText)}</div>`:''}</div><div class="confidence">${x.score}%</div></div>`
+ }).join(''):'<div class="empty">Bu hafta için minimum puanı geçen aday yok. Ayarlardan eşik puanı düşürebilirsin.</div>';
+ renderPatterns(rows)
+}
+function renderPatterns(rows){
+ const teams=[...new Set(rows.flatMap(x=>[x.home,x.away]))], parts=[];
+ for(const team of teams){
+   const chains=findChainsForTeam(team,+weekInput.value);
+   if(!chains.length)continue;
+   const items=chains.map(c=>{
+     const aTypes=eventTypes(c.a).join('/'),bTypes=eventTypes(c.b).join('/');
+     const exp=c.expectedWeek;
+     return `<div class="match"><div class="meta">${esc(c.a.season)} H${c.a.week} ${esc(aTypes)} → ${esc(c.b.season)} H${c.b.week} ${esc(bTypes)}</div><div class="reason">${esc(relationLabel(c.a,c.b,team))} • güncel beklenti: H${exp}</div></div>`
+   }).join('');
+   parts.push(`<div class="match"><div class="teams">${esc(team)}</div><div class="meta">${chains.length} anlamlı sezonlar arası zincir</div>${items}</div>`)
+ }
+ patternList.innerHTML=parts.length?parts.join(''):'<div class="empty">Bu seçimde aynı/komşu hafta, sezon kayması veya ortak rakip bağlantısıyla eşleşen zincir bulunamadı.</div>'
+}
+
 function runScan(){const l=leagueSelect.value,s=seasonSelect.value,w=+weekInput.value;const rows=matches.filter(x=>x.league===l&&x.season===s&&+x.week===w);renderCandidates(rows)}
 function renderCandidates(rows){const min=+minScore.value;const c=rows.map(m=>({m,...scoreMatch(m)})).filter(x=>x.score>=min).sort((a,b)=>b.score-a.score);candidateList.innerHTML=c.length?c.map(x=>`<div class="match candidate"><div><div class="teams">${esc(x.m.home)} — ${esc(x.m.away)}</div><div class="meta">${esc(x.m.league)} • ${esc(x.m.season)} • ${x.m.week}. hafta</div><div class="reason">${esc(x.reasons.join(' • ')||'Temel örüntü')}</div></div><div class="confidence">${x.score}%</div></div>`).join(''):'<div class="empty">Bu hafta için minimum puanı geçen aday yok. Ayarlardan eşik puanı düşürebilirsin.</div>';renderPatterns(rows)}
 function renderPatterns(rows){const teams=[...new Set(rows.flatMap(x=>[x.home,x.away]))],parts=[];for(const team of teams){const hist=matches.filter(x=>(x.home===team||x.away===team)&&classify(x).length).sort((a,b)=>String(a.season).localeCompare(String(b.season))||a.week-b.week);if(hist.length>=2){const seq=hist.slice(-8).map(x=>`${x.season} H${x.week} ${classify(x).join('/')}`).join(' → ');parts.push(`<div class="match"><div class="teams">${esc(team)}</div><div class="meta">${hist.length} sürpriz kayıt</div><div class="reason">${esc(seq)}</div></div>`)}}patternList.innerHTML=parts.length?parts.join(''):'<div class="empty">Bu seçimde sezonlar arası tekrar eden zincir bulunamadı.</div>'}
