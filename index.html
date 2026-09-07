@@ -1,303 +1,87 @@
 <!doctype html>
 <html lang="tr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="theme-color" content="#101827" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="TERS KÖŞE" />
-  
-  
-  <title>TERS KÖŞE Analiz</title>
-  <style>
-    :root{
-      --bg:#0b1220; --card:#111c2f; --muted:#8ea0bb; --text:#f5f7fb;
-      --accent:#e3b341; --accent2:#31c48d; --danger:#ef6b73; --line:#24344f;
-    }
-    *{box-sizing:border-box}
-    body{margin:0;background:linear-gradient(180deg,#08111f,#0d1727 55%,#08111f);
-      color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;}
-    .app{max-width:820px;margin:auto;min-height:100vh;padding-bottom:88px}
-    header{position:sticky;top:0;z-index:5;background:rgba(8,17,31,.94);backdrop-filter:blur(14px);
-      padding:calc(14px + env(safe-area-inset-top)) 16px 12px;border-bottom:1px solid var(--line)}
-    .brand{font-weight:900;letter-spacing:.7px;font-size:19px}
-    .brand span{color:var(--accent)}
-    .sub{font-size:12px;color:var(--muted);margin-top:3px}
-    main{padding:16px}
-    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-    .card{background:linear-gradient(180deg,#121f34,#0f1a2c);border:1px solid var(--line);
-      border-radius:18px;padding:15px;box-shadow:0 12px 30px rgba(0,0,0,.18)}
-    .metric b{display:block;font-size:27px;margin-top:5px}.metric small{color:var(--muted)}
-    h2{font-size:18px;margin:20px 0 10px} h3{margin:0 0 8px;font-size:15px}
-    button,.btn{appearance:none;border:0;border-radius:14px;background:var(--accent);color:#121212;
-      padding:13px 15px;font-weight:800;font-size:14px;cursor:pointer}
-    button.secondary,.btn.secondary{background:#1a2942;color:var(--text);border:1px solid var(--line)}
-    .row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
-    .pill{display:inline-flex;border:1px solid var(--line);background:#17243a;color:#cbd5e1;
-      border-radius:999px;padding:5px 8px;font-size:11px;font-weight:700}
-    .pill.gold{color:#17120a;background:var(--accent);border-color:var(--accent)}
-    .pill.green{background:#14392f;color:#8ef0c9;border-color:#245947}
-    .pill.red{background:#3a2028;color:#ffb4ba;border-color:#59303b}
-    .match{padding:13px 0;border-top:1px solid var(--line)}
-    .match:first-child{border-top:0}.teams{font-weight:800;font-size:15px}.meta{color:var(--muted);font-size:12px;margin-top:4px}
-    .score{font-size:20px;font-weight:900;margin-left:auto}
-    label{display:block;font-size:12px;color:var(--muted);margin:9px 0 5px}
-    input,select,textarea{width:100%;background:#0c1626;color:var(--text);border:1px solid var(--line);
-      border-radius:12px;padding:12px;font-size:14px;outline:none}
-    input:focus,select:focus,textarea:focus{border-color:#607da8}
-    .hidden{display:none!important}
-    nav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:rgba(8,17,31,.96);backdrop-filter:blur(14px);
-      border-top:1px solid var(--line);padding:8px 8px calc(8px + env(safe-area-inset-bottom))}
-    .navinner{max-width:820px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
-    nav button{background:transparent;color:var(--muted);padding:8px 4px;font-size:11px;border-radius:12px}
-    nav button.active{background:#18263d;color:var(--text)}
-    .navicon{font-size:20px;display:block;margin-bottom:2px}
-    .notice{background:#2a2212;border:1px solid #5a4820;color:#f5d987;padding:12px;border-radius:14px;font-size:12px;line-height:1.45}
-    .empty{color:var(--muted);text-align:center;padding:28px 10px}
-    .filebox{border:1px dashed #496080;border-radius:16px;padding:18px;text-align:center}
-    .progress{height:7px;background:#17243a;border-radius:999px;overflow:hidden}
-    .progress > div{height:100%;background:var(--accent2)}
-    .candidate{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}
-    .confidence{font-size:22px;font-weight:900;color:var(--accent)}
-    .tiny{font-size:11px;color:var(--muted);line-height:1.45}
-    @media(min-width:650px){.grid.metrics{grid-template-columns:repeat(4,1fr)}}
-  </style>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
+<meta name="theme-color" content="#08111f"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="TERS KÖŞE"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2308111f'/%3E%3Ctext x='50' y='62' text-anchor='middle' font-size='50' font-family='Arial' font-weight='900' fill='%23e8b83e'%3ETK%3C/text%3E%3C/svg%3E"/>
+<title>TERS KÖŞE</title>
+<style>
+:root{--bg:#08111f;--card:#111d31;--card2:#0d1829;--line:#263751;--text:#f6f8fb;--muted:#90a2bd;--gold:#e8b83e;--green:#36c98f;--red:#ef6e78;--blue:#6da8ff}
+*{box-sizing:border-box}html,body{margin:0;background:linear-gradient(180deg,#06101d,#0b1525 48%,#07101d);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;min-height:100%}
+.app{max-width:960px;margin:auto;min-height:100vh;padding-bottom:96px}header{position:sticky;top:0;z-index:8;background:rgba(6,16,29,.94);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);padding:calc(14px + env(safe-area-inset-top)) 16px 12px}.brand{font-weight:950;font-size:22px;letter-spacing:.8px}.brand span{color:var(--gold)}.sub{font-size:12px;color:var(--muted);margin-top:3px}.statusdot{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);margin-right:6px}
+main{padding:16px}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.metrics b{display:block;font-size:28px;margin-top:4px}.metrics small{color:var(--muted)}.card{background:linear-gradient(180deg,var(--card),var(--card2));border:1px solid var(--line);border-radius:18px;padding:15px;box-shadow:0 12px 30px rgba(0,0,0,.16)}h2{font-size:18px;margin:20px 0 10px}h3{font-size:15px;margin:0 0 8px}.row{display:flex;gap:9px;align-items:center;flex-wrap:wrap}.stack{display:grid;gap:10px}.hidden{display:none!important}.tiny{font-size:11px;color:var(--muted);line-height:1.5}.notice{background:#2a2212;border:1px solid #604c20;color:#f7d985;border-radius:14px;padding:11px;font-size:12px;line-height:1.45}.ok{background:#123329;border:1px solid #245c49;color:#9af0ce}.warn{background:#352516;border:1px solid #6d5122;color:#f7d985}
+button,.btn{appearance:none;border:0;border-radius:13px;background:var(--gold);color:#16120a;padding:12px 15px;font-weight:850;font-size:14px;cursor:pointer}button.secondary{background:#1a2942;color:var(--text);border:1px solid var(--line)}button.ghost{background:transparent;color:var(--text);border:1px solid var(--line)}button:disabled{opacity:.45;cursor:not-allowed}input,select,textarea{width:100%;background:#0b1626;color:var(--text);border:1px solid var(--line);border-radius:12px;padding:12px;font-size:14px;outline:none}input:focus,select:focus,textarea:focus{border-color:#6685b4}label{display:block;font-size:12px;color:var(--muted);margin:8px 0 5px}.pill{display:inline-flex;align-items:center;border:1px solid var(--line);background:#17253b;color:#d3dceb;border-radius:999px;padding:5px 8px;font-size:11px;font-weight:750}.pill.gold{background:var(--gold);border-color:var(--gold);color:#17120a}.pill.green{background:#15392f;border-color:#245947;color:#92f0cb}.pill.red{background:#3b2028;border-color:#61313e;color:#ffb9bf}.pill.blue{background:#152c4a;border-color:#274d7b;color:#b9d7ff}.match{padding:13px 0;border-top:1px solid var(--line)}.match:first-child{border-top:0}.teams{font-weight:850;font-size:15px}.meta{color:var(--muted);font-size:12px;margin-top:4px}.score{font-size:20px;font-weight:950;margin-left:auto}.candidate{display:grid;grid-template-columns:1fr auto;gap:8px;align-items:center}.confidence{font-size:23px;font-weight:950;color:var(--gold)}.reason{font-size:11px;color:#b9c5d7;margin-top:5px}.empty{text-align:center;color:var(--muted);padding:26px 10px}.filebox{border:1px dashed #4a6386;border-radius:15px;padding:16px}.sep{height:1px;background:var(--line);margin:12px 0}
+nav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:rgba(6,16,29,.96);backdrop-filter:blur(14px);border-top:1px solid var(--line);padding:7px 8px calc(7px + env(safe-area-inset-bottom))}.navinner{max-width:960px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}nav button{background:transparent;color:var(--muted);padding:8px 4px;font-size:11px;border-radius:11px}nav button.active{background:#182740;color:var(--text)}.navicon{display:block;font-size:19px;margin-bottom:2px}
+@media(min-width:700px){.grid.metrics{grid-template-columns:repeat(4,1fr)}.twocol{display:grid;grid-template-columns:1fr 1fr;gap:12px}}
+</style>
 </head>
 <body>
 <div class="app">
-<header>
-  <div class="brand">TERS <span>KÖŞE</span></div>
-  <div class="sub">Geçmiş sezon örüntü tarayıcı • Mobil demo</div>
-</header>
-
+<header><div class="brand">TERS <span>KÖŞE</span></div><div class="sub"><span class="statusdot"></span>Örüntü analiz motoru • 1/2 • 2/1 • 6+</div></header>
 <main>
 <section id="tab-home">
-  <div class="notice">Bu uygulama geçmiş maç verilerindeki örüntüleri bulur. Sonuçlar tahmin veya kazanç garantisi değildir.</div>
-  <div class="grid metrics" style="margin-top:12px">
-    <div class="card metric"><small>Toplam maç</small><b id="mTotal">0</b></div>
-    <div class="card metric"><small>1/2</small><b id="m12">0</b></div>
-    <div class="card metric"><small>2/1</small><b id="m21">0</b></div>
-    <div class="card metric"><small>6+</small><b id="m6">0</b></div>
-  </div>
-
-  <h2>Son bulunan sürprizler</h2>
-  <div class="card" id="recentList"></div>
-
-  <h2>Hızlı işlem</h2>
-  <div class="row">
-    <button onclick="goTab('scan')">Bu haftayı tara</button>
-    <button class="secondary" onclick="goTab('data')">CSV yükle</button>
-  </div>
+<div class="notice">Bu araç geçmiş maçlarda tekrar eden örüntüleri bulur ve adayları puanlar. Çıktılar olasılık/örüntü analizidir; kesin sonuç veya kazanç garantisi değildir.</div>
+<div class="grid metrics" style="margin-top:12px"><div class="card"><small>Toplam maç</small><b id="mTotal">0</b></div><div class="card"><small>1/2</small><b id="m12">0</b></div><div class="card"><small>2/1</small><b id="m21">0</b></div><div class="card"><small>6+</small><b id="m6">0</b></div></div>
+<h2>Veri durumu</h2><div class="card"><div id="dataSummary" class="tiny"></div><div class="row" style="margin-top:10px"><button onclick="goTab('data')">Veriyi güncelle</button><button class="secondary" onclick="goTab('scan')">Taramaya geç</button></div></div>
+<h2>Son sürpriz maçlar</h2><div class="card" id="recentList"></div>
 </section>
 
 <section id="tab-scan" class="hidden">
-  <h2>Örüntü taraması</h2>
-  <div class="card">
-    <label>Lig</label>
-    <select id="leagueSelect"></select>
-    <label>Sezon</label>
-    <select id="seasonSelect"></select>
-    <label>Hafta</label>
-    <input id="weekInput" type="number" min="1" value="8"/>
-    <div class="row" style="margin-top:12px">
-      <button onclick="runScan()">Taramayı başlat</button>
-      <button class="secondary" onclick="scanAll()">Tüm veriyi tara</button>
-    </div>
-  </div>
-
-  <h2>Adaylar</h2>
-  <div class="card" id="candidateList"><div class="empty">Henüz tarama yapılmadı.</div></div>
-
-  <h2>Bulunan zincirler</h2>
-  <div class="card" id="patternList"><div class="empty">Tarama sonrası geçmiş sezon benzerlikleri burada görünür.</div></div>
+<h2>Bu haftayı tara</h2>
+<div class="card"><div class="twocol"><div><label>Lig</label><select id="leagueSelect"></select></div><div><label>Sezon</label><select id="seasonSelect"></select></div></div><label>Hafta</label><input id="weekInput" type="number" min="1" value="1"/><div class="row" style="margin-top:12px"><button onclick="runScan()">Taramayı başlat</button><button class="secondary" onclick="useLatestWeek()">Son haftayı seç</button></div></div>
+<h2>Adaylar</h2><div class="card" id="candidateList"><div class="empty">Henüz tarama yapılmadı.</div></div>
+<h2>Bulunan zincirler</h2><div class="card" id="patternList"><div class="empty">Tarama sonrası sezonlar arası tekrarlar burada görünür.</div></div>
 </section>
 
 <section id="tab-data" class="hidden">
-  <h2>Veri yükle</h2>
-  <div class="card">
-    <div class="filebox">
-      <b>CSV dosyası seç</b>
-      <div class="tiny" style="margin:7px 0 12px">Sütunlar: date, league, season, week, home, away, ht_home, ht_away, ft_home, ft_away</div>
-      <input id="csvFile" type="file" accept=".csv,text/csv" />
-    </div>
-    <div class="row" style="margin-top:12px">
-      <button onclick="loadCsv()">CSV'yi içe aktar</button>
-      <button class="secondary" onclick="resetDemo()">Demo verisine dön</button>
-    </div>
-    <p class="tiny" id="importStatus"></p>
-  </div>
-
-  <h2>Veri durumu</h2>
-  <div class="card">
-    <div class="tiny">Yerel depolama</div>
-    <div class="progress" style="margin:8px 0"><div id="storageBar" style="width:10%"></div></div>
-    <div class="tiny" id="storageText"></div>
-  </div>
+<h2>Otomatik veri</h2>
+<div class="card"><div class="notice ok">Ücretsiz futbol verisiyle sonuç + devre sonucu otomatik yüklenir. Kaynak: football-data.co.uk. Hafta numarası kaynakta yoksa maç sırasından yaklaşık hesaplanır.</div><div class="twocol" style="margin-top:10px"><div><label>Lig</label><select id="sourceLeague"></select></div><div><label>Kaç sezon?</label><select id="seasonCount"><option value="3">Son 3 sezon</option><option value="5" selected>Son 5 sezon</option><option value="7">Son 7 sezon</option></select></div></div><div class="row" style="margin-top:12px"><button id="autoBtn" onclick="loadAutomatic()">Otomatik veriyi getir</button><button class="secondary" onclick="clearData()">Veriyi temizle</button></div><p id="autoStatus" class="tiny"></p></div>
+<h2>CSV içe aktar</h2><div class="card"><div class="filebox"><b>Kendi CSV dosyanı yükle</b><div class="tiny" style="margin:7px 0 10px">Desteklenen biçim: date, league, season, week, home, away, ht_home, ht_away, ft_home, ft_away. Football-Data sütunları da otomatik tanınır.</div><input id="csvFile" type="file" accept=".csv,text/csv"/></div><div class="row" style="margin-top:12px"><button onclick="loadCsv()">CSV'yi içe aktar</button></div><p id="importStatus" class="tiny"></p></div>
 </section>
 
 <section id="tab-settings" class="hidden">
-  <h2>Ayarlar</h2>
-  <div class="card">
-    <label>Minimum örüntü puanı</label>
-    <input id="minScore" type="range" min="20" max="95" value="55" oninput="scoreLabel.textContent=this.value+'%'">
-    <div class="row"><span class="pill gold" id="scoreLabel">55%</span></div>
-    <label style="margin-top:16px">Tarama tipleri</label>
-    <div class="row">
-      <label class="pill"><input id="f12" type="checkbox" checked style="width:auto;margin-right:6px">1/2</label>
-      <label class="pill"><input id="f21" type="checkbox" checked style="width:auto;margin-right:6px">2/1</label>
-      <label class="pill"><input id="f6" type="checkbox" checked style="width:auto;margin-right:6px">6+</label>
-    </div>
-    <p class="tiny">Puan; aynı takımın geçmiş sürpriz sıklığı, aynı hafta çevresindeki tekrarlar ve sezonlar arası benzerliklerden oluşan demo skorudur.</p>
-  </div>
-  <h2>iPhone'a kurulum</h2>
-  <div class="card tiny">
-    Uygulama internete yüklendikten sonra Safari'de aç → Paylaş → <b>Ana Ekrana Ekle</b>. Sonra normal uygulama gibi açılır ve temel ekranlar çevrimdışı da çalışır.
-  </div>
+<h2>Tarama ayarları</h2><div class="card"><label>Minimum örüntü puanı</label><input id="minScore" type="range" min="30" max="90" value="55" oninput="scoreLabel.textContent=this.value+'%'"/><div class="row"><span class="pill gold" id="scoreLabel">55%</span></div><label style="margin-top:14px">Sürpriz tipleri</label><div class="row"><label class="pill"><input id="f12" type="checkbox" checked style="width:auto;margin-right:6px">1/2</label><label class="pill"><input id="f21" type="checkbox" checked style="width:auto;margin-right:6px">2/1</label><label class="pill"><input id="f6" type="checkbox" checked style="width:auto;margin-right:6px">6+</label></div><p class="tiny">Puan; takımın geçmiş sürpriz sayısı, aynı hafta/komşu hafta tekrarları, aynı rakip eşleşmesi ve sezonlar arası devamlılık üzerinden hesaplanır.</p></div>
+<h2>iPhone'a ekle</h2><div class="card tiny">Safari'de Ters Köşe adresini aç → <b>Paylaş</b> → <b>Ana Ekrana Ekle</b>. Ana ekrandan uygulama gibi açılır.</div>
 </section>
 </main>
-
-<nav>
-<div class="navinner">
-  <button id="nav-home" class="active" onclick="goTab('home')"><span class="navicon">⌂</span>Ana Sayfa</button>
-  <button id="nav-scan" onclick="goTab('scan')"><span class="navicon">⌕</span>Tara</button>
-  <button id="nav-data" onclick="goTab('data')"><span class="navicon">⇧</span>Veri</button>
-  <button id="nav-settings" onclick="goTab('settings')"><span class="navicon">⚙</span>Ayarlar</button>
+<nav><div class="navinner"><button id="nav-home" class="active" onclick="goTab('home')"><span class="navicon">⌂</span>Ana Sayfa</button><button id="nav-scan" onclick="goTab('scan')"><span class="navicon">⌕</span>Tara</button><button id="nav-data" onclick="goTab('data')"><span class="navicon">⇩</span>Veri</button><button id="nav-settings" onclick="goTab('settings')"><span class="navicon">⚙</span>Ayarlar</button></div></nav>
 </div>
-</nav>
-</div>
-
 <script>
-const demoData = [
- {date:"2024-08-10",league:"Demo League",season:"2024/25",week:1,home:"Zenit",away:"Volga",ht_home:1,ht_away:0,ft_home:1,ft_away:2},
- {date:"2024-09-28",league:"Demo League",season:"2024/25",week:8,home:"Zenit",away:"Baltika",ht_home:2,ht_away:0,ft_home:2,ft_away:4},
- {date:"2024-10-05",league:"Demo League",season:"2024/25",week:9,home:"Rotor",away:"Zenit",ht_home:1,ht_away:0,ft_home:1,ft_away:3},
- {date:"2025-08-09",league:"Demo League",season:"2025/26",week:1,home:"Zenit",away:"Rubin",ht_home:0,ht_away:1,ft_home:2,ft_away:1},
- {date:"2025-09-27",league:"Demo League",season:"2025/26",week:8,home:"Baltika",away:"Zenit",ht_home:0,ht_away:1,ft_home:3,ft_away:2},
- {date:"2025-10-04",league:"Demo League",season:"2025/26",week:9,home:"Zenit",away:"Rotor",ht_home:2,ht_away:1,ft_home:3,ft_away:3},
- {date:"2024-08-18",league:"Denmark Demo",season:"2024/25",week:5,home:"Midtjylland",away:"Aarhus",ht_home:0,ht_away:1,ft_home:4,ft_away:2},
- {date:"2024-09-08",league:"Denmark Demo",season:"2024/25",week:8,home:"Midtjylland",away:"Brondby",ht_home:1,ht_away:1,ft_home:2,ft_away:2},
- {date:"2025-08-17",league:"Denmark Demo",season:"2025/26",week:5,home:"Odense",away:"Midtjylland",ht_home:1,ht_away:0,ft_home:1,ft_away:2},
- {date:"2025-09-07",league:"Denmark Demo",season:"2025/26",week:8,home:"Brondby",away:"Midtjylland",ht_home:2,ht_away:1,ft_home:2,ft_away:2},
- {date:"2026-08-16",league:"Denmark Demo",season:"2026/27",week:5,home:"Midtjylland",away:"Vejle",ht_home:2,ht_away:0,ft_home:2,ft_away:4},
- {date:"2026-09-06",league:"Denmark Demo",season:"2026/27",week:8,home:"Midtjylland",away:"Brondby",ht_home:0,ht_away:0,ft_home:0,ft_away:0}
-];
-
-let matches = JSON.parse(localStorage.getItem("terskose_matches") || "null") || demoData;
-
-function classify(m){
-  const htH=+m.ht_home, htA=+m.ht_away, ftH=+m.ft_home, ftA=+m.ft_away;
-  let tags=[];
-  if(htH>htA && ftH<ftA) tags.push("1/2");
-  if(htH<htA && ftH>ftA) tags.push("2/1");
-  if(ftH+ftA>=6) tags.push("6+");
-  return tags;
-}
-function surpriseRows(){ return matches.filter(m=>classify(m).length); }
-function esc(s){return String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
-
-function render(){
-  const s=surpriseRows();
-  mTotal.textContent=matches.length;
-  m12.textContent=s.filter(x=>classify(x).includes("1/2")).length;
-  m21.textContent=s.filter(x=>classify(x).includes("2/1")).length;
-  m6.textContent=s.filter(x=>classify(x).includes("6+")).length;
-  const recent=[...s].sort((a,b)=>String(b.date).localeCompare(String(a.date))).slice(0,6);
-  recentList.innerHTML=recent.length?recent.map(matchHtml).join(""):'<div class="empty">Henüz sürpriz maç yok.</div>';
-  fillFilters();
-  const bytes = new Blob([JSON.stringify(matches)]).size;
-  storageText.textContent = `${matches.length} maç • yaklaşık ${(bytes/1024).toFixed(1)} KB`;
-  storageBar.style.width=Math.min(100,Math.max(4,bytes/100000*100))+"%";
-}
-function matchHtml(m){
-  const tags=classify(m).map(t=>`<span class="pill ${t==="6+"?"green":""}">${t}</span>`).join(" ");
-  return `<div class="match"><div class="row"><div><div class="teams">${esc(m.home)} — ${esc(m.away)}</div>
-  <div class="meta">${esc(m.league)} • ${esc(m.season)} • ${esc(m.week)}. hafta • İY ${m.ht_home}-${m.ht_away}</div></div>
-  <div class="score">${m.ft_home}-${m.ft_away}</div></div><div style="margin-top:7px">${tags}</div></div>`;
-}
-function fillFilters(){
-  const leagues=[...new Set(matches.map(x=>x.league))];
-  leagueSelect.innerHTML=leagues.map(x=>`<option>${esc(x)}</option>`).join("");
-  updateSeasons();
-  leagueSelect.onchange=updateSeasons;
-}
-function updateSeasons(){
-  const league=leagueSelect.value;
-  const seasons=[...new Set(matches.filter(x=>x.league===league).map(x=>x.season))];
-  seasonSelect.innerHTML=seasons.map(x=>`<option>${esc(x)}</option>`).join("");
-}
-function goTab(name){
-  ["home","scan","data","settings"].forEach(t=>{
-    document.getElementById("tab-"+t).classList.toggle("hidden",t!==name);
-    document.getElementById("nav-"+t).classList.toggle("active",t===name);
-  });
-  scrollTo(0,0);
-}
-function scoreMatch(target){
-  const teamRows=matches.filter(x=>[x.home,x.away].some(t=>t===target.home||t===target.away));
-  const teamSurprises=teamRows.filter(x=>classify(x).length);
-  let score=25;
-  score += Math.min(30, teamSurprises.length*6);
-  const weekNear=teamSurprises.filter(x=>Math.abs((+x.week)-(+target.week))<=1).length;
-  score += Math.min(25,weekNear*8);
-  const sameOpponent=teamSurprises.filter(x=>[x.home,x.away].includes(target.home)&&[x.home,x.away].includes(target.away)).length;
-  score += Math.min(15,sameOpponent*8);
-  return Math.min(95,score);
-}
-function runScan(){
-  const league=leagueSelect.value, season=seasonSelect.value, week=+weekInput.value;
-  const rows=matches.filter(x=>x.league===league && x.season===season && +x.week===week);
-  renderCandidates(rows);
-}
-function scanAll(){ renderCandidates(matches.slice(-40)); }
-function renderCandidates(rows){
-  const min=+minScore.value;
-  const allowed=[];
-  if(f12.checked) allowed.push("1/2"); if(f21.checked) allowed.push("2/1"); if(f6.checked) allowed.push("6+");
-  const candidates=rows.map(m=>({m,score:scoreMatch(m)})).filter(x=>x.score>=min).sort((a,b)=>b.score-a.score);
-  candidateList.innerHTML=candidates.length?candidates.map(({m,score})=>`<div class="match candidate">
-    <div><div class="teams">${esc(m.home)} — ${esc(m.away)}</div><div class="meta">${esc(m.league)} • ${esc(m.season)} • ${m.week}. hafta</div>
-    <div style="margin-top:6px"><span class="pill gold">Örüntü adayı</span></div></div><div class="confidence">${score}%</div></div>`).join("")
-    :'<div class="empty">Seçilen filtrede yeterli puan alan aday bulunamadı.</div>';
-  renderPatterns(rows);
-}
-function renderPatterns(rows){
-  const teams=[...new Set(rows.flatMap(x=>[x.home,x.away]))];
-  const parts=[];
-  teams.forEach(team=>{
-    const hist=matches.filter(x=>[x.home,x.away].includes(team) && classify(x).length);
-    if(hist.length>=2){
-      const weeks=hist.map(x=>x.week).join(", ");
-      const tags=[...new Set(hist.flatMap(classify))].join(" • ");
-      parts.push(`<div class="match"><div class="teams">${esc(team)}</div><div class="meta">${hist.length} geçmiş sürpriz • haftalar: ${weeks}</div><div style="margin-top:6px"><span class="pill">${tags}</span></div></div>`);
-    }
-  });
-  patternList.innerHTML=parts.length?parts.join(""):'<div class="empty">Bu seçim için tekrar eden zincir bulunamadı.</div>';
-}
-function parseCSV(text){
-  const lines=text.replace(/\r/g,"").split("\n").filter(Boolean);
-  const headers=lines.shift().split(",").map(x=>x.trim());
-  return lines.map(line=>{
-    const vals=[]; let cur="",q=false;
-    for(let i=0;i<line.length;i++){const ch=line[i]; if(ch=='"'){q=!q}else if(ch==","&&!q){vals.push(cur);cur=""}else cur+=ch}
-    vals.push(cur);
-    const o={}; headers.forEach((h,i)=>o[h]=vals[i]?.trim());
-    ["week","ht_home","ht_away","ft_home","ft_away"].forEach(k=>o[k]=+o[k]);
-    return o;
-  });
-}
-async function loadCsv(){
-  const f=csvFile.files[0]; if(!f){importStatus.textContent="Önce CSV dosyası seç.";return}
-  try{
-    const rows=parseCSV(await f.text());
-    const required=["date","league","season","week","home","away","ht_home","ht_away","ft_home","ft_away"];
-    if(!rows.length || required.some(k=>!(k in rows[0]))) throw new Error("Eksik sütun");
-    matches=rows; localStorage.setItem("terskose_matches",JSON.stringify(matches)); importStatus.textContent=`${rows.length} maç başarıyla yüklendi.`; render();
-  }catch(e){importStatus.textContent="CSV okunamadı. Sütun adlarını kontrol et."}
-}
-function resetDemo(){matches=demoData;localStorage.removeItem("terskose_matches");importStatus.textContent="Demo verisi geri yüklendi.";render();}
-render();
-
+const SOURCES={
+"Türkiye Süper Lig":"T1","İngiltere Premier League":"E0","İngiltere Championship":"E1","İngiltere League One":"E2","İngiltere League Two":"E3","İskoçya Premiership":"SC0","İskoçya Championship":"SC1","Almanya Bundesliga":"D1","Almanya 2. Bundesliga":"D2","İspanya La Liga":"SP1","İspanya Segunda":"SP2","İtalya Serie A":"I1","İtalya Serie B":"I2","Fransa Ligue 1":"F1","Fransa Ligue 2":"F2","Hollanda Eredivisie":"N1","Belçika Pro League":"B1","Portekiz Primeira Liga":"P1","Yunanistan Super League":"G1"};
+const CURRENT_START=26;
+let matches=[];
+try{matches=JSON.parse(localStorage.getItem('terskose_matches_final')||'[]')||[]}catch(e){matches=[]}
+let sourceName=localStorage.getItem('terskose_source')||'Henüz veri yüklenmedi';
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':'&quot;',"'":'&#39;'}[c]))}
+function classify(m){const a=+m.ht_home,b=+m.ht_away,c=+m.ft_home,d=+m.ft_away,t=[];if([a,b,c,d].some(Number.isNaN))return t;if(a>b&&c<d)t.push('1/2');if(a<b&&c>d)t.push('2/1');if(c+d>=6)t.push('6+');return t}
+function save(){localStorage.setItem('terskose_matches_final',JSON.stringify(matches));localStorage.setItem('terskose_source',sourceName)}
+function render(){const s=matches.filter(x=>classify(x).length);mTotal.textContent=matches.length;m12.textContent=s.filter(x=>classify(x).includes('1/2')).length;m21.textContent=s.filter(x=>classify(x).includes('2/1')).length;m6.textContent=s.filter(x=>classify(x).includes('6+')).length;const recent=[...s].sort((a,b)=>String(b.date).localeCompare(String(a.date))).slice(0,8);recentList.innerHTML=recent.length?recent.map(matchHtml).join(''):'<div class="empty">Henüz veri yok. Veri sekmesinden otomatik veri getir.</div>';dataSummary.innerHTML=`<b>${esc(sourceName)}</b><br>${matches.length} maç kayıtlı`;fillFilters()}
+function matchHtml(m){const tags=classify(m).map(t=>`<span class="pill ${t==='6+'?'green':t==='1/2'?'gold':'red'}">${t}</span>`).join(' ');return `<div class="match"><div class="row"><div><div class="teams">${esc(m.home)} — ${esc(m.away)}</div><div class="meta">${esc(m.league)} • ${esc(m.season)} • ${m.week}. hafta • İY ${m.ht_home}-${m.ht_away}</div></div><div class="score">${m.ft_home}-${m.ft_away}</div></div><div style="margin-top:7px">${tags}</div></div>`}
+function goTab(n){['home','scan','data','settings'].forEach(t=>{document.getElementById('tab-'+t).classList.toggle('hidden',t!==n);document.getElementById('nav-'+t).classList.toggle('active',t===n)});scrollTo(0,0)}
+function fillSource(){sourceLeague.innerHTML=Object.keys(SOURCES).map(x=>`<option>${x}</option>`).join('')}
+function fillFilters(){const prevL=leagueSelect.value,prevS=seasonSelect.value;const leagues=[...new Set(matches.map(x=>x.league))].sort();leagueSelect.innerHTML=leagues.length?leagues.map(x=>`<option>${esc(x)}</option>`).join(''):'<option>Veri yok</option>';if(leagues.includes(prevL))leagueSelect.value=prevL;updateSeasons(prevS);leagueSelect.onchange=()=>updateSeasons()}
+function updateSeasons(prefer){const l=leagueSelect.value;const seasons=[...new Set(matches.filter(x=>x.league===l).map(x=>x.season))].sort().reverse();seasonSelect.innerHTML=seasons.map(x=>`<option>${esc(x)}</option>`).join('');if(seasons.includes(prefer))seasonSelect.value=prefer;useLatestWeek()}
+function useLatestWeek(){const l=leagueSelect.value,s=seasonSelect.value,ws=matches.filter(x=>x.league===l&&x.season===s).map(x=>+x.week).filter(Boolean);weekInput.value=ws.length?Math.max(...ws):1}
+function csvSplit(line){let out=[],cur='',q=false;for(let i=0;i<line.length;i++){const ch=line[i];if(ch==='"'){if(q&&line[i+1]==='"'){cur+='"';i++}else q=!q}else if(ch===','&&!q){out.push(cur);cur=''}else cur+=ch}out.push(cur);return out}
+function parseAnyCSV(text,leagueName,seasonLabel){const lines=text.replace(/^\uFEFF/,'').replace(/\r/g,'').split('\n').filter(x=>x.trim());if(lines.length<2)return[];const head=csvSplit(lines.shift()).map(x=>x.trim());const idx=n=>head.indexOf(n);let rows=[];for(const line of lines){const v=csvSplit(line),get=n=>idx(n)>=0?v[idx(n)]?.trim():'';let o;if(idx('HomeTeam')>=0){o={date:dateNorm(get('Date')),league:leagueName||get('Div')||'Lig',season:seasonLabel||'',home:get('HomeTeam'),away:get('AwayTeam'),ht_home:num(get('HTHG')),ht_away:num(get('HTAG')),ft_home:num(get('FTHG')),ft_away:num(get('FTAG'))}}else{o={date:get('date'),league:get('league')||leagueName||'Lig',season:get('season')||seasonLabel||'',week:num(get('week')),home:get('home'),away:get('away'),ht_home:num(get('ht_home')),ht_away:num(get('ht_away')),ft_home:num(get('ft_home')),ft_away:num(get('ft_away'))}}if(o.home&&o.away&&Number.isFinite(o.ft_home)&&Number.isFinite(o.ft_away))rows.push(o)}if(rows.length&&!rows[0].week)assignWeeks(rows);return rows}
+function num(x){const n=Number(x);return Number.isFinite(n)?n:NaN}
+function dateNorm(x){if(!x)return'';const p=x.split(/[\/.-]/);if(p.length===3){let [d,m,y]=p;if(y.length===2)y=(+y<50?'20':'19')+y;return `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`}return x}
+function assignWeeks(rows){rows.sort((a,b)=>String(a.date).localeCompare(String(b.date)));const teams=[...new Set(rows.flatMap(x=>[x.home,x.away]))];const perRound=Math.max(1,Math.floor(teams.length/2));rows.forEach((r,i)=>r.week=Math.floor(i/perRound)+1)}
+function seasonCode(start){return String(start).padStart(2,'0')+String((start+1)%100).padStart(2,'0')}
+function seasonLabel(start){return `20${String(start).padStart(2,'0')}/${String((start+1)%100).padStart(2,'0')}`}
+async function fetchText(url){try{const r=await fetch(url,{cache:'no-store'});if(r.ok)return await r.text()}catch(e){}const proxy='https://api.allorigins.win/raw?url='+encodeURIComponent(url);const r2=await fetch(proxy,{cache:'no-store'});if(!r2.ok)throw new Error('Veri kaynağına ulaşılamadı');return await r2.text()}
+async function loadAutomatic(){const name=sourceLeague.value,code=SOURCES[name],count=+seasonCount.value;autoBtn.disabled=true;autoStatus.textContent='Veriler indiriliyor...';let all=[],failed=[];for(let i=count-1;i>=0;i--){const st=CURRENT_START-i,sc=seasonCode(st),label=seasonLabel(st),url=`https://www.football-data.co.uk/mmz4281/${sc}/${code}.csv`;try{autoStatus.textContent=`${label} indiriliyor...`;const txt=await fetchText(url);const r=parseAnyCSV(txt,name,label);if(r.length)all.push(...r);else failed.push(label)}catch(e){failed.push(label)}}autoBtn.disabled=false;if(!all.length){autoStatus.innerHTML='Otomatik indirme başarısız oldu. Tarayıcı veri kaynağını engellemiş olabilir; aşağıdan CSV yükleyebilirsin.';return}matches=all;sourceName=`${name} • son ${count} sezon • otomatik`;save();render();autoStatus.innerHTML=`<b>${all.length} maç yüklendi.</b>${failed.length?' Alınamayan: '+failed.join(', '):''}`;goTab('home')}
+async function loadCsv(){const f=csvFile.files[0];if(!f){importStatus.textContent='Önce CSV seç.';return}try{const r=parseAnyCSV(await f.text());if(!r.length)throw Error();matches=r;sourceName=`${f.name} • CSV`;save();render();importStatus.textContent=`${r.length} maç başarıyla yüklendi.`;goTab('home')}catch(e){importStatus.textContent='CSV okunamadı veya gerekli sütunlar bulunamadı.'}}
+function clearData(){if(!confirm('Yüklü maç verileri silinsin mi?'))return;matches=[];sourceName='Henüz veri yüklenmedi';save();render();autoStatus.textContent='Veri temizlendi.'}
+function scoreMatch(target){const teams=[target.home,target.away];const hist=matches.filter(x=>x!==target&&teams.some(t=>x.home===t||x.away===t));const sur=hist.filter(x=>classify(x).length);let score=20,reasons=[];const teamCnt=sur.length;if(teamCnt){const add=Math.min(25,teamCnt*2);score+=add;reasons.push(`${teamCnt} geçmiş sürpriz`)}const near=sur.filter(x=>Math.abs(+x.week-+target.week)<=1).length;if(near){score+=Math.min(25,near*7);reasons.push(`${near} kez aynı/komşu hafta`)}const same=sur.filter(x=>[x.home,x.away].includes(target.home)&&[x.home,x.away].includes(target.away)).length;if(same){score+=Math.min(20,same*10);reasons.push(`${same} aynı eşleşme`)}const seasons=new Set(sur.map(x=>x.season));if(seasons.size>=2){score+=Math.min(15,(seasons.size-1)*5);reasons.push(`${seasons.size} sezona yayılıyor`)}return{score:Math.min(95,score),reasons}}
+function runScan(){const l=leagueSelect.value,s=seasonSelect.value,w=+weekInput.value;const rows=matches.filter(x=>x.league===l&&x.season===s&&+x.week===w);renderCandidates(rows)}
+function renderCandidates(rows){const min=+minScore.value;const c=rows.map(m=>({m,...scoreMatch(m)})).filter(x=>x.score>=min).sort((a,b)=>b.score-a.score);candidateList.innerHTML=c.length?c.map(x=>`<div class="match candidate"><div><div class="teams">${esc(x.m.home)} — ${esc(x.m.away)}</div><div class="meta">${esc(x.m.league)} • ${esc(x.m.season)} • ${x.m.week}. hafta</div><div class="reason">${esc(x.reasons.join(' • ')||'Temel örüntü')}</div></div><div class="confidence">${x.score}%</div></div>`).join(''):'<div class="empty">Bu hafta için minimum puanı geçen aday yok. Ayarlardan eşik puanı düşürebilirsin.</div>';renderPatterns(rows)}
+function renderPatterns(rows){const teams=[...new Set(rows.flatMap(x=>[x.home,x.away]))],parts=[];for(const team of teams){const hist=matches.filter(x=>(x.home===team||x.away===team)&&classify(x).length).sort((a,b)=>String(a.season).localeCompare(String(b.season))||a.week-b.week);if(hist.length>=2){const seq=hist.slice(-8).map(x=>`${x.season} H${x.week} ${classify(x).join('/')}`).join(' → ');parts.push(`<div class="match"><div class="teams">${esc(team)}</div><div class="meta">${hist.length} sürpriz kayıt</div><div class="reason">${esc(seq)}</div></div>`)}}patternList.innerHTML=parts.length?parts.join(''):'<div class="empty">Bu seçimde sezonlar arası tekrar eden zincir bulunamadı.</div>'}
+fillSource();render();
 </script>
-</body>
-</html>
+</body></html>
