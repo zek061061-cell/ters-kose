@@ -142,15 +142,23 @@ function scoreMatch(target){
  return{score:Math.min(95,score),reasons,chainHits}
 }
 function runScan(){const l=leagueSelect.value,s=seasonSelect.value,w=+weekInput.value;const rows=matches.filter(x=>x.league===l&&x.season===s&&+x.week===w);renderCandidates(rows)}
+function resultText(m){return (m.ht_home??'?')+'-'+(m.ht_away??'?')+' / '+(m.ft_home??'?')+'-'+(m.ft_away??'?')}
+function predictedTypes(hit){
+ const ts=eventTypes(hit.best.b);
+ return ts.length?ts:['örüntü tekrarı']
+}
 function renderCandidates(rows){
  const min=+minScore.value;
  const c=rows.map(m=>({m,...scoreMatch(m)})).filter(x=>x.score>=min).sort((a,b)=>b.score-a.score);
  candidateList.innerHTML=c.length?c.map(x=>{
-   const chainText=(x.chainHits||[]).map(h=>{
-     const b=h.best;
-     return h.team+': '+b.a.season+' H'+b.a.week+' '+eventTypes(b.a).join('/')+' → '+b.b.season+' H'+b.b.week+' '+eventTypes(b.b).join('/')+' ('+relationLabel(b.a,b.b,h.team)+')';
-   }).join(' | ');
-   return `<div class="match candidate"><div><div class="teams">${esc(x.m.home)} — ${esc(x.m.away)}</div><div class="meta">${esc(x.m.league)} • ${esc(x.m.season)} • ${x.m.week}. hafta</div><div class="reason">${esc((x.reasons||[]).join(' • '))}</div>${chainText?`<div class="reason" style="margin-top:6px;color:#d7e2f2">${esc(chainText)}</div>`:''}</div><div class="confidence">${x.score}%</div></div>`
+   const predictions=[...new Set((x.chainHits||[]).flatMap(predictedTypes))];
+   const evidence=(x.chainHits||[]).map(h=>{
+     const b=h.best,a=b.a,z=b.b;
+     const oppA=a.home===h.team?a.away:a.home, oppB=z.home===h.team?z.away:z.home;
+     return `<div class="reason" style="margin-top:8px;color:#d7e2f2"><b>${esc(h.team)}</b>: ${esc(a.season)} H${a.week} vs ${esc(oppA)} [${esc(resultText(a))}] ${esc(eventTypes(a).join('/'))} → ${esc(z.season)} H${z.week} vs ${esc(oppB)} [${esc(resultText(z))}] ${esc(eventTypes(z).join('/'))}<br><span style="color:#90a2bd">${esc(relationLabel(a,z,h.team))} • bu sezon beklenen hafta: H${b.expectedWeek}</span></div>`
+   }).join('');
+   const badge=predictions.length?`<div class="row" style="margin-top:8px">${predictions.map(p=>`<span class="pill gold">Beklenti: ${esc(p)}</span>`).join('')}</div>`:'';
+   return `<div class="match candidate"><div><div class="teams">${esc(x.m.home)} — ${esc(x.m.away)}</div><div class="meta">${esc(x.m.league)} • ${esc(x.m.season)} • ${x.m.week}. hafta</div>${badge}<div class="reason" style="margin-top:7px">${esc((x.reasons||[]).join(' • '))}</div>${evidence}</div><div class="confidence">${x.score}%</div></div>`
  }).join(''):'<div class="empty">Bu hafta için minimum puanı geçen aday yok. Ayarlardan eşik puanı düşürebilirsin.</div>';
  renderPatterns(rows)
 }
