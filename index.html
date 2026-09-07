@@ -353,6 +353,26 @@ function renderModelHealth(){var box=el("healthReport");if(!box)return;var pr=ma
 function renderQuality(){var total=matches.length,playedN=matches.filter(played).length,missDate=matches.filter(function(x){return!x.date}).length,missWeek=matches.filter(function(x){return!x.week}).length,dups=total-dedupe(matches).length;var leagues=getLeagues().length,seasons=new Set(matches.map(function(x){return x.season})).size,teamMap={};matches.forEach(function(x){[x.home,x.away].forEach(function(t){var k=canonicalTeamKey(t);if(!teamMap[k])teamMap[k]=new Set();teamMap[k].add(t)})});var aliasGroups=Object.values(teamMap).filter(function(v){return v.size>1}).length;el("qualityReport").innerHTML='<div class="probgrid"><div class="prob"><div class="k">Satır</div><div class="v">'+total+'</div></div><div class="prob"><div class="k">Sonuçlu</div><div class="v">'+playedN+'</div></div><div class="prob"><div class="k">Lig</div><div class="v">'+leagues+'</div></div><div class="prob"><div class="k">Sezon</div><div class="v">'+seasons+'</div></div><div class="prob"><div class="k">Sorun</div><div class="v">'+(missDate+missWeek+dups)+'</div></div></div><div class="tiny" style="margin-top:10px">Eksik tarih: '+missDate+' • Eksik hafta: '+missWeek+' • Yinelenen: '+dups+' • Birleştirilebilir takım adı grubu: '+aliasGroups+'</div>';renderModelHealth()}
 
 function matchOrderKey(x){var d=String(x&&x.date||"");if(/^\d{4}-\d{2}-\d{2}/.test(d))return d;var sy=seasonStart(x&&x.season),wk=Number(x&&x.week)||0;return String(sy).padStart(4,"0")+"-"+String(wk).padStart(3,"0")}
+let matchIndexRef=null,matchIndexes=null;
+function indexedMatches(){
+ if(matchIndexRef===matches&&matchIndexes)return matchIndexes;
+ var team={},league={},pair={},playedRows=[];
+ matches.forEach(function(x){
+   if(!played(x))return;
+   playedRows.push(x);
+   var hk=canonicalTeamKey(x.home),ak=canonicalTeamKey(x.away),lk=canonicalLeague(x.league||"");
+   (team[hk]||(team[hk]=[])).push(x);
+   if(ak!==hk)(team[ak]||(team[ak]=[])).push(x);
+   (league[lk]||(league[lk]=[])).push(x);
+   var pk=[hk,ak].sort().join("|");
+   (pair[pk]||(pair[pk]=[])).push(x);
+ });
+ Object.keys(team).forEach(function(k){team[k].sort(function(a,b){return matchOrderKey(a).localeCompare(matchOrderKey(b))})});
+ Object.keys(league).forEach(function(k){league[k].sort(function(a,b){return matchOrderKey(a).localeCompare(matchOrderKey(b))})});
+ Object.keys(pair).forEach(function(k){pair[k].sort(function(a,b){return matchOrderKey(a).localeCompare(matchOrderKey(b))})});
+ matchIndexRef=matches;matchIndexes={team:team,league:league,pair:pair,played:playedRows};
+ return matchIndexes
+}
 function beforeTarget(x,target){if(x===target)return false;var a=matchOrderKey(x),b=matchOrderKey(target);if(a&&b)return a<b;var sx=seasonStart(x&&x.season),st=seasonStart(target&&target.season);if(sx&&st&&sx!==st)return sx<st;return (Number(x&&x.week)||0)<(Number(target&&target.week)||0)}
 
 var MATCH_INDEX={ref:null,teams:new Map(),leagues:new Map(),pairs:new Map(),played:[]};
@@ -735,7 +755,7 @@ function renderRadarHighlights(out){
  ];
  el("radarHighlights").innerHTML='<div class="grid">'+c.map(function(z){var x=z[1],label=z[3]==="Skor"?(x.a.scores[0].h+"-"+x.a.scores[0].a):z[3];return '<div class="prob"><div class="k">'+esc(z[0])+'</div><div style="font-weight:850;margin-top:4px">'+esc(x.m.home+" — "+x.m.away)+'</div><div class="v" style="font-size:20px">'+esc(label)+' '+pct(z[2](x))+'%</div></div>'}).join("")+'</div>'
 }
-function htCoverageFor(m){var rows=matches.filter(function(x){return played(x)&&x.league===m.league&&beforeTarget(x,m)}),ok=rows.filter(function(x){return Number.isFinite(+x.ht_home)&&Number.isFinite(+x.ht_away)}).length;return rows.length?ok/rows.length:0}
+function htCoverageFor(m){var rows=(indexedMatches().league[canonicalLeague(m.league||"")]||[]).filter(function(x){return beforeTarget(x,m)}),ok=rows.filter(function(x){return Number.isFinite(+x.ht_home)&&Number.isFinite(+x.ht_away)}).length;return rows.length?ok/rows.length:0}
 function leagueRadarProfile(league){var lk=canonicalLeague(league||""),rows=matches.filter(function(m){return played(m)&&canonicalLeague(m.league)===lk}).sort(function(a,b){return matchOrderKey(a).localeCompare(matchOrderKey(b))}),n=rows.length,home=0,draw=0,away=0,btts=0,o25=0,sur=0;if(!n)return{n:0,resultBase:.45,marketBase:.60,surpriseBase:.05,strongOverall:.70,strongQuality:.76,minReliability:.60};rows.forEach(function(m){var h=+m.ft_home,a=+m.ft_away;if(h>a)home++;else if(h===a)draw++;else away++;if(h>0&&a>0)btts++;if(h+a>=3)o25++;if(classify(m).length)sur++});var resultBase=Math.max(home,draw,away)/n,marketBase=Math.max(btts/n,1-btts/n,o25/n,1-o25/n),surpriseBase=sur/n;return{n:n,resultBase:resultBase,marketBase:marketBase,surpriseBase:surpriseBase,strongOverall:clamp(.66+(resultBase-.45)*.18+(marketBase-.60)*.12,.64,.74),strongQuality:clamp(.72+(n<160?.04:0)+(surpriseBase>.13?.02:0),.70,.80),minReliability:clamp(.56+(n<120?.05:0),.55,.64)}}
 function leagueCalibrationQuality(league){var lk=canonicalLeague(league||""),ch=calibrationHealth(),meta=ch.meta||{},used=meta.league_used&&+meta.league_used[lk]||0,has=!!(leagueCalibration&&leagueCalibration[lk]);return{used:used,has:has,quality:has?clamp(ch.quality*(.65+.35*Math.min(1,used/80)),0,1):ch.quality*.72}}
 function leagueStrongGate(league){
