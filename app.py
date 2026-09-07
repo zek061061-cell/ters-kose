@@ -270,6 +270,28 @@ def _audit_history_rows(rows):
         "quality_score": round(score, 4), "group_audit": group_audit,
     }
 
+def _season_start_now():
+    now = datetime.utcnow()
+    return now.year if now.month >= 7 else now.year - 1
+
+def _load_main_history_season(code, name, y):
+    sc = f"{str(y)[-2:]}{str(y+1)[-2:]}"
+    season = f"{y}/{str(y+1)[-2:]}"
+    url = f"https://www.football-data.co.uk/mmz4281/{sc}/{code}.csv"
+    try:
+        r = fetch_source(url)
+        rows = _parse_history_csv(r.content, name, season)
+        if rows:
+            return rows, {"league": name, "season": season, "rows": len(rows), "ok": True, "source": "live"}
+    except Exception as first_error:
+        cached = SOURCE_CACHE.get(url)
+        if cached and cached.get("content"):
+            rows = _parse_history_csv(cached["content"], name, season)
+            if rows:
+                return rows, {"league": name, "season": season, "rows": len(rows), "ok": True, "source": "cache", "recovered": True}
+        return [], {"league": name, "season": season, "rows": 0, "ok": False, "error": str(first_error)[:120]}
+    return [], {"league": name, "season": season, "rows": 0, "ok": False, "error": "empty_source"}
+
 def build_history_10y():
     global HISTORY_LOCK
     if HISTORY_LOCK:
@@ -278,19 +300,17 @@ def build_history_10y():
     try:
         os.makedirs(HISTORY_DIR, exist_ok=True)
         all_rows, audit = [], []
-        current_start = 2026
-        starts = list(range(current_start - 10, current_start + 1))
+        current_start = _season_start_now()
+        # Last 10 completed seasons + current season (current can legitimately be partial).
+        completed_starts = list(range(current_start - 10, current_start))
+        starts = completed_starts + [current_start]
         for code, name in MAIN_HISTORY_LEAGUES.items():
             for y in starts:
-                sc = f"{str(y)[-2:]}{str(y+1)[-2:]}"
-                url = f"https://www.football-data.co.uk/mmz4281/{sc}/{code}.csv"
-                try:
-                    r = fetch_source(url)
-                    rows = _parse_history_csv(r.content, name, f"{y}/{str(y+1)[-2:]}")
-                    all_rows.extend(rows)
-                    audit.append({"league": name, "season": f"{y}/{str(y+1)[-2:]}", "rows": len(rows), "ok": bool(rows)})
-                except Exception as e:
-                    audit.append({"league": name, "season": f"{y}/{str(y+1)[-2:]}", "rows": 0, "ok": False, "error": str(e)[:120]})
+                rows, item = _load_main_history_season(code, name, y)
+                if y == current_start:
+                    item["expected_partial"] = True
+                all_rows.extend(rows)
+                audit.append(item)
         for code, name in EXTRA_HISTORY_LEAGUES.items():
             url = f"https://www.football-data.co.uk/new/{code}.csv"
             try:
@@ -316,11 +336,18 @@ def build_history_10y():
         league_counts = {}
         for x in all_rows:
             league_counts[x["league"]] = league_counts.get(x["league"], 0) + 1
-        failures = sum(1 for a in audit if not a["ok"])
+        failures = sum(1 for a in audit if not a["ok"] and not a.get("expected_partial"))
+        current_partial_failures = sum(1 for a in audit if not a["ok"] and a.get("expected_partial"))
+        missing_completed = [{"league": a.get("league"), "season": a.get("season"), "error": a.get("error", "")}
+                             for a in audit if not a["ok"] and not a.get("expected_partial")]
+        thin_completed = [g for g in quality.get("group_audit", [])
+                          if g.get("thin") and str(g.get("season","")) != f"{current_start}/{str(current_start+1)[-2:]}"]
         meta = {
             "ok": True, "generated_at": datetime.utcnow().isoformat()+"Z", "matches": len(all_rows),
             "leagues": len(league_counts), "league_counts": league_counts, "audit": audit,
-            "critical_failures": failures, "quality": quality,
+            "critical_failures": failures, "current_partial_failures": current_partial_failures,
+            "missing_completed": missing_completed, "thin_completed": thin_completed,
+            "current_season": f"{current_start}/{str(current_start+1)[-2:]}", "quality": quality,
             "verified": failures == 0 and quality["bad_team"] == 0 and quality["bad_score"] == 0 and quality["duplicate_keys"] == 0,
             "promoted": False,
         }
@@ -382,6 +409,20 @@ def history_status():
         meta = json.load(h)
     meta["built"] = os.path.exists(HISTORY_FILE)
     return jsonify(meta)
+
+@app.get("/history/gaps")
+def history_gaps():
+    if not os.path.exists(HISTORY_META_FILE):
+        return jsonify({"ok": False, "built": False, "missing_completed": [], "thin_completed": []}), 404
+    with open(HISTORY_META_FILE, "r", encoding="utf-8") as h:
+        meta = json.load(h)
+    return jsonify({
+        "ok": True,
+        "current_season": meta.get("current_season"),
+        "missing_completed": meta.get("missing_completed", []),
+        "thin_completed": meta.get("thin_completed", []),
+        "critical_failures": meta.get("critical_failures", 0),
+    })
 
 @app.post("/history/build")
 def history_build():
