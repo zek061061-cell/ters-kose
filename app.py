@@ -8,7 +8,7 @@ from urllib.parse import urlparse
 app = Flask(__name__)
 
 ALLOWED_HOSTS = {"www.football-data.co.uk", "football-data.co.uk"}
-APP_VERSION = "3.2"
+APP_VERSION = "3.3"
 SOURCE_CACHE = {}
 
 ESPN_LEAGUES = {
@@ -109,6 +109,7 @@ def fixtures():
                     "away_logo": at.get("logo") or "",
                     "status": status.get("description") or status.get("detail") or "",
                     "completed": bool(status.get("completed")),
+                    "state": status.get("state") or "",
                 })
             return out, None
         except Exception as e:
