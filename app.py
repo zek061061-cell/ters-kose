@@ -11,6 +11,8 @@ def add_cors_headers(resp):
     resp.headers["Access-Control-Allow-Origin"] = "*"
     resp.headers["Access-Control-Allow-Methods"] = "GET, OPTIONS"
     resp.headers["Access-Control-Allow-Headers"] = "Content-Type"
+    if request.path in {"/", "/index.html", "/sw.js", "/manifest.json"}:
+        resp.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
     return resp
 
 @app.get("/")
