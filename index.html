@@ -108,14 +108,14 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:rgba(6,16,29,.9
 </div>
 <script>
 const SOURCES={"Türkiye Süper Lig":"T1","İngiltere Premier League":"E0","İngiltere Championship":"E1","İngiltere League One":"E2","İngiltere League Two":"E3","İskoçya Premiership":"SC0","İskoçya Championship":"SC1","Almanya Bundesliga":"D1","Almanya 2. Bundesliga":"D2","İspanya La Liga":"SP1","İspanya Segunda":"SP2","İtalya Serie A":"I1","İtalya Serie B":"I2","Fransa Ligue 1":"F1","Fransa Ligue 2":"F2","Hollanda Eredivisie":"N1","Belçika Pro League":"B1","Portekiz Primeira Liga":"P1","Yunanistan Super League":"G1"};
-const CURRENT_START=26,MODEL_VERSION="3.2";
+const CURRENT_START=26,MODEL_VERSION="3.2";let lastRuntimeError="";
 let matches=[], sourceName="Henüz veri yüklenmedi", importedRows=[], currentReport=null, currentRadar=[], radarStrongOnly=false;
 try{matches=JSON.parse(localStorage.getItem("terskose_v2_matches")||localStorage.getItem("terskose_matches_final")||"[]")||[]}catch(e){matches=[]}
 sourceName=localStorage.getItem("terskose_v2_source")||localStorage.getItem("terskose_source")||sourceName;
 let calibration=null;try{calibration=JSON.parse(localStorage.getItem("terskose_calibration")||"null")}catch(e){calibration=null}
 function el(id){return document.getElementById(id)}
 function updateConnectionState(){var on=navigator.onLine,d=el("connectionDot"),t=el("connectionText");if(d)d.style.background=on?"var(--green)":"#ff6b74";if(t)t.textContent=on?"çevrimiçi":"çevrimdışı • kayıtlı veriler kullanılabilir"}
-window.addEventListener("online",updateConnectionState);window.addEventListener("offline",updateConnectionState);
+window.addEventListener("online",updateConnectionState);window.addEventListener("offline",updateConnectionState);window.addEventListener("error",function(e){lastRuntimeError=(e&&e.message)||"Bilinmeyen çalışma zamanı hatası"});window.addEventListener("unhandledrejection",function(e){lastRuntimeError=String(e&&e.reason||"İşlenmeyen işlem hatası")});
 function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
 function clamp(x,a,b){return Math.max(a,Math.min(b,x))}
 function pct(x){return Math.round(clamp(x,0,1)*100)}
@@ -448,9 +448,9 @@ function runSelfTest(){
  try{var sample=matches.find(function(x){return x.home&&x.away});if(sample){var a=modelMatch(sample,true),mc=marketConsistency(a);add("Model çalıştırma",Number.isFinite(a.p1)&&Number.isFinite(a.o25),"1="+pct(a.p1)+"%, Üst2.5="+pct(a.o25)+"%");add("Pazar tutarlılığı",mc.ok,mc.issues.join(", "))}else add("Model çalıştırma",false,"Örnek maç yok")}catch(e){add("Model çalıştırma",false,e.message)}
  try{add("Excel modülü",!!window.XLSX,window.XLSX?"Hazır":"Yüklenemedi")}catch(e){add("Excel modülü",false,e.message)}
  try{add("PWA desteği","serviceWorker" in navigator,("serviceWorker" in navigator)?"Destekleniyor":"Tarayıcı desteklemiyor")}catch(e){add("PWA desteği",false,e.message)}try{add("Model kimliği",!!MODEL_VERSION,"v"+MODEL_VERSION+" • veri #"+dataFingerprint())}catch(e){add("Model kimliği",false,e.message)}try{add("Takım anahtar motoru",typeof canonicalTeamKey==="function",canonicalTeamKey("Trabzonspor"))}catch(e){add("Takım anahtar motoru",false,e.message)}try{add("Radar filtre eşlemesi",Array.isArray(currentRadar),"Hazır")}catch(e){add("Radar filtre eşlemesi",false,e.message)}try{var ids=["matchReport","decisionSummary","whyPanel","radarList","qualityReport","healthReport","selfTestReport"],missing=ids.filter(function(id){return !el(id)});add("Kritik arayüz alanları",missing.length===0,missing.length?missing.join(", "):ids.length+" alan hazır")}catch(e){add("Kritik arayüz alanları",false,e.message)}try{var bt=matches.filter(played).filter(function(x){return x.date||(x.season&&x.week)}).length;add("Backtest veri uygunluğu",bt>=20,bt+" sonuçlu/sıralanabilir maç")}catch(e){add("Backtest veri uygunluğu",false,e.message)}
- try{add("Tarayıcı bağlantısı",navigator.onLine,navigator.onLine?"Çevrimiçi":"Çevrimdışı; kayıtlı veri modu")}catch(e){add("Tarayıcı bağlantısı",false,e.message)}
+ try{add("Tarayıcı bağlantısı",navigator.onLine,navigator.onLine?"Çevrimiçi":"Çevrimdışı; kayıtlı veri modu")}catch(e){add("Tarayıcı bağlantısı",false,e.message)}try{add("Çalışma zamanı",!lastRuntimeError,lastRuntimeError||"Hata yakalanmadı")}catch(e){add("Çalışma zamanı",false,e.message)}
  var ok=checks.filter(function(x){return x.ok}).length;
- el("selfTestReport").innerHTML='<div class="row"><span class="pill '+(ok===checks.length?"green":"red")+'">'+ok+'/'+checks.length+' test geçti</span></div><div style="margin-top:10px">'+checks.map(function(x){return '<div class="scoreline"><b>'+(x.ok?"✓ ":"✗ ")+esc(x.name)+'</b><span style="color:'+(x.ok?"#9af0ce":"#ffb9bf")+'">'+esc(x.detail)+'</span></div>'}).join("")+'</div>'
+ el("selfTestReport").innerHTML='<div class="row"><span class="pill '+(ok===checks.length?"green":"red")+'">'+ok+'/'+checks.length+' test geçti</span>'+(ok===checks.length?'<span class="pill green">Sürüm kontrolü temiz</span>':'')+'</div><div style="margin-top:10px">'+checks.map(function(x){return '<div class="scoreline"><b>'+(x.ok?"✓ ":"✗ ")+esc(x.name)+'</b><span style="color:'+(x.ok?"#9af0ce":"#ffb9bf")+'">'+esc(x.detail)+'</span></div>'}).join("")+'</div>'
 }
 function fillSource(){el("sourceLeague").innerHTML=Object.keys(SOURCES).map(function(x){return"<option>"+esc(x)+"</option>"}).join("")}
 updateConnectionState();matches=dedupe(normalizeStoredMatches(matches));save();fillSource();renderAll();setTimeout(function(){try{runSelfTest()}catch(e){}},300);
