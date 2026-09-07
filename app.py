@@ -111,6 +111,12 @@ def health():
     return jsonify({"ok": True, "frontend": True, "proxy": True, "version": APP_VERSION, "cache_entries": len(SOURCE_CACHE)})
 
 
+@app.get("/leagues")
+def leagues():
+    rows = [{"code": code, "name": name} for code, name in ESPN_LEAGUES.items()]
+    rows.sort(key=lambda x: x["name"])
+    return jsonify({"ok": True, "leagues": rows, "count": len(rows)})
+
 @app.get("/teams")
 def teams():
     league = request.args.get("league", "").strip()
