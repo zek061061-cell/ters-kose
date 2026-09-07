@@ -8,6 +8,7 @@ import json
 import re
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
+import threading
 from urllib.parse import urlparse
 
 app = Flask(__name__)
@@ -141,7 +142,20 @@ def index_file():
 
 @app.get("/health")
 def health():
-    return jsonify({"ok": True, "frontend": True, "proxy": True, "version": APP_VERSION, "cache_entries": len(SOURCE_CACHE)})
+    meta = {}
+    if os.path.exists(HISTORY_META_FILE):
+        try:
+            with open(HISTORY_META_FILE, "r", encoding="utf-8") as h:
+                meta = json.load(h)
+        except Exception:
+            meta = {}
+    return jsonify({
+        "ok": True, "frontend": True, "proxy": True, "version": APP_VERSION,
+        "cache_entries": len(SOURCE_CACHE),
+        "history_built": os.path.exists(HISTORY_FILE),
+        "history_matches": meta.get("matches", 0),
+        "history_failures": meta.get("critical_failures", 0),
+    })
 
 
 def _num(v):
@@ -429,6 +443,37 @@ def history_status():
         meta = json.load(h)
     meta["built"] = os.path.exists(HISTORY_FILE)
     return jsonify(meta)
+
+@app.get("/history/ensure")
+def history_ensure():
+    """
+    Non-blocking initializer for the historical warehouse.
+    Returns immediately and builds in a daemon thread when the warehouse is missing.
+    Safe to call repeatedly.
+    """
+    if os.path.exists(HISTORY_FILE) and os.path.exists(HISTORY_META_FILE):
+        with open(HISTORY_META_FILE, "r", encoding="utf-8") as h:
+            meta = json.load(h)
+        return jsonify({"ok": True, "started": False, "built": True, "matches": meta.get("matches", 0),
+                        "critical_failures": meta.get("critical_failures", 0)})
+
+    if HISTORY_LOCK:
+        return jsonify({"ok": True, "started": False, "built": False, "detail": "build_already_running"})
+
+    def _job():
+        try:
+            build_history_10y()
+        except Exception as e:
+            try:
+                os.makedirs(HISTORY_DIR, exist_ok=True)
+                with open(HISTORY_META_FILE + ".error", "w", encoding="utf-8") as h:
+                    h.write(str(e))
+            except Exception:
+                pass
+
+    threading.Thread(target=_job, daemon=True, name="ters-kose-history-build").start()
+    return jsonify({"ok": True, "started": True, "built": False})
+
 
 def retry_history_gaps():
     global HISTORY_RETRY_LOCK
