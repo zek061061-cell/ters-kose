@@ -25,6 +25,12 @@ LEAGUES={
  "Hollanda Eredivisie":"https://www.sahadan.com/lig/eredivisie/akmkihra9ruad09ljapsm84b3/fikstur",
  "ABD MLS":"https://www.sahadan.com/lig/mls/287tckirbfj9nb8ar2k9r60vn/fikstur",
  "İskoçya Premiership":"https://www.sahadan.com/lig/premiership/e21cf135btr8t3upw0vl6n6x0/fikstur",
+ "İngiltere EFL Championship":"https://www.sahadan.com/lig/championship/7ntvbsyq31jnzoqoa8850b9b8/fikstur",
+ "İtalya Serie B":"https://www.sahadan.com/lig/serie-b/8ey0ww2zsosdmwr8ehsorh6t7/fikstur",
+ "İspanya La Liga":"https://www.sahadan.com/lig/laliga/34pl8szyvrbwcmfkuocjm3r6t/fikstur",
+ "İspanya LaLiga 2":"https://www.sahadan.com/lig/laliga-2/3is4bkgf3loxv9qfg3hm8zfqb/fikstur",
+ "Norveç Eliteserien":"https://www.sahadan.com/lig/eliteserien/9ynnnx1qmkizq1o3qr3v0nsuk/fikstur",
+ "İsveç Allsvenskan":"https://www.sahadan.com/lig/allsvenskan/b60nisd3qn427jm0hrg9kvmab/fikstur",
 }
 TR_MONTHS={"Ocak":1,"Şubat":2,"Mart":3,"Nisan":4,"Mayıs":5,"Haziran":6,"Temmuz":7,"Ağustos":8,"Eylül":9,"Ekim":10,"Kasım":11,"Aralık":12}
 now=datetime.now(ZoneInfo("Europe/Istanbul"))
