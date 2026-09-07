@@ -1,0 +1,40 @@
+name: Build mobile history shards
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'build_history_shards.py'
+      - '.github/workflows/build-history-shards.yml'
+      - 'data/history_10y.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: ters-kose-history-shards
+  cancel-in-progress: true
+
+jobs:
+  shards:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python build_history_shards.py
+      - name: Commit shards
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/history_index.json data/history_shards
+          if git diff --cached --quiet; then
+            echo "No shard changes"
+          else
+            git commit -m "Update mobile history shards"
+            git pull --rebase origin main
+            git push origin main
+          fi
