@@ -194,11 +194,22 @@ def _parse_history_csv(content, league_name, season_label=""):
         date = _date(r.get("Date"))
         ht_h, ht_a = _num(r.get("HTHG")), _num(r.get("HTAG"))
         week = _num(r.get("MW") or r.get("Round") or r.get("Matchday"))
+
+        # Prefer market-average closing prices when football-data provides them.
+        # Fallbacks keep older seasons useful because column availability changes by year.
+        odds_h = _num(r.get("AvgH") or r.get("B365H") or r.get("PSH") or r.get("MaxH"))
+        odds_d = _num(r.get("AvgD") or r.get("B365D") or r.get("PSD") or r.get("MaxD"))
+        odds_a = _num(r.get("AvgA") or r.get("B365A") or r.get("PSA") or r.get("MaxA"))
+        odds_o25 = _num(r.get("Avg>2.5") or r.get("B365>2.5") or r.get("P>2.5") or r.get("Max>2.5"))
+        odds_u25 = _num(r.get("Avg<2.5") or r.get("B365<2.5") or r.get("P<2.5") or r.get("Max<2.5"))
+
         out.append({
             "date": date, "league": league_name, "season": season_label or _season_from_row(r, date),
             "week": week or 0, "home": home, "away": away,
             "ht_home": ht_h, "ht_away": ht_a, "ft_home": fh, "ft_away": fa,
             "referee": str(r.get("Referee") or "").strip(),
+            "odds_home": odds_h, "odds_draw": odds_d, "odds_away": odds_a,
+            "odds_over25": odds_o25, "odds_under25": odds_u25,
         })
     return out
 
@@ -207,14 +218,14 @@ def _dedupe_history(rows):
     for x in rows:
         k = "|".join([str(x.get("date","")), str(x.get("league","")), str(x.get("season","")),
                       str(x.get("home","")).lower(), str(x.get("away","")).lower()])
-        richness = sum(1 for z in ("week","ht_home","ht_away","referee") if x.get(z) not in (None,"",0))
+        richness = sum(1 for z in ("week","ht_home","ht_away","referee","odds_home","odds_draw","odds_away","odds_over25","odds_under25") if x.get(z) not in (None,"",0))
         old = best.get(k)
         if old is None or richness > old[0]:
             best[k] = (richness, x)
     return [v[1] for v in best.values()]
 
 def _audit_history_rows(rows):
-    bad_team = bad_score = missing_date = missing_week = missing_ht = 0
+    bad_team = bad_score = missing_date = missing_week = missing_ht = missing_odds = 0
     groups = {}
     seen = set()
     duplicate_keys = 0
@@ -235,6 +246,8 @@ def _audit_history_rows(rows):
             missing_week += 1
         if x.get("ht_home") is None or x.get("ht_away") is None:
             missing_ht += 1
+        if not all(x.get(k) not in (None, "", 0) for k in ("odds_home", "odds_draw", "odds_away")):
+            missing_odds += 1
         key = "|".join([str(x.get("date","")), str(x.get("league","")), str(x.get("season","")),
                         home.casefold(), away.casefold()])
         if key in seen:
@@ -272,7 +285,7 @@ def _audit_history_rows(rows):
     score = max(0.0, min(1.0, score))
     return {
         "rows": len(rows), "bad_team": bad_team, "bad_score": bad_score,
-        "missing_date": missing_date, "missing_week": missing_week, "missing_ht": missing_ht,
+        "missing_date": missing_date, "missing_week": missing_week, "missing_ht": missing_ht, "missing_odds": missing_odds,
         "duplicate_keys": duplicate_keys, "groups": len(groups), "thin_groups": thin_groups,
         "quality_score": round(score, 4), "group_audit": group_audit,
     }
