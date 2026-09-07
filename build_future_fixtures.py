@@ -17,7 +17,7 @@ HEADERS={
 
 # Verified Sahadan competition pages.
 LEAGUES={
- "Türkiye Süper Lig":"https://www.sahadan.com/lig/trendyol-super-lig/482ofyysbdbeoxauk19yg7tdt/fikstur",
+ "Türkiye Süper Lig":"https://www.sahadan.com/lig/super-lig/482ofyysbdbeoxauk19yg7tdt/fikstur",
  "İngiltere Premier League":"https://www.sahadan.com/lig/premier-lig/2kwbbcootiqqgmrzs6o5inle5/fikstur",
  "İtalya Serie A":"https://www.sahadan.com/lig/serie-a/1r097lpxe0xn03ihb7wi98kao/fikstur",
  "Almanya Bundesliga":"https://www.sahadan.com/lig/bundesliga/6by3h89i2eykc341oz7lv1ddd/fikstur",
