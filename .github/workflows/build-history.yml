@@ -3,9 +3,13 @@ name: Build 10-year history warehouse
 on:
   push:
     branches: [main]
-    paths-ignore:
-      - 'data/history_10y.json'
-      - 'data/history_meta.json'
+    paths:
+      - 'app.py'
+      - 'requirements.txt'
+      - '.github/workflows/build-history.yml'
+  schedule:
+    - cron: '17 3 * * *'
+  workflow_dispatch:
 
 permissions:
   contents: write
