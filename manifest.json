@@ -3,7 +3,7 @@
   "short_name": "TERS KÖŞE",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#08111f",
-  "theme_color": "#08111f",
+  "background_color": "#0a0a0b",
+  "theme_color": "#0a0a0b",
   "description": "Tek tuş maç analizi, haftalık radar ve Excel/CSV analiz sistemi."
 }
