@@ -50,7 +50,7 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:rgba(6,16,29,.9
 </head>
 <body>
 <div class="app">
-<header><div class="brand">TERS <span>KÖŞE</span> <small style="font-size:10px;color:#90a2bd">Model v3.1</small></div><div class="sub"><span class="statusdot"></span>Tek tuş maç analizi • haftalık radar • Excel/CSV</div></header>
+<header><div class="brand">TERS <span>KÖŞE</span> <small style="font-size:10px;color:#90a2bd">Model v3.1</small></div><div class="sub"><span class="statusdot" id="connectionDot"></span>Tek tuş maç analizi • haftalık radar • Excel/CSV <span id="connectionText" style="margin-left:6px">bağlantı kontrol ediliyor</span></div></header>
 <main>
 
 <section id="tab-match">
@@ -114,6 +114,8 @@ try{matches=JSON.parse(localStorage.getItem("terskose_v2_matches")||localStorage
 sourceName=localStorage.getItem("terskose_v2_source")||localStorage.getItem("terskose_source")||sourceName;
 let calibration=null;try{calibration=JSON.parse(localStorage.getItem("terskose_calibration")||"null")}catch(e){calibration=null}
 function el(id){return document.getElementById(id)}
+function updateConnectionState(){var on=navigator.onLine,d=el("connectionDot"),t=el("connectionText");if(d)d.style.background=on?"var(--green)":"#ff6b74";if(t)t.textContent=on?"çevrimiçi":"çevrimdışı • kayıtlı veriler kullanılabilir"}
+window.addEventListener("online",updateConnectionState);window.addEventListener("offline",updateConnectionState);
 function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
 function clamp(x,a,b){return Math.max(a,Math.min(b,x))}
 function pct(x){return Math.round(clamp(x,0,1)*100)}
@@ -148,7 +150,7 @@ function csvSplit(line){var out=[],cur="",q=false;for(var i=0;i<line.length;i++)
 function detectDelimiter(line){var cand=[",",";","\t"],best=",",n=-1;cand.forEach(function(d){var c=line.split(d).length;if(c>n){n=c;best=d}});return best}
 function delimitedSplit(line,d){var out=[],cur="",q=false;for(var i=0;i<line.length;i++){var ch=line[i];if(ch==='"'){if(q&&line[i+1]==='"'){cur+='"';i++}else q=!q}else if(ch===d&&!q){out.push(cur);cur=""}else cur+=ch}out.push(cur);return out}
 function csvToObjects(text){var lines=text.replace(/^\uFEFF/,"").replace(/\r/g,"").split("\n").filter(function(x){return x.trim()});if(lines.length<2)return[];var d=detectDelimiter(lines[0]),head=delimitedSplit(lines.shift(),d);return lines.map(function(line){var v=delimitedSplit(line,d),o={};head.forEach(function(h,i){o[h]=v[i]});return o})}
-async function fetchText(url){var bases=[location.origin,"https://ters-kose.onrender.com"],last=null;for(var i=0;i<bases.length;i++){try{var proxy=bases[i]+"/proxy?url="+encodeURIComponent(url),r=await fetch(proxy,{cache:"no-store"});if(r.ok)return await r.text();last=new Error("HTTP "+r.status)}catch(e){last=e}}throw last||new Error("Veri kaynağına ulaşılamadı")}
+async function fetchText(url){var bases=[location.origin,"https://ters-kose.onrender.com"],last=null;for(var i=0;i<bases.length;i++){try{var proxy=bases[i]+"/proxy?url="+encodeURIComponent(url),r=await fetch(proxy,{cache:"no-store"});if(r.ok)return await r.text();last=new Error("HTTP "+r.status)}catch(e){last=e}}throw last||new Error("Veri kaynağına ulaşılamadı. Kayıtlı veriler varsa analiz yine kullanılabilir.")}
 async function loadAutomatic(){var name=el("sourceLeague").value,code=SOURCES[name],count=+el("seasonCount").value;el("autoBtn").disabled=true;el("autoStatus").textContent="Veriler indiriliyor...";var all=[],failed=[];for(var i=count-1;i>=0;i--){var st=CURRENT_START-i,sc=seasonCode(st),lab=seasonLabel(st),url="https://www.football-data.co.uk/mmz4281/"+sc+"/"+code+".csv";try{el("autoStatus").textContent=lab+" indiriliyor...";var txt=await fetchText(url);var rows=objectsToMatches(csvToObjects(txt),name,lab);if(rows.length)all.push(...rows);else failed.push(lab)}catch(e){failed.push(lab)}}el("autoBtn").disabled=false;if(!all.length){el("autoStatus").textContent="Otomatik veri alınamadı.";return}matches=dedupe(normalizeStoredMatches(matches.concat(all)));sourceName=name+" • son "+count+" sezon • otomatik";save();renderAll();el("autoStatus").innerHTML="<b>"+all.length+" satır yüklendi.</b>"+(failed.length?" Alınamayan: "+failed.join(", "):"")}
 function rowRichness(x){var n=0;if(x.date)n++;if(x.league)n++;if(x.season)n++;if(x.week)n++;if(Number.isFinite(+x.ht_home)&&Number.isFinite(+x.ht_away))n+=2;if(played(x))n+=3;return n}
 function dedupe(rows){var m=new Map();rows.forEach(function(x){var timeKey=x.date||("H"+(x.week||""));var k=[timeKey,normalizeHeader(x.league||""),x.season||"",canonicalTeamKey(x.home),canonicalTeamKey(x.away)].join("|"),old=m.get(k);if(!old||(played(x)&&!played(old))||rowRichness(x)>rowRichness(old))m.set(k,x)});return[...m.values()]}
@@ -446,11 +448,12 @@ function runSelfTest(){
  try{var sample=matches.find(function(x){return x.home&&x.away});if(sample){var a=modelMatch(sample,true),mc=marketConsistency(a);add("Model çalıştırma",Number.isFinite(a.p1)&&Number.isFinite(a.o25),"1="+pct(a.p1)+"%, Üst2.5="+pct(a.o25)+"%");add("Pazar tutarlılığı",mc.ok,mc.issues.join(", "))}else add("Model çalıştırma",false,"Örnek maç yok")}catch(e){add("Model çalıştırma",false,e.message)}
  try{add("Excel modülü",!!window.XLSX,window.XLSX?"Hazır":"Yüklenemedi")}catch(e){add("Excel modülü",false,e.message)}
  try{add("PWA desteği","serviceWorker" in navigator,("serviceWorker" in navigator)?"Destekleniyor":"Tarayıcı desteklemiyor")}catch(e){add("PWA desteği",false,e.message)}try{add("Model kimliği",!!MODEL_VERSION,"v"+MODEL_VERSION+" • veri #"+dataFingerprint())}catch(e){add("Model kimliği",false,e.message)}try{add("Takım anahtar motoru",typeof canonicalTeamKey==="function",canonicalTeamKey("Trabzonspor"))}catch(e){add("Takım anahtar motoru",false,e.message)}try{add("Radar filtre eşlemesi",Array.isArray(currentRadar),"Hazır")}catch(e){add("Radar filtre eşlemesi",false,e.message)}try{var ids=["matchReport","decisionSummary","whyPanel","radarList","qualityReport","healthReport","selfTestReport"],missing=ids.filter(function(id){return !el(id)});add("Kritik arayüz alanları",missing.length===0,missing.length?missing.join(", "):ids.length+" alan hazır")}catch(e){add("Kritik arayüz alanları",false,e.message)}try{var bt=matches.filter(played).filter(function(x){return x.date||(x.season&&x.week)}).length;add("Backtest veri uygunluğu",bt>=20,bt+" sonuçlu/sıralanabilir maç")}catch(e){add("Backtest veri uygunluğu",false,e.message)}
+ try{add("Tarayıcı bağlantısı",navigator.onLine,navigator.onLine?"Çevrimiçi":"Çevrimdışı; kayıtlı veri modu")}catch(e){add("Tarayıcı bağlantısı",false,e.message)}
  var ok=checks.filter(function(x){return x.ok}).length;
  el("selfTestReport").innerHTML='<div class="row"><span class="pill '+(ok===checks.length?"green":"red")+'">'+ok+'/'+checks.length+' test geçti</span></div><div style="margin-top:10px">'+checks.map(function(x){return '<div class="scoreline"><b>'+(x.ok?"✓ ":"✗ ")+esc(x.name)+'</b><span style="color:'+(x.ok?"#9af0ce":"#ffb9bf")+'">'+esc(x.detail)+'</span></div>'}).join("")+'</div>'
 }
 function fillSource(){el("sourceLeague").innerHTML=Object.keys(SOURCES).map(function(x){return"<option>"+esc(x)+"</option>"}).join("")}
-matches=dedupe(normalizeStoredMatches(matches));save();fillSource();renderAll();setTimeout(function(){try{runSelfTest()}catch(e){}},300);
+updateConnectionState();matches=dedupe(normalizeStoredMatches(matches));save();fillSource();renderAll();setTimeout(function(){try{runSelfTest()}catch(e){}},300);
 if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js?v=20260907b").catch(function(){})})}
 </script>
 </body></html>
