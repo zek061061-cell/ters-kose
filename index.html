@@ -315,7 +315,19 @@ function deepPatternSuite(target){
  var refSur=globalRows.filter(function(x){return classify(x).length&&(sameTeam(x.home,target.home)||sameTeam(x.away,target.home)||sameTeam(x.home,target.away)||sameTeam(x.away,target.away))});var conn=[];refSur.slice(-12).forEach(function(r){globalRows.forEach(function(o){if(o.date===r.date&&canonicalLeague(o.league)!==canonicalLeague(r.league)&&classify(o).length)conn.push(o)})});if(conn.length)push("Lig sürpriz bağlantısı",Math.min(.91,.3+conn.length*.04),"Bu takımların geçmiş sürpriz günlerinde diğer liglerde "+conn.length+" eş zamanlı sürpriz bulundu",surpriseTypes(conn));
 
  // Zincir sürpriz A→B, B→C, C→A
- ["1/2","2/1"].forEach(function(tp){var edges=globalRows.filter(function(x){return classify(x).includes(tp)}),a=target.away,b=target.home,hits=0;edges.forEach(function(e1){var A=e1.home,B=e1.away;edges.forEach(function(e2){if(sameTeam(e2.home,B)){var C=e2.away;if((sameTeam(C,target.home)&&sameTeam(A,target.away))||(sameTeam(C,target.away)&&sameTeam(A,target.home)))hits++}})});if(hits)push("Zincir sürpriz "+tp,Math.min(.95,.42+hits*.12),target.home+" — "+target.away+" için "+hits+" kapanabilir A→B→C→A zinciri bulundu",[tp])});
+ ["1/2","2/1"].forEach(function(tp){
+   var edges=globalRows.filter(function(x){return classify(x).includes(tp)}),hits=0;
+   edges.forEach(function(e1){
+     var A=e1.home,B=e1.away;
+     edges.forEach(function(e2){
+       if(sameTeam(e2.home,B)){
+         var C=e2.away;
+         if((sameTeam(C,target.home)&&sameTeam(A,target.away))||(sameTeam(C,target.away)&&sameTeam(A,target.home)))hits++;
+       }
+     });
+   });
+   if(hits)push("Zincir sürpriz "+tp,Math.min(.95,.42+hits*.12),target.home+" — "+target.away+" için "+hits+" kapanabilir A→B→C→A zinciri bulundu",[tp]);
+ });
 
  // Hafta / tarih akışı genel
  var flow=teams.map(function(team){var h=teamHistory(team,target),ss=h.filter(function(x){return classify(x).length);return team+": "+h.length+" maç / "+ss.length+" sürpriz"}).join(" • ");push("Hafta / tarih akışı",.48,flow,[]);
