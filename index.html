@@ -240,32 +240,49 @@ async function apiFetch(path,opts){
 }
 async function retryHistoryGaps(){var b=el("retryGapsBtn"),st=el("retryGapsStatus");if(!b)return;b.disabled=true;if(st)st.textContent="Eksik tamamlanmış sezonlar yeniden deneniyor...";try{var r=await apiFetch("/history/retry-gaps",{method:"POST",cache:"no-store"});var j=await r.json();if(!r.ok||!j.ok)throw new Error(j.error||j.detail||("HTTP "+r.status));if(st)st.innerHTML='<b>'+j.attempted+' sezon denendi.</b> Kurtarılan: '+(j.recovered||[]).length+' • Kalan: '+(j.remaining||0);await refreshWarehouseStatus();if((j.recovered||[]).length){await loadWarehouseHistory()}}catch(e){if(st)st.textContent="Yeniden deneme başarısız: "+(e.message||e)}b.disabled=false}
 async function refreshWarehouseStatus(){var box=el("warehouseStatus");if(!box)return;try{var r=await apiFetch("/history/status",{cache:"no-store"});if(!r.ok)throw new Error("HTTP "+r.status);var j=await r.json();renderCoverageMatrix(j);if(!j.built){renderCoverageMatrix(null);box.innerHTML='<span class="pill red">Henüz oluşturulmadı</span><div class="tiny" style="margin-top:8px">10 yıllık tarihsel depo sunucuda bulunamadı.</div>';return}var q=j.quality||{},verified=!!j.verified,fail=+j.critical_failures||0,score=Number(q.quality_score||0),missing=(j.missing_completed||[]).length,thin=(j.thin_completed||[]).length,htCov=Number(j.ht_coverage||0),oddsCov=Number(j.odds_coverage||0);box.innerHTML='<div class="row"><span class="pill '+(verified?"green":"blue")+'">'+(verified?"Bütünlük doğrulandı":"Kalite kontrolünde")+'</span><span class="pill">'+(+j.matches||0)+' maç</span><span class="pill">'+(+j.leagues||0)+' lig</span><span class="pill '+(score>=.9?"green":score>=.75?"blue":"red")+'">Veri kalite '+pct(score)+'%</span><span class="pill '+(htCov>=.95?"green":htCov>=.6?"blue":"red")+'">İY kapsama '+pct(htCov)+'%</span><span class="pill '+(oddsCov>=.95?"green":oddsCov>=.75?"blue":"red")+'">Oran kapsama '+pct(oddsCov)+'%</span><span class="pill '+(fail===0?"green":"red")+'">Kaynak hatası '+fail+'</span><span class="pill '+(missing===0?"green":"red")+'">Eksik tamamlanmış sezon '+missing+'</span><span class="pill '+(thin===0?"green":"blue")+'">İnce sezon '+thin+'</span></div><div class="tiny" style="margin-top:9px">Hatalı takım: '+(q.bad_team||0)+' • Hatalı skor: '+(q.bad_score||0)+' • Yinelenen: '+(q.duplicate_keys||0)+' • Eksik İY: '+(q.missing_ht||0)+' • İnce sezon grubu: '+(q.thin_groups||0)+(j.current_season?' • Güncel sezon: '+esc(j.current_season)+' (kısmi olabilir)':'')+'</div><div class="tiny" style="margin-top:6px">Son üretim: '+esc(j.generated_at||"-")+(j.promoted===false?' • Yeni veri kalite kapısından geçmediyse önceki sağlam depo korunur.':'')+'</div>';}catch(e){box.innerHTML='<span class="pill red">Depo durumu alınamadı</span><div class="tiny" style="margin-top:8px">'+esc(e.message||e)+'</div>'}}
-async function loadWarehouseHistory(){var ds=el("dataSummary");if(ds)ds.innerHTML='<b>Tarihsel veri hazırlanıyor...</b><br>10 yıllık arşiv yükleniyor.';try{
- var meta=null,j=null;
- try{var sr=await apiFetch("/history/status",{cache:"no-store"});meta=sr.ok?await sr.json():null;var r=await apiFetch("/history",{cache:"no-store"});if(r.ok)j=await r.json()}catch(e){}
- if(!j||!j.matches||!j.matches.length){
-   var sr2=await fetch("./data/history_meta.json",{cache:"no-store"});if(sr2.ok)meta=await sr2.json();
-   var r2=await fetch("./data/history_10y.json",{cache:"no-store"});if(!r2.ok)throw new Error("Tarihsel depo alınamadı");
-   var arr=await r2.json();j={ok:true,matches:arr,count:arr.length}
+async function loadWarehouseHistory(){
+ var ds=el("dataSummary");if(ds)ds.innerHTML='<b>Hızlı veri modu hazırlanıyor...</b><br>Telefon için yalnız gerekli ligler yüklenecek.';
+ try{
+   var meta=null;
+   try{var mr=await fetch("./data/history_meta.json",{cache:"no-store"});if(mr.ok)meta=await mr.json()}catch(e){}
+   var ir=await fetch("./data/history_index.json",{cache:"no-store"});
+   if(!ir.ok)throw new Error("Mobil veri indeksi henüz hazır değil");
+   HISTORY_SHARD_INDEX=await ir.json();
+   await ensureLeagueHistory("Türkiye Süper Lig",false);
+   sourceName="Ters Köşe • "+(HISTORY_SHARD_INDEX.leagues||0)+" lig • hızlı mobil mod";
+   renderAll();refreshWarehouseStatus();
+   if(ds)ds.innerHTML='<b>'+esc(sourceName)+'</b><br>'+(HISTORY_SHARD_INDEX.matches||0)+' maç sunucuda hazır • telefona yalnız kullanılan ligler indirilir.';
+   return true
+ }catch(e){
+   if(ds)ds.innerHTML='<b>Mobil veri hazırlanıyor</b><br>'+esc(e.message||e);
+   return false
+ }}
+async function ensureLeagueHistory(league,doRender){
+ league=canonicalLeague(league||"");if(!league)return false;
+ if(LOADED_HISTORY_LEAGUES.has(league))return true;
+ if(!HISTORY_SHARD_INDEX){
+   var ir=await fetch("./data/history_index.json",{cache:"no-store"});if(!ir.ok)return false;HISTORY_SHARD_INDEX=await ir.json()
  }
- if(!j.matches||!j.matches.length)throw new Error("Tarihsel depo boş");
- var warehouseRows=normalizeStoredMatches(j.matches);warehouseRows.forEach(function(x){x.__warehouse=true});
- matches=dedupe(matches.concat(warehouseRows));sourceName="Ters Köşe • 10 yıllık tarihsel depo"+(meta&&meta.verified?" • doğrulandı":" • hazır");
- FILTER_INDEX.ref=null;MATCH_INDEX.ref=null;save();renderAll();refreshWarehouseStatus();setTimeout(function(){ensureCalibrationFresh()},300);return true
-}catch(e){if(ds)ds.innerHTML='<b>Veri yüklenemedi</b><br>'+esc(e.message||e);refreshWarehouseStatus();return false}}
+ var info=HISTORY_SHARD_INDEX.files&&HISTORY_SHARD_INDEX.files[league];if(!info)return false;
+ var r=await fetch(info.file,{cache:"force-cache"});if(!r.ok)return false;
+ var rows=normalizeStoredMatches(await r.json());rows.forEach(function(x){x.__warehouse=true});
+ matches=dedupe(matches.concat(rows));LOADED_HISTORY_LEAGUES.add(league);FILTER_INDEX.ref=null;MATCH_INDEX.ref=null;
+ if(doRender!==false)renderAll();
+ return true
+}
+async function ensureHistoryForRows(rows){
+ var leagues=[...new Set((rows||[]).map(function(x){return canonicalLeague(x.league)}).filter(Boolean))];
+ await Promise.all(leagues.map(function(l){return ensureLeagueHistory(l,false).catch(function(){return false})}));
+ FILTER_INDEX.ref=null;MATCH_INDEX.ref=null;renderAll()
+}
 async function fetchText(url){var bases=[location.origin,"https://ters-kose.onrender.com"],last=null;for(var i=0;i<bases.length;i++){try{var proxy=bases[i]+"/proxy?url="+encodeURIComponent(url),r=await fetch(proxy,{cache:"no-store"});if(r.ok)return await r.text();last=new Error("HTTP "+r.status)}catch(e){last=e}}throw last||new Error("Veri kaynağına ulaşılamadı. Kayıtlı veriler varsa analiz yine kullanılabilir.")}
 async function loadAutomatic(){
- var count=+el("seasonCount").value,btn=el("autoBtn"),st=el("autoStatus");
- btn.disabled=true;st.textContent="35 liglik veri deposu yükleniyor...";
- var ok=matches.filter(played).length>1000;
- if(!ok){try{ok=await loadWarehouseHistory()}catch(e){ok=false}}
- var playedRows=matches.filter(played);
- if(!playedRows.length){btn.disabled=false;st.textContent="Tarihsel veri yüklenemedi.";return}
- var seasons=[...new Set(playedRows.map(function(x){return x.season}).filter(Boolean))].sort(function(a,b){return seasonStart(b)-seasonStart(a)}).slice(0,count);
- var leagues=[...new Set(playedRows.map(function(x){return canonicalLeague(x.league)}).filter(Boolean))];
- sourceName="Ters Köşe • "+leagues.length+" lig • son "+seasons.length+" sezon";
- btn.disabled=false;renderAll();setTimeout(function(){ensureCalibrationFresh()},300);
- st.innerHTML="<b>"+playedRows.length+" tarihsel maç hazır.</b> "+leagues.length+" lig birlikte kullanılacak. Lig lig veri seçmen gerekmiyor."
+ var btn=el("autoBtn"),st=el("autoStatus");btn.disabled=true;st.textContent="Mobil veri indeksi kontrol ediliyor...";
+ try{
+   if(!HISTORY_SHARD_INDEX){var r=await fetch("./data/history_index.json",{cache:"no-store"});if(!r.ok)throw new Error("Mobil veri indeksi alınamadı");HISTORY_SHARD_INDEX=await r.json()}
+   st.innerHTML="<b>"+(HISTORY_SHARD_INDEX.matches||0)+" maç / "+(HISTORY_SHARD_INDEX.leagues||0)+" lig hazır.</b> Telefon kasmasın diye ligler yalnız gerektiğinde otomatik yüklenir.";
+ }catch(e){st.textContent=e.message||"Veri indeksi alınamadı."}
+ btn.disabled=false
 }
 function rowRichness(x){var n=0;if(x.date)n++;if(x.league)n++;if(x.season)n++;if(x.week)n++;if(Number.isFinite(+x.ht_home)&&Number.isFinite(+x.ht_away))n+=2;if(played(x))n+=3;return n}
 function dedupe(rows){var m=new Map();rows.forEach(function(x){var timeKey=x.date||("H"+(x.week||""));var k=[timeKey,normalizeHeader(x.league||""),x.season||"",canonicalTeamKey(x.home),canonicalTeamKey(x.away)].join("|"),old=m.get(k);if(!old||(played(x)&&!played(old))||rowRichness(x)>rowRichness(old))m.set(k,x)});return[...m.values()]}
@@ -364,7 +381,7 @@ async function fetchBulletinDate(date){var j=null,source="";
  rows.forEach(function(x){if(x.home_logo)logoBook[canonicalTeamKey(x.home)]=x.home_logo;if(x.away_logo)logoBook[canonicalTeamKey(x.away)]=x.away_logo});
  try{localStorage.setItem("terskose_logo_book",JSON.stringify(logoBook))}catch(e){}
  return rows}
-async function loadBulletin(autoNearest){var date=el("bulletinDate").value||todayISO(),btn=el("bulletinBtn");btn.disabled=true;el("bulletinStatus").textContent="Bülten yükleniyor...";try{bulletinRows=await fetchBulletinDate(date);if(!bulletinRows.length&&autoNearest){for(var i=1;i<=7;i++){var nd=addDaysISO(date,i),nr=await fetchBulletinDate(nd);if(nr.length){date=nd;el("bulletinDate").value=nd;bulletinRows=nr;break}}}if(bulletinRows.length){matches=dedupe(matches.concat(bulletinRows));FILTER_INDEX.ref=null;MATCH_INDEX.ref=null;renderAll()}fillBulletinLeague();renderBulletin();el("bulletinStatus").innerHTML=bulletinRows.length?'<b>'+bulletinRows.length+' oynanacak maç bulundu.</b> Tarih: '+esc(date)+' • Kaynak: '+esc((bulletinRows[0]&&bulletinRows[0].__bulletinSource)||"Sahadan")+' • Radar bu maçları kullanacak.':'Seçilen tarihte maç bulunamadı. Sonraki maç günü düğmesini kullanabilirsin.'}catch(e){el("bulletinStatus").textContent=e.message||"Bülten yüklenemedi."}btn.disabled=false}
+async function loadBulletin(autoNearest){var date=el("bulletinDate").value||todayISO(),btn=el("bulletinBtn");btn.disabled=true;el("bulletinStatus").textContent="Bülten yükleniyor...";try{bulletinRows=await fetchBulletinDate(date);if(!bulletinRows.length&&autoNearest){for(var i=1;i<=7;i++){var nd=addDaysISO(date,i),nr=await fetchBulletinDate(nd);if(nr.length){date=nd;el("bulletinDate").value=nd;bulletinRows=nr;break}}}if(bulletinRows.length){await ensureHistoryForRows(bulletinRows);matches=dedupe(matches.concat(bulletinRows));FILTER_INDEX.ref=null;MATCH_INDEX.ref=null;renderAll()}fillBulletinLeague();renderBulletin();el("bulletinStatus").innerHTML=bulletinRows.length?'<b>'+bulletinRows.length+' oynanacak maç bulundu.</b> Tarih: '+esc(date)+' • Kaynak: '+esc((bulletinRows[0]&&bulletinRows[0].__bulletinSource)||"Sahadan")+' • Radar bu maçları kullanacak.':'Seçilen tarihte maç bulunamadı. Sonraki maç günü düğmesini kullanabilirsin.'}catch(e){el("bulletinStatus").textContent=e.message||"Bülten yüklenemedi."}btn.disabled=false}
 function openBulletinMatch(i){var l=el("bulletinLeague").value,rows=bulletinRows.filter(function(x){return !l||x.league===l}),m=rows[i];if(!m)return;openBulletinMatchByKey(matchIdentity(m))}
 var FILTER_INDEX={ref:null,leagues:[],seasonsAll:[],seasonsByLeague:new Map(),weeksByKey:new Map()};
 function ensureFilterIndex(){
@@ -445,6 +462,7 @@ function renderQuality(){
 function matchOrderKey(x){var d=String(x&&x.date||"");if(/^\d{4}-\d{2}-\d{2}/.test(d))return d;var sy=seasonStart(x&&x.season),wk=Number(x&&x.week)||0;return String(sy).padStart(4,"0")+"-"+String(wk).padStart(3,"0")}
 function beforeTarget(x,target){if(x===target)return false;var a=matchOrderKey(x),b=matchOrderKey(target);if(a&&b)return a<b;var sx=seasonStart(x&&x.season),st=seasonStart(target&&target.season);if(sx&&st&&sx!==st)return sx<st;return (Number(x&&x.week)||0)<(Number(target&&target.week)||0)}
 
+var HISTORY_SHARD_INDEX=null,LOADED_HISTORY_LEAGUES=new Set();
 var MATCH_INDEX={ref:null,teams:new Map(),leagues:new Map(),pairs:new Map(),played:[]};
 function ensureMatchIndex(){
  if(MATCH_INDEX.ref===matches)return MATCH_INDEX;
@@ -966,6 +984,6 @@ async function hydrateLeagueCatalog(){try{var r=await apiFetch("/leagues",{cache
 async function hydrateTeamAssets(){try{var r=await apiFetch("/teams",{cache:"no-store"});if(!r.ok)return;var j=await r.json();(j.teams||[]).forEach(function(t){var full=String(t.name||"").trim();if(!full)return;[t.name,t.short,t.abbreviation,t.slug].filter(Boolean).forEach(function(v){teamNameBook[teamKey(v)]=full});if(t.logo){[t.name,t.short,t.abbreviation,t.slug].filter(Boolean).forEach(function(v){logoBook[teamKey(v)]=t.logo});logoBook[teamKey(full)]=t.logo}});try{localStorage.setItem("terskose_team_name_book",JSON.stringify(teamNameBook));localStorage.setItem("terskose_logo_book",JSON.stringify(logoBook))}catch(e){}matches=dedupe(normalizeStoredMatches(matches));save();renderAll();if(bulletinRows.length)renderBulletin()}catch(e){}}
 function fillSource(){if(el("bulletinDate")&&!el("bulletinDate").value)el("bulletinDate").value=todayISO();if(el("bulletinLeague"))el("bulletinLeague").onchange=renderBulletin}
 updateConnectionState();var mv=el("modelVersionBadge");if(mv)mv.textContent="Model v"+MODEL_VERSION;matches=dedupe(normalizeStoredMatches(matches));save();fillSource();renderAll();refreshWarehouseStatus();setTimeout(function(){try{runSelfTest()}catch(e){}},300);setTimeout(async function(){if(navigator.onLine){await loadWarehouseHistory();hydrateLeagueCatalog();hydrateTeamAssets();loadBulletin(true)}},500);
-if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("./sw.js?v=20260907h").catch(function(){})})}
+if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("./sw.js?v=20260907i").catch(function(){})})}
 </script>
 </body></html>
