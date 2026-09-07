@@ -62,14 +62,16 @@ def smoke():
             source = {"ok": True, "status": 200, "bytes": len(cached["content"]), "detail": "cache"}
         else:
             source = {"ok": False, "status": None, "bytes": 0, "detail": str(e)}
-    return jsonify({
-        "ok": frontend_ok and pwa_ok,
+    overall_ok = frontend_ok and pwa_ok and source["ok"]
+    payload = {
+        "ok": overall_ok,
         "version": APP_VERSION,
         "frontend_ok": frontend_ok,
         "pwa_ok": pwa_ok,
         "files": files,
         "fixture_source": source,
-    })
+    }
+    return jsonify(payload), (200 if overall_ok else 503)
 
 def fetch_source(url):
     headers = {
