@@ -17,13 +17,23 @@ def add_cors_headers(resp):
 def home():
     return send_from_directory(".", "index.html")
 
+@app.get("/manifest.json")
+def manifest():
+    return send_from_directory(".", "manifest.json", mimetype="application/manifest+json")
+
+@app.get("/sw.js")
+def service_worker():
+    resp = send_from_directory(".", "sw.js", mimetype="application/javascript")
+    resp.headers["Cache-Control"] = "no-cache"
+    return resp
+
 @app.get("/api")
 def api_info():
     return jsonify({"ok": True, "service": "Ters Kose data proxy"})
 
 @app.get("/health")
 def health():
-    return jsonify({"ok": True})
+    return jsonify({"ok": True, "frontend": True, "proxy": True})
 
 def fetch_source(url):
     headers = {
