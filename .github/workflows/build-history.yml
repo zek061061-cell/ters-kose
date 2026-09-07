@@ -14,6 +14,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: ters-kose-history-main
+  cancel-in-progress: true
+
 jobs:
   build-history:
     if: github.actor != 'github-actions[bot]'
@@ -42,10 +46,20 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          # The build can take over a minute. Keep the generated warehouse while
+          # rebasing onto any newer main commits that arrived during the build.
+          cp data/history_10y.json /tmp/history_10y.json
+          cp data/history_meta.json /tmp/history_meta.json
+          git fetch origin main
+          git reset --hard origin/main
+          cp /tmp/history_10y.json data/history_10y.json
+          cp /tmp/history_meta.json data/history_meta.json
+
           git add data/history_10y.json data/history_meta.json
           if git diff --cached --quiet; then
             echo "No warehouse changes"
           else
             git commit -m "Update verified 10-year history warehouse"
-            git push
+            git push origin main
           fi
