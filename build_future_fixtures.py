@@ -100,11 +100,13 @@ for league,url in LEAGUES.items():
             d=parse_date(t,now.year)
             if d and len(t)<45:
                 current_date=d
-            if el.name!="a":continue
             mt=re.search(r"(?<!\d)(\d{1,2}:\d{2})\s+(.+?)\s+-\s+(.+?)(?:\s*$)",t)
             if not mt:continue
             hm,home,away=mt.groups()
-            href=urljoin(BASE,el.get("href") or "")
+            # Some Sahadan fixture pages expose match rows as non-anchor containers.
+            # Use an embedded match link when present; otherwise keep the parsed row.
+            link=el if el.name=="a" else el.find("a",href=True)
+            href=urljoin(BASE,(link.get("href") if link else "") or "")
             try:
                 match_slug=href.split("/mac/",1)[1].split("/",1)[0]
                 if "-v-" in match_slug:
