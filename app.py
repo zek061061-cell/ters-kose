@@ -8,7 +8,7 @@ from urllib.parse import urlparse
 app = Flask(__name__)
 
 ALLOWED_HOSTS = {"www.football-data.co.uk", "football-data.co.uk"}
-APP_VERSION = "3.4"
+APP_VERSION = "3.5"
 SOURCE_CACHE = {}
 
 ESPN_LEAGUES = {
@@ -18,6 +18,7 @@ ESPN_LEAGUES = {
     "eng.3": "İngiltere EFL League One",
     "eng.4": "İngiltere EFL League Two",
     "sco.1": "İskoçya Premiership",
+    "sco.2": "İskoçya Championship",
     "ger.1": "Almanya Bundesliga",
     "ger.2": "Almanya 2. Bundesliga",
     "esp.1": "İspanya La Liga",
@@ -30,17 +31,49 @@ ESPN_LEAGUES = {
     "bel.1": "Belçika Pro League",
     "por.1": "Portekiz Primeira Liga",
     "gre.1": "Yunanistan Super League",
-    "swe.1": "İsveç Allsvenskan",
-    "swe.2": "İsveç Superettan",
-    "nor.1": "Norveç Eliteserien",
-    "den.1": "Danimarka Superliga",
     "aut.1": "Avusturya Bundesliga",
     "sui.1": "İsviçre Super League",
+    "den.1": "Danimarka Superliga",
+    "nor.1": "Norveç Eliteserien",
+    "swe.1": "İsveç Allsvenskan",
+    "swe.2": "İsveç Superettan",
+    "irl.1": "İrlanda Premier Division",
     "pol.1": "Polonya Ekstraklasa",
     "cze.1": "Çekya First League",
-    "irl.1": "İrlanda Premier Division",
+    "rou.1": "Romanya Liga I",
+    "cro.1": "Hırvatistan HNL",
+    "srp.1": "Sırbistan SuperLiga",
+    "ukr.1": "Ukrayna Premier League",
+    "rus.1": "Rusya Premier League",
+    "jpn.1": "Japonya J1 League",
+    "jpn.2": "Japonya J2 League",
+    "kor.1": "Güney Kore K League 1",
+    "chn.1": "Çin Süper Ligi",
+    "aus.1": "Avustralya A-League Men",
+    "ind.1": "Hindistan Super League",
+    "idn.1": "Endonezya Liga 1",
+    "tha.1": "Tayland League 1",
+    "mys.1": "Malezya Super League",
+    "sgp.1": "Singapur Premier League",
+    "bra.1": "Brezilya Série A",
+    "bra.2": "Brezilya Série B",
+    "arg.1": "Arjantin Primera División",
+    "uru.1": "Uruguay Primera División",
+    "chi.1": "Şili Primera División",
+    "col.1": "Kolombiya Primera A",
+    "ecu.1": "Ekvador LigaPro",
+    "per.1": "Peru Liga 1",
+    "par.1": "Paraguay Primera División",
+    "usa.1": "ABD MLS",
+    "mex.1": "Meksika Liga MX",
+    "crc.1": "Kosta Rika Primera División",
+    "ksa.1": "Suudi Arabistan Pro League",
+    "qat.1": "Katar Stars League",
+    "uae.1": "BAE Pro League",
+    "rsa.1": "Güney Afrika Premiership",
+    "egy.1": "Mısır Premier League",
+    "mar.1": "Fas Botola Pro",
 }
-
 
 @app.after_request
 def add_cors_headers(resp):
