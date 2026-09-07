@@ -29,6 +29,33 @@ LEAGUES={
 TR_MONTHS={"Ocak":1,"Şubat":2,"Mart":3,"Nisan":4,"Mayıs":5,"Haziran":6,"Temmuz":7,"Ağustos":8,"Eylül":9,"Ekim":10,"Kasım":11,"Aralık":12}
 now=datetime.now(ZoneInfo("Europe/Istanbul"))
 
+def slugify(v):
+    import unicodedata
+    v=str(v or "").strip().casefold()
+    v=v.replace("ı","i").replace("ş","s").replace("ğ","g").replace("ü","u").replace("ö","o").replace("ç","c")
+    v=unicodedata.normalize("NFKD",v)
+    v="".join(ch for ch in v if not unicodedata.combining(ch))
+    return re.sub(r"[^a-z0-9]+","-",v).strip("-")
+
+TEAM_LOOKUP={}
+try:
+    with open("data/history_10y.json","r",encoding="utf-8") as hf:
+        hist=json.load(hf)
+    for r in hist:
+        for t in (r.get("home"),r.get("away")):
+            t=str(t or "").strip()
+            if t: TEAM_LOOKUP[slugify(t)]=t
+except Exception:
+    pass
+
+def resolve_slug_team(slug):
+    if slug in TEAM_LOOKUP:return TEAM_LOOKUP[slug]
+    simple=re.sub(r"-(fc|fk|sk|cf|ac|if)$","",slug)
+    for k,v in TEAM_LOOKUP.items():
+        ks=re.sub(r"-(fc|fk|sk|cf|ac|if)$","",k)
+        if ks==simple:return v
+    return slug.replace("-"," ").title()
+
 def fetch(url):
     last=None
     for attempt in range(4):
@@ -70,12 +97,18 @@ for league,url in LEAGUES.items():
             mt=re.search(r"(?<!\d)(\d{1,2}:\d{2})\s+(.+?)\s+-\s+(.+?)(?:\s*$)",t)
             if not mt:continue
             hm,home,away=mt.groups()
-            def clean_team(v):
-                v=re.sub(r"^\\d+\\s+Ligde\\s+\\d+\\.sırada\\s+","",v).strip()
-                v=re.sub(r"\\s+\\d+\\s+Ligde\\s+\\d+\\.sırada\\s*-?$","",v).strip()
-                v=re.sub(r"\\s+-\\s*$","",v).strip()
-                return v
-            home,away=clean_team(home),clean_team(away)
+            href=urljoin(BASE,el.get("href") or "")
+            try:
+                match_slug=href.split("/mac/",1)[1].split("/",1)[0]
+                if "-v-" in match_slug:
+                    hs,as_=match_slug.split("-v-",1)
+                    home,away=resolve_slug_team(hs),resolve_slug_team(as_)
+                elif "-vs-" in match_slug:
+                    hs,as_=match_slug.split("-vs-",1)
+                    home,away=resolve_slug_team(hs),resolve_slug_team(as_)
+            except Exception:
+                home=re.sub(r"^\d+\s+Ligde\s+\d+\.sırada\s+","",home).strip()
+                away=re.sub(r"\s+\d+\s+Ligde\s+\d+\.sırada\s*-?$","",away).strip()
             if not current_date:
                 # compact preview uses DD/MM at the beginning
                 md=re.match(r"(\d{2})/(\d{2})\s+",t)
@@ -88,7 +121,6 @@ for league,url in LEAGUES.items():
                 dt=datetime.fromisoformat(kickoff)
                 if dt < now:continue
             except Exception:pass
-            href=urljoin(BASE,el.get("href") or "")
             found.append({
               "event_id":href or "|".join([current_date,league,home,away]),
               "date":current_date,"kickoff":kickoff,"league":league,"league_code":"SAHADAN",
