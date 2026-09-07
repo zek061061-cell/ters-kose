@@ -17,6 +17,8 @@ app = Flask(__name__)
 ALLOWED_HOSTS = {"www.football-data.co.uk", "football-data.co.uk"}
 APP_VERSION = "4.1"
 SOURCE_CACHE = {}
+FIXTURE_CACHE = {}
+TEAM_CACHE = {}
 
 MAIN_HISTORY_LEAGUES = {
     "T1": "Türkiye Süper Lig", "E0": "İngiltere Premier League", "E1": "İngiltere EFL Championship",
@@ -713,6 +715,12 @@ def leagues():
 def teams():
     league = request.args.get("league", "").strip()
     codes = [league] if league in ESPN_LEAGUES else list(ESPN_LEAGUES.keys())
+    cache_key = league or "__all__"
+    cached = TEAM_CACHE.get(cache_key)
+    if cached and time.time() - cached["saved_at"] < 21600:
+        resp = jsonify(cached["payload"])
+        resp.headers["X-TersKose-Cache"] = "hit"
+        return resp
     out, errors = [], []
 
     def fetch_teams(code):
@@ -748,13 +756,23 @@ def teams():
             out.extend(rows)
             if err:
                 errors.append(err)
-    return jsonify({"ok": True, "teams": out, "count": len(out), "errors": errors})
+    payload = {"ok": True, "teams": out, "count": len(out), "errors": errors}
+    TEAM_CACHE[cache_key] = {"saved_at": time.time(), "payload": payload}
+    resp = jsonify(payload)
+    resp.headers["X-TersKose-Cache"] = "miss"
+    return resp
 
 @app.get("/fixtures")
 def fixtures():
     date = request.args.get("date", "").strip().replace("-", "")
     if len(date) != 8 or not date.isdigit():
         return jsonify({"error": "date YYYY-MM-DD gerekli"}), 400
+
+    cached = FIXTURE_CACHE.get(date)
+    if cached and time.time() - cached["saved_at"] < 300:
+        resp = jsonify(cached["payload"])
+        resp.headers["X-TersKose-Cache"] = "hit"
+        return resp
 
     def fetch_league(item):
         league_code, league_name = item
@@ -811,7 +829,14 @@ def fixtures():
             if err:
                 errors.append(err)
     all_matches.sort(key=lambda x: (x.get("kickoff") or "", x.get("league") or "", x.get("home") or ""))
-    return jsonify({"ok": True, "date": date, "matches": all_matches, "count": len(all_matches), "errors": errors})
+    payload = {"ok": True, "date": date, "matches": all_matches, "count": len(all_matches), "errors": errors}
+    FIXTURE_CACHE[date] = {"saved_at": time.time(), "payload": payload}
+    if len(FIXTURE_CACHE) > 16:
+        oldest = min(FIXTURE_CACHE, key=lambda k: FIXTURE_CACHE[k]["saved_at"])
+        FIXTURE_CACHE.pop(oldest, None)
+    resp = jsonify(payload)
+    resp.headers["X-TersKose-Cache"] = "miss"
+    return resp
 
 @app.get("/smoke")
 def smoke():
