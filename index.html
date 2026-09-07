@@ -354,11 +354,30 @@ function renderQuality(){var total=matches.length,playedN=matches.filter(played)
 
 function matchOrderKey(x){var d=String(x&&x.date||"");if(/^\d{4}-\d{2}-\d{2}/.test(d))return d;var sy=seasonStart(x&&x.season),wk=Number(x&&x.week)||0;return String(sy).padStart(4,"0")+"-"+String(wk).padStart(3,"0")}
 function beforeTarget(x,target){if(x===target)return false;var a=matchOrderKey(x),b=matchOrderKey(target);if(a&&b)return a<b;var sx=seasonStart(x&&x.season),st=seasonStart(target&&target.season);if(sx&&st&&sx!==st)return sx<st;return (Number(x&&x.week)||0)<(Number(target&&target.week)||0)}
-function histForTeam(team,target){return matches.filter(function(x){return played(x)&&beforeTarget(x,target)&&(sameTeam(x.home,team)||sameTeam(x.away,team))})}
+
+var MATCH_INDEX={ref:null,teams:new Map(),leagues:new Map(),pairs:new Map(),played:[]};
+function ensureMatchIndex(){
+ if(MATCH_INDEX.ref===matches)return MATCH_INDEX;
+ var teams=new Map(),leagues=new Map(),pairs=new Map(),all=[];
+ matches.forEach(function(x){
+   if(!played(x))return;
+   all.push(x);
+   var hk=canonicalTeamKey(x.home),ak=canonicalTeamKey(x.away),lk=canonicalLeague(x.league||"");
+   if(!teams.has(hk))teams.set(hk,[]);teams.get(hk).push(x);
+   if(!teams.has(ak))teams.set(ak,[]);teams.get(ak).push(x);
+   if(!leagues.has(lk))leagues.set(lk,[]);leagues.get(lk).push(x);
+   var pk=[hk,ak].sort().join("|");if(!pairs.has(pk))pairs.set(pk,[]);pairs.get(pk).push(x);
+ });
+ function sortRows(rows){rows.sort(function(a,b){return matchOrderKey(a).localeCompare(matchOrderKey(b))})}
+ teams.forEach(sortRows);leagues.forEach(sortRows);pairs.forEach(sortRows);sortRows(all);
+ MATCH_INDEX={ref:matches,teams:teams,leagues:leagues,pairs:pairs,played:all};
+ return MATCH_INDEX
+}
+function histForTeam(team,target){var rows=ensureMatchIndex().teams.get(canonicalTeamKey(team))||[];return rows.filter(function(x){return beforeTarget(x,target)})}
 function weightedAvg(vals,weights){var n=0,d=0;vals.forEach(function(v,i){if(Number.isFinite(v)){n+=v*weights[i];d+=weights[i]}});return d?n/d:0}
 function teamStats(team,target,venue){var rows=histForTeam(team,target).sort(function(a,b){return matchOrderKey(b).localeCompare(matchOrderKey(a))});var vr=rows.filter(function(x){return venue==="home"?sameTeam(x.home,team):sameTeam(x.away,team)});if(vr.length<6)vr=rows;var recent=vr.slice(0,24),gf=0,ga=0,w=0,d=0,l=0,btts=0,o25=0,o15=0,o35=0,ws=0;recent.forEach(function(m,i){var wt=Math.pow(.92,i),home=sameTeam(m.home,team),a=home?+m.ft_home:+m.ft_away,b=home?+m.ft_away:+m.ft_home;ws+=wt;gf+=a*wt;ga+=b*wt;if(a>b)w+=wt;else if(a===b)d+=wt;else l+=wt;if(a>0&&b>0)btts+=wt;if(a+b>2.5)o25+=wt;if(a+b>1.5)o15+=wt;if(a+b>3.5)o35+=wt});ws=Math.max(.001,ws);return{n:recent.length,gf:gf/ws,ga:ga/ws,win:w/ws,draw:d/ws,loss:l/ws,btts:btts/ws,o25:o25/ws,o15:o15/ws,o35:o35/ws,rows:recent}}
-function leagueStats(target){var r=matches.filter(function(x){return played(x)&&beforeTarget(x,target)&&x.league===target.league});if(!r.length)r=matches.filter(function(x){return played(x)&&beforeTarget(x,target)});var gh=0,ga=0,b=0,o15=0,o25=0,o35=0,hwin=0,draw=0,awin=0;r.forEach(function(x){var h=+x.ft_home,a=+x.ft_away,t=h+a;gh+=h;ga+=a;if(h>0&&a>0)b++;if(t>=2)o15++;if(t>=3)o25++;if(t>=4)o35++;if(h>a)hwin++;else if(h===a)draw++;else awin++});var n=Math.max(1,r.length);return{homeGoals:gh/n,awayGoals:ga/n,btts:b/n,o15:o15/n,o25:o25/n,o35:o35/n,p1:hwin/n,px:draw/n,p2:awin/n,n:r.length}}
-function h2hStats(target){var r=matches.filter(function(x){return played(x)&&beforeTarget(x,target)&&((sameTeam(x.home,target.home)&&sameTeam(x.away,target.away))||(sameTeam(x.home,target.away)&&sameTeam(x.away,target.home)))}).sort(function(a,b){return matchOrderKey(b).localeCompare(matchOrderKey(a))}).slice(0,12);var hw=0,d=0,aw=0,btts=0,o25=0;r.forEach(function(x){var same=sameTeam(x.home,target.home),h=same?+x.ft_home:+x.ft_away,a=same?+x.ft_away:+x.ft_home;if(h>a)hw++;else if(h===a)d++;else aw++;if(h>0&&a>0)btts++;if(h+a>2.5)o25++});var n=Math.max(1,r.length);return{n:r.length,home:hw/n,draw:d/n,away:aw/n,btts:btts/n,o25:o25/n}}
+function leagueStats(target){var ix=ensureMatchIndex(),lk=canonicalLeague(target.league||""),r=(ix.leagues.get(lk)||[]).filter(function(x){return beforeTarget(x,target)});if(!r.length)r=ix.played.filter(function(x){return beforeTarget(x,target)});var gh=0,ga=0,b=0,o15=0,o25=0,o35=0,hwin=0,draw=0,awin=0;r.forEach(function(x){var h=+x.ft_home,a=+x.ft_away,t=h+a;gh+=h;ga+=a;if(h>0&&a>0)b++;if(t>=2)o15++;if(t>=3)o25++;if(t>=4)o35++;if(h>a)hwin++;else if(h===a)draw++;else awin++});var n=Math.max(1,r.length);return{homeGoals:gh/n,awayGoals:ga/n,btts:b/n,o15:o15/n,o25:o25/n,o35:o35/n,p1:hwin/n,px:draw/n,p2:awin/n,n:r.length}}
+function h2hStats(target){var hk=canonicalTeamKey(target.home),ak=canonicalTeamKey(target.away),pk=[hk,ak].sort().join("|"),r=(ensureMatchIndex().pairs.get(pk)||[]).filter(function(x){return beforeTarget(x,target)}).slice(-12).reverse();var hw=0,d=0,aw=0,btts=0,o25=0;r.forEach(function(x){var same=sameTeam(x.home,target.home),h=same?+x.ft_home:+x.ft_away,a=same?+x.ft_away:+x.ft_home;if(h>a)hw++;else if(h===a)d++;else aw++;if(h>0&&a>0)btts++;if(h+a>2.5)o25++});var n=Math.max(1,r.length);return{n:r.length,home:hw/n,draw:d/n,away:aw/n,btts:btts/n,o25:o25/n}}
 function poisson(k,l){var fact=1;for(var i=2;i<=k;i++)fact*=i;return Math.exp(-l)*Math.pow(l,k)/fact}
 function recentForm(team,target,n){var r=histForTeam(team,target).sort(function(a,b){return matchOrderKey(b).localeCompare(matchOrderKey(a))}).slice(0,n||5);return r.map(function(x){var home=sameTeam(x.home,team),gf=home?+x.ft_home:+x.ft_away,ga=home?+x.ft_away:+x.ft_home,res=gf>ga?"G":gf===ga?"B":"M";return{res:res,gf:gf,ga:ga,opp:home?x.away:x.home,date:x.date}})}
 function momentum(team,target){var r=histForTeam(team,target).sort(function(a,b){return matchOrderKey(b).localeCompare(matchOrderKey(a))}).slice(0,6);if(!r.length)return{attack:1,defense:1,form:.5};var gf=0,ga=0,pts=0,w=0;r.forEach(function(x,i){var wt=Math.pow(.86,i),home=sameTeam(x.home,team),a=home?+x.ft_home:+x.ft_away,b=home?+x.ft_away:+x.ft_home;w+=wt;gf+=a*wt;ga+=b*wt;pts+=(a>b?3:a===b?1:0)*wt});return{attack:clamp((gf/w)/1.45,.72,1.28),defense:clamp((ga/w)/1.45,.72,1.28),form:clamp((pts/w)/3,0,1)}}
