@@ -7,8 +7,8 @@
 <meta name="apple-mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="TERS KÖŞE"/>
-<link rel="manifest" href="/manifest.json"/>
-<link rel="apple-touch-icon" href="/icon.svg"/>
+<link rel="manifest" href="./manifest.json"/>
+<link rel="apple-touch-icon" href="./icon.svg"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
@@ -836,6 +836,6 @@ async function hydrateLeagueCatalog(){try{var r=await apiFetch("/leagues",{cache
 async function hydrateTeamAssets(){try{var r=await apiFetch("/teams",{cache:"no-store"});if(!r.ok)return;var j=await r.json();(j.teams||[]).forEach(function(t){var full=String(t.name||"").trim();if(!full)return;[t.name,t.short,t.abbreviation,t.slug].filter(Boolean).forEach(function(v){teamNameBook[teamKey(v)]=full});if(t.logo){[t.name,t.short,t.abbreviation,t.slug].filter(Boolean).forEach(function(v){logoBook[teamKey(v)]=t.logo});logoBook[teamKey(full)]=t.logo}});try{localStorage.setItem("terskose_team_name_book",JSON.stringify(teamNameBook));localStorage.setItem("terskose_logo_book",JSON.stringify(logoBook))}catch(e){}matches=dedupe(normalizeStoredMatches(matches));save();renderAll();if(bulletinRows.length)renderBulletin()}catch(e){}}
 function fillSource(){el("sourceLeague").innerHTML='<option value="">Tüm Ligler</option>'+Object.keys(SOURCES).map(function(x){return"<option>"+esc(x)+"</option>"}).join("");if(el("bulletinDate")&&!el("bulletinDate").value)el("bulletinDate").value=todayISO();if(el("bulletinLeague"))el("bulletinLeague").onchange=renderBulletin}
 updateConnectionState();var mv=el("modelVersionBadge");if(mv)mv.textContent="Model v"+MODEL_VERSION;matches=dedupe(normalizeStoredMatches(matches));save();fillSource();renderAll();refreshWarehouseStatus();setTimeout(function(){try{runSelfTest()}catch(e){}},300);setTimeout(async function(){if(navigator.onLine){await loadWarehouseHistory();hydrateLeagueCatalog();hydrateTeamAssets();loadBulletin(true)}},500);
-if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js?v=20260907c").catch(function(){})})}
+if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("./sw.js?v=20260907d").catch(function(){})})}
 </script>
 </body></html>
