@@ -30,3 +30,26 @@ jobs:
           PY
       - name: Check JavaScript syntax
         run: node --check /tmp/ters-kose-inline.js
+      - name: Check application endpoints
+        run: |
+          python - <<'PY'
+          import os
+          import app
+
+          client = app.app.test_client()
+
+          r = client.get("/history/status")
+          assert r.status_code in (200, 404), r.status_code
+
+          os.environ.pop("HISTORY_BUILD_TOKEN", None)
+          assert client.post("/history/build").status_code == 403
+          assert client.post("/history/retry-gaps").status_code == 403
+
+          assert client.get("/fixtures?date=bad").status_code == 400
+
+          for path in ("/", "/manifest.json", "/sw.js"):
+              rr = client.get(path)
+              assert rr.status_code == 200, (path, rr.status_code)
+
+          print("endpoint smoke tests passed")
+          PY
