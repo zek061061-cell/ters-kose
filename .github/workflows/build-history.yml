@@ -51,15 +51,27 @@ jobs:
           # rebasing onto any newer main commits that arrived during the build.
           cp data/history_10y.json /tmp/history_10y.json
           cp data/history_meta.json /tmp/history_meta.json
-          git fetch origin main
-          git reset --hard origin/main
-          cp /tmp/history_10y.json data/history_10y.json
-          cp /tmp/history_meta.json data/history_meta.json
 
-          git add data/history_10y.json data/history_meta.json
-          if git diff --cached --quiet; then
-            echo "No warehouse changes"
-          else
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/history_10y.json data/history_10y.json
+            cp /tmp/history_meta.json data/history_meta.json
+            git add data/history_10y.json data/history_meta.json
+
+            if git diff --cached --quiet; then
+              echo "No warehouse changes"
+              exit 0
+            fi
+
             git commit -m "Update verified 10-year history warehouse"
-            git push origin main
-          fi
+            if git push origin main; then
+              exit 0
+            fi
+
+            echo "Push race on attempt $attempt; rebasing generated warehouse onto latest main"
+            sleep 2
+          done
+
+          echo "Unable to publish warehouse after retries"
+          exit 1
