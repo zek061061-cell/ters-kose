@@ -70,6 +70,12 @@ for league,url in LEAGUES.items():
             mt=re.search(r"(?<!\d)(\d{1,2}:\d{2})\s+(.+?)\s+-\s+(.+?)(?:\s*$)",t)
             if not mt:continue
             hm,home,away=mt.groups()
+            def clean_team(v):
+                v=re.sub(r"^\\d+\\s+Ligde\\s+\\d+\\.sırada\\s+","",v).strip()
+                v=re.sub(r"\\s+\\d+\\s+Ligde\\s+\\d+\\.sırada\\s*-?$","",v).strip()
+                v=re.sub(r"\\s+-\\s*$","",v).strip()
+                return v
+            home,away=clean_team(home),clean_team(away)
             if not current_date:
                 # compact preview uses DD/MM at the beginning
                 md=re.match(r"(\d{2})/(\d{2})\s+",t)
