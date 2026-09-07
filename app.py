@@ -30,6 +30,15 @@ ESPN_LEAGUES = {
     "bel.1": "Belçika Pro League",
     "por.1": "Portekiz Primeira Liga",
     "gre.1": "Yunanistan Super League",
+    "swe.1": "İsveç Allsvenskan",
+    "swe.2": "İsveç Superettan",
+    "nor.1": "Norveç Eliteserien",
+    "den.1": "Danimarka Superliga",
+    "aut.1": "Avusturya Bundesliga",
+    "sui.1": "İsviçre Super League",
+    "pol.1": "Polonya Ekstraklasa",
+    "cze.1": "Çekya First League",
+    "irl.1": "İrlanda Premier Division",
 }
 
 
@@ -68,6 +77,47 @@ def index_file():
 def health():
     return jsonify({"ok": True, "frontend": True, "proxy": True, "version": APP_VERSION, "cache_entries": len(SOURCE_CACHE)})
 
+
+@app.get("/teams")
+def teams():
+    league = request.args.get("league", "").strip()
+    codes = [league] if league in ESPN_LEAGUES else list(ESPN_LEAGUES.keys())
+    out, errors = [], []
+
+    def fetch_teams(code):
+        url = f"https://site.api.espn.com/apis/site/v2/sports/soccer/{code}/teams?limit=200"
+        try:
+            r = requests.get(url, timeout=10, headers={"User-Agent": "Mozilla/5.0"})
+            if not r.ok:
+                return [], {"league": code, "status": r.status_code}
+            data = r.json()
+            items = []
+            for sport in data.get("sports", []):
+                for lg in sport.get("leagues", []):
+                    for item in lg.get("teams", []):
+                        team = item.get("team", {})
+                        logos = team.get("logos") or []
+                        items.append({
+                            "league_code": code,
+                            "league": ESPN_LEAGUES.get(code, code),
+                            "name": team.get("displayName") or team.get("name") or "",
+                            "short": team.get("shortDisplayName") or "",
+                            "abbreviation": team.get("abbreviation") or "",
+                            "slug": team.get("slug") or "",
+                            "logo": (logos[0].get("href") if logos else team.get("logo")) or "",
+                        })
+            return items, None
+        except Exception as e:
+            return [], {"league": code, "detail": str(e)}
+
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        futures = [pool.submit(fetch_teams, code) for code in codes]
+        for fut in as_completed(futures):
+            rows, err = fut.result()
+            out.extend(rows)
+            if err:
+                errors.append(err)
+    return jsonify({"ok": True, "teams": out, "count": len(out), "errors": errors})
 
 @app.get("/fixtures")
 def fixtures():
