@@ -141,7 +141,7 @@ function leagueStats(target){var r=matches.filter(function(x){return played(x)&&
 function h2hStats(target){var r=matches.filter(function(x){return played(x)&&beforeTarget(x,target)&&((x.home===target.home&&x.away===target.away)||(x.home===target.away&&x.away===target.home))}).sort(function(a,b){return String(b.date).localeCompare(String(a.date))}).slice(0,12);var hw=0,d=0,aw=0,btts=0,o25=0;r.forEach(function(x){var same=x.home===target.home,h=same?+x.ft_home:+x.ft_away,a=same?+x.ft_away:+x.ft_home;if(h>a)hw++;else if(h===a)d++;else aw++;if(h>0&&a>0)btts++;if(h+a>2.5)o25++});var n=Math.max(1,r.length);return{n:r.length,home:hw/n,draw:d/n,away:aw/n,btts:btts/n,o25:o25/n}}
 function poisson(k,l){var fact=1;for(var i=2;i<=k;i++)fact*=i;return Math.exp(-l)*Math.pow(l,k)/fact}
 function recentForm(team,target,n){var r=histForTeam(team,target).sort(function(a,b){return String(b.date).localeCompare(String(a.date))}).slice(0,n||5);return r.map(function(x){var home=x.home===team,gf=home?+x.ft_home:+x.ft_away,ga=home?+x.ft_away:+x.ft_home,res=gf>ga?"G":gf===ga?"B":"M";return{res:res,gf:gf,ga:ga,opp:home?x.away:x.home,date:x.date}})}
-function strongestSignals(m,a){var out=[];var best=[["1",a.p1],["X",a.px],["2",a.p2]].sort(function(x,y){return y[1]-x[1]})[0];out.push("Maç sonucu "+best[0]+" modeli %"+pct(best[1]));if(a.btts>=.6)out.push("KG Var güçlü: %"+pct(a.btts));if(a.o25>=.6)out.push("Üst 2.5 güçlü: %"+pct(a.o25));if(a.u25>=.6)out.push("Alt 2.5 güçlü: %"+pct(a.u25));if(a.hh.n>=3)out.push(a.hh.n+" geçmiş H2H modele destek veriyor");var p=[["1/2",a.patterns.p12],["2/1",a.patterns.p21],["6+",a.patterns.p6]].sort(function(x,y){return y[1]-x[1]})[0];if(p[1]>=.12)out.push("Sürpriz örüntüsü "+p[0]+" %"+pct(p[1]));return out.slice(0,5)}
+function strongestSignals(m,a){var out=[];var best=[["1",a.p1],["X",a.px],["2",a.p2]].sort(function(x,y){return y[1]-x[1]})[0];out.push("Maç sonucu "+best[0]+" modeli %"+pct(best[1]));if(a.btts>=.6)out.push("KG Var güçlü: %"+pct(a.btts));if(a.o25>=.6)out.push("Üst 2.5 güçlü: %"+pct(a.o25));if(a.u25>=.6)out.push("Alt 2.5 güçlü: %"+pct(a.u25));if(a.hh.n>=3)out.push(a.hh.n+" geçmiş H2H modele destek veriyor");var p=[["1/2",a.patterns.p12],["2/1",a.patterns.p21],["6+",a.patterns.p6]].sort(function(x,y){return y[1]-x[1]})[0];if(p[1]>=.12)out.push("Sürpriz örüntüsü "+p[0]+" %"+pct(p[1]));if(a.patterns.engines&&a.patterns.engines.length){var e=a.patterns.engines[0];out.push(e.name+" %"+pct(e.score)+": "+e.detail)}return out.slice(0,6)
 function calBin(p){return String(Math.max(0,Math.min(9,Math.floor(clamp(p,0,.9999)*10))))}
 function calibrateProb(p,key){if(!calibration||!calibration[key])return p;var b=calibration[key][calBin(p)];if(!b||b.n<8)return p;var empirical=(b.ok+3*p)/(b.n+3);var weight=Math.min(.7,b.n/40);return clamp(p*(1-weight)+empirical*weight,.01,.99)}
 function modelMatch(m,skipCalibration){var hs=teamStats(m.home,m,"home"),as=teamStats(m.away,m,"away"),ls=leagueStats(m),hh=h2hStats(m);var homeAttack=hs.n?hs.gf:ls.homeGoals,homeDef=hs.n?hs.ga:ls.awayGoals,awayAttack=as.n?as.gf:ls.awayGoals,awayDef=as.n?as.ga:ls.homeGoals;var lh=clamp(weightedAvg([homeAttack,awayDef,ls.homeGoals],[.42,.33,.25]),.2,3.8),la=clamp(weightedAvg([awayAttack,homeDef,ls.awayGoals],[.42,.33,.25]),.2,3.8);var scores=[],p1=0,px=0,p2=0,btts=0,o15=0,o25=0,o35=0;for(var h=0;h<=7;h++){for(var a=0;a<=7;a++){var p=poisson(h,lh)*poisson(a,la);scores.push({h:h,a:a,p:p});if(h>a)p1+=p;else if(h===a)px+=p;else p2+=p;if(h>0&&a>0)btts+=p;if(h+a>=2)o15+=p;if(h+a>=3)o25+=p;if(h+a>=4)o35+=p}}var empir1=(hs.win+as.loss)/2,empirX=(hs.draw+as.draw)/2,empir2=(hs.loss+as.win)/2;if(hh.n>=2){empir1=(empir1*2+hh.home)/3;empirX=(empirX*2+hh.draw)/3;empir2=(empir2*2+hh.away)/3}p1=.68*p1+.32*empir1;px=.68*px+.32*empirX;p2=.68*p2+.32*empir2;var sum=p1+px+p2;p1/=sum;px/=sum;p2/=sum;btts=.7*btts+.3*((hs.btts+as.btts+ls.btts)/3);o25=.7*o25+.3*((hs.o25+as.o25+ls.o25)/3);o15=.75*o15+.25*((hs.o15+as.o15)/2);o35=.75*o35+.25*((hs.o35+as.o35)/2);
@@ -213,7 +213,44 @@ function patternSignals(target){
    var bySeason={};sur.forEach(function(x){var sy=x.season;if(Math.abs((+x.week)-(+target.week))<=2){bySeason[sy]=(bySeason[sy]||0)+1}});
    var seasonsHit=Object.keys(bySeason).length;
    if(seasonsHit>=2)addEngine(engines,"Yatay fikstür",Math.min(.9,.34+seasonsHit*.10),team+" için H"+target.week+" çevresinde "+seasonsHit+" farklı sezonda sürpriz",[]);
+
+   // 7) Tarih / takvim benzerliği: aynı ay ve yakın hafta
+   var tDate=String(target.date||""),tMonth=tDate.length>=7?tDate.slice(5,7):"";
+   if(tMonth){
+     var calendarHits=sur.filter(function(x){return String(x.date||"").slice(5,7)===tMonth&&Math.abs((+x.week)-(+target.week))<=3});
+     if(calendarHits.length>=2)addEngine(engines,"Tarih / hafta benzerliği",Math.min(.88,.26+calendarHits.length*.11),team+" aynı takvim ayında ve yakın hafta bandında "+calendarHits.length+" sürpriz üretmiş",[...new Set(calendarHits.flatMap(function(x){return classify(x)}))]);
+   }
+
+   // 8) Skor varyasyonu: son iki maçın toplam gol / fark profilinin geçmiş tekrarı
+   if(last2.length===2){
+     function scoreShape(x){var home=x.home===team,gf=home?+x.ft_home:+x.ft_away,ga=home?+x.ft_away:+x.ft_home,total=gf+ga,diff=Math.abs(gf-ga);return (total>=4?"Y":"D")+"-"+(diff>=2?"F":"K")+"-"+(gf>ga?"G":gf===ga?"B":"M")}
+     var sh1=scoreShape(last2[0]),sh2=scoreShape(last2[1]),shapeNext=[];
+     for(var si=1;si<hist.length-1;si++){if(scoreShape(hist[si-1])===sh1&&scoreShape(hist[si])===sh2&&classify(hist[si+1]).length)shapeNext.push(hist[si+1])}
+     if(shapeNext.length)addEngine(engines,"Skor varyasyon motoru",Math.min(.9,.31+shapeNext.length*.14),team+" son iki maç skor profiline benzeyen dizilerden sonra "+shapeNext.length+" sürpriz",[...new Set(shapeNext.flatMap(function(x){return classify(x)}))]);
+   }
+
+   // 9) Senaryo zinciri: son iki maç sonucu (G/B/M) geçmişte tekrarlandığında sonraki sürpriz
+   var form2=recentForm(team,target,2);
+   if(form2.length===2){
+     var seq=form2.map(function(x){return x.res}).reverse().join(">"),seqNext=[];
+     function teamRes(x){var home=x.home===team,gf=home?+x.ft_home:+x.ft_away,ga=home?+x.ft_away:+x.ft_home;return gf>ga?"G":gf===ga?"B":"M"}
+     for(var qi=1;qi<hist.length-1;qi++){if(teamRes(hist[qi-1])+">"+teamRes(hist[qi])===seq&&classify(hist[qi+1]).length)seqNext.push(hist[qi+1])}
+     if(seqNext.length)addEngine(engines,"Senaryo zinciri",Math.min(.91,.33+seqNext.length*.14),team+" "+seq+" form dizisinden sonra "+seqNext.length+" sürpriz örneği",[...new Set(seqNext.flatMap(function(x){return classify(x)}))]);
+   }
  });
+
+ // 10) Tüm sezon eşleşme motoru: bu iki takımın geçmiş doğrudan maçları
+ var pairHist=matches.filter(function(x){return played(x)&&beforeTarget(x,target)&&((x.home===target.home&&x.away===target.away)||(x.home===target.away&&x.away===target.home))});
+ var pairSur=pairHist.filter(function(x){return classify(x).length});
+ if(pairSur.length){
+   var pairRate=pairSur.length/Math.max(1,pairHist.length);
+   addEngine(engines,"Tüm sezon eşleşme",Math.min(.94,.30+pairRate*.45+Math.min(pairSur.length,4)*.06),target.home+" — "+target.away+" eşleşmesinde "+pairSur.length+"/"+pairHist.length+" sürpriz maç",[...new Set(pairSur.flatMap(function(x){return classify(x)}))]);
+ }
+
+ // Motor mutabakatı: bağımsız motorların aynı sürpriz tipinde birleşmesi
+ var votes={"1/2":0,"2/1":0,"6+":0},voters={"1/2":0,"2/1":0,"6+":0};
+ engines.forEach(function(e){e.types.forEach(function(t){if(votes[t]!==undefined){votes[t]+=e.score;voters[t]++}})});
+ Object.keys(votes).forEach(function(t){if(voters[t]>=2){var avg=votes[t]/voters[t];addEngine(engines,"Motor mutabakatı "+t,Math.min(.96,avg+.05*Math.min(4,voters[t])),voters[t]+" bağımsız motor aynı "+t+" sinyalinde birleşiyor",[t])}});
  events.forEach(function(e){e.type.split("/").forEach(function(t){if(counts[t]!==undefined)counts[t]++})});
  var weighted={"1/2":0,"2/1":0,"6+":0},weightTotal=0;
  engines.forEach(function(e){weightTotal+=e.score;e.types.forEach(function(t){if(weighted[t]!==undefined)weighted[t]+=e.score})});
