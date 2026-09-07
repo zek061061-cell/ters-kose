@@ -7,6 +7,7 @@ from app import ESPN_LEAGUES
 OUT="data/future_fixtures.json"
 today=datetime.now(timezone.utc).date()
 end=today+timedelta(days=300)
+HORIZON_DAYS=300
 headers={"User-Agent":"Mozilla/5.0","Accept":"application/json"}
 
 def fetch_league(item):
@@ -14,13 +15,16 @@ def fetch_league(item):
     out=[]
     # ESPN's soccer scoreboard is reliable with date-scoped calls; query weekly anchors
     # so we can collect announced fixtures without one oversized range request.
-    cursor=today
-    while cursor<=end:
+    # Scan near term daily, then weekly farther out. This keeps GitHub refresh fast
+    # while still collecting announced season fixtures.
+    dates=[today+timedelta(days=i) for i in range(0,46)]
+    dates += [today+timedelta(days=i) for i in range(49,HORIZON_DAYS+1,7)]
+    for cursor in dates:
       url=f"https://site.api.espn.com/apis/site/v2/sports/soccer/{code}/scoreboard?dates={cursor.strftime('%Y%m%d')}&limit=100"
       try:
         r=requests.get(url,headers=headers,timeout=15)
         if not r.ok:
-            cursor+=timedelta(days=1); continue
+            continue
         data=r.json()
       except Exception:
         cursor+=timedelta(days=7); continue
