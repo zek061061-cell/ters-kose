@@ -154,9 +154,9 @@ function calibrateProb(p,key){if(!calibration||!calibration[key])return p;var b=
 function modelMatch(m,skipCalibration){var hs=teamStats(m.home,m,"home"),as=teamStats(m.away,m,"away"),ls=leagueStats(m),hh=h2hStats(m);var homeAttack=hs.n?hs.gf:ls.homeGoals,homeDef=hs.n?hs.ga:ls.awayGoals,awayAttack=as.n?as.gf:ls.awayGoals,awayDef=as.n?as.ga:ls.homeGoals;var lh=clamp(weightedAvg([homeAttack,awayDef,ls.homeGoals],[.42,.33,.25]),.2,3.8),la=clamp(weightedAvg([awayAttack,homeDef,ls.awayGoals],[.42,.33,.25]),.2,3.8);var scores=[],p1=0,px=0,p2=0,btts=0,o15=0,o25=0,o35=0;for(var h=0;h<=7;h++){for(var a=0;a<=7;a++){var p=poisson(h,lh)*poisson(a,la);scores.push({h:h,a:a,p:p});if(h>a)p1+=p;else if(h===a)px+=p;else p2+=p;if(h>0&&a>0)btts+=p;if(h+a>=2)o15+=p;if(h+a>=3)o25+=p;if(h+a>=4)o35+=p}}var empir1=(hs.win+as.loss)/2,empirX=(hs.draw+as.draw)/2,empir2=(hs.loss+as.win)/2;if(hh.n>=2){empir1=(empir1*2+hh.home)/3;empirX=(empirX*2+hh.draw)/3;empir2=(empir2*2+hh.away)/3}p1=.68*p1+.32*empir1;px=.68*px+.32*empirX;p2=.68*p2+.32*empir2;var sum=p1+px+p2;p1/=sum;px/=sum;p2/=sum;btts=.7*btts+.3*((hs.btts+as.btts+ls.btts)/3);o25=.7*o25+.3*((hs.o25+as.o25+ls.o25)/3);o15=.75*o15+.25*((hs.o15+as.o15)/2);o35=.75*o35+.25*((hs.o35+as.o35)/2);
 if(!skipCalibration){
  p1=calibrateProb(p1,"r1");px=calibrateProb(px,"rx");p2=calibrateProb(p2,"r2");var cs=p1+px+p2;p1/=cs;px/=cs;p2/=cs;
- btts=calibrateProb(btts,"btts");o25=calibrateProb(o25,"o25");
+ btts=calibrateProb(btts,"btts");o15=calibrateProb(o15,"o15");o25=calibrateProb(o25,"o25");o35=calibrateProb(o35,"o35");
 }
-scores.sort(function(a,b){return b.p-a.p});var ht=halfTimeModel(m);var patterns=patternSignals(m);var confidence=clamp(.44+Math.min(hs.n,20)/90+Math.min(as.n,20)/90+Math.min(hh.n,6)/70,.44,.9);var a={p1:p1,px:px,p2:p2,btts:btts,o15:o15,o25:o25,o35:o35,u15:1-o15,u25:1-o25,u35:1-o35,lh:lh,la:la,scores:scores.slice(0,5),ht:ht,patterns:patterns,confidence:confidence,hs:hs,as:as,hh:hh,formH:recentForm(m.home,m,5),formA:recentForm(m.away,m,5)};a.signals=strongestSignals(m,a);return a}
+scores.sort(function(a,b){return b.p-a.p});var ht=halfTimeModel(m);var patterns=patternSignals(m);if(!skipCalibration){patterns.p12=calibrateProb(patterns.p12,"p12");patterns.p21=calibrateProb(patterns.p21,"p21");patterns.p6=calibrateProb(patterns.p6,"p6")}var confidence=clamp(.44+Math.min(hs.n,20)/90+Math.min(as.n,20)/90+Math.min(hh.n,6)/70,.44,.9);var a={p1:p1,px:px,p2:p2,btts:btts,o15:o15,o25:o25,o35:o35,u15:1-o15,u25:1-o25,u35:1-o35,lh:lh,la:la,scores:scores.slice(0,5),ht:ht,patterns:patterns,confidence:confidence,hs:hs,as:as,hh:hh,formH:recentForm(m.home,m,5),formA:recentForm(m.away,m,5)};a.signals=strongestSignals(m,a);return a}
 function halfTimeModel(m){var r=matches.filter(function(x){return played(x)&&beforeTarget(x,m)&&Number.isFinite(+x.ht_home)&&Number.isFinite(+x.ht_away)&&(x.home===m.home||x.away===m.away||x.home===m.away||x.away===m.home)}).slice(-200);var c={"1":1,"X":1,"2":1},htft={};r.forEach(function(x){var h=+x.ht_home,a=+x.ht_away,f=+x.ft_home,g=+x.ft_away,ht=h>a?"1":h<a?"2":"X",ft=f>g?"1":f<g?"2":"X";c[ht]++;htft[ht+"/"+ft]=(htft[ht+"/"+ft]||1)+1});var n=c["1"]+c.X+c["2"],arr=Object.keys(htft).map(function(k){return{k:k,p:htft[k]/Math.max(1,r.length)}}).sort(function(a,b){return b.p-a.p}).slice(0,5);return{p1:c["1"]/n,px:c.X/n,p2:c["2"]/n,htft:arr}}
 
 function teamHistory(team,target){return matches.filter(function(x){return played(x)&&beforeTarget(x,target)&&(sameTeam(x.home,team)||sameTeam(x.away,team))}).sort(function(a,b){return String(a.date).localeCompare(String(b.date))})}
@@ -305,15 +305,16 @@ async function runBacktest(){
  var rows=matches.filter(played).filter(function(x){return x.date}).sort(function(a,b){return String(a.date).localeCompare(String(b.date))});
  if(rows.length<20){el("backtestReport").textContent="Geriye dönük test için yeterli sonuçlu maç yok.";btn.disabled=false;return}
  rows=rows.slice(Math.max(0,rows.length-limit));
- var correct=0,brier=0,bttsCorrect=0,o25Correct=0,used=0,buckets={},profiles={r1:{},rx:{},r2:{},btts:{},o25:{}};
+ var correct=0,brier=0,bttsCorrect=0,o25Correct=0,used=0,buckets={},profiles={r1:{},rx:{},r2:{},btts:{},o15:{},o25:{},o35:{},p12:{},p21:{},p6:{}},surBrier={"1/2":0,"2/1":0,"6+":0};
  for(var i=0;i<rows.length;i++){
    var m=rows[i],a=modelMatch(m,true);
    if(a.hs.n<3||a.as.n<3)continue;
    var arr=[["1",a.p1],["X",a.px],["2",a.p2]].sort(function(x,y){return y[1]-x[1]}),pred=arr[0][0],conf=arr[0][1],act=actualResult(m);
    if(pred===act)correct++;
    var y1=act==="1"?1:0,yx=act==="X"?1:0,y2=act==="2"?1:0;brier+=(Math.pow(a.p1-y1,2)+Math.pow(a.px-yx,2)+Math.pow(a.p2-y2,2))/3;
-   var abtts=(+m.ft_home>0&&+m.ft_away>0),ao25=(+m.ft_home + +m.ft_away>=3);
-   [["r1",a.p1,act==="1"],["rx",a.px,act==="X"],["r2",a.p2,act==="2"],["btts",a.btts,abtts],["o25",a.o25,ao25]].forEach(function(z){var k=calBin(z[1]),obj=profiles[z[0]][k]||(profiles[z[0]][k]={n:0,ok:0,sum:0});obj.n++;obj.ok+=z[2]?1:0;obj.sum+=z[1]});
+   var abtts=(+m.ft_home>0&&+m.ft_away>0),goals=+m.ft_home + +m.ft_away,ao15=goals>=2,ao25=goals>=3,ao35=goals>=4,types=classify(m),ap12=types.includes("1/2"),ap21=types.includes("2/1"),ap6=types.includes("6+");
+   [["r1",a.p1,act==="1"],["rx",a.px,act==="X"],["r2",a.p2,act==="2"],["btts",a.btts,abtts],["o15",a.o15,ao15],["o25",a.o25,ao25],["o35",a.o35,ao35],["p12",a.patterns.p12,ap12],["p21",a.patterns.p21,ap21],["p6",a.patterns.p6,ap6]].forEach(function(z){var k=calBin(z[1]),obj=profiles[z[0]][k]||(profiles[z[0]][k]={n:0,ok:0,sum:0});obj.n++;obj.ok+=z[2]?1:0;obj.sum+=z[1]});
+   surBrier["1/2"]+=Math.pow(a.patterns.p12-(ap12?1:0),2);surBrier["2/1"]+=Math.pow(a.patterns.p21-(ap21?1:0),2);surBrier["6+"]+=Math.pow(a.patterns.p6-(ap6?1:0),2);
    if((a.btts>=.5)===abtts)bttsCorrect++;
    if((a.o25>=.5)===ao25)o25Correct++;
    var bn=bucketName(conf);if(!buckets[bn])buckets[bn]={n:0,ok:0,sum:0};buckets[bn].n++;buckets[bn].ok+=pred===act?1:0;buckets[bn].sum+=conf;used++;
@@ -322,7 +323,7 @@ async function runBacktest(){
  if(!used){el("backtestReport").textContent="Yeterli geçmiş veri oluşmadı.";btn.disabled=false;return}
  var cal=Object.keys(buckets).sort().map(function(k){var b=buckets[k];return k+": model "+pct(b.sum/b.n)+"% → gerçekleşen "+pct(b.ok/b.n)+"% ("+b.n+" maç)"}).join("<br>");
  calibration=profiles;localStorage.setItem("terskose_calibration",JSON.stringify(calibration));
- el("backtestReport").innerHTML="<b>"+used+" maç gerçek geçmiş testi</b><br>1-X-2 doğruluk: <b>"+pct(correct/used)+"%</b> • KG Var/Yok doğruluk: <b>"+pct(bttsCorrect/used)+"%</b> • Alt/Üst 2.5 doğruluk: <b>"+pct(o25Correct/used)+"%</b> • Brier hata: <b>"+(brier/used).toFixed(3)+"</b><br><br><b>Güven kalibrasyonu</b><br>"+cal+"<br><br><b>Kalibrasyon profili kaydedildi.</b> Bundan sonraki maç yüzdeleri yeterli örnek bulunan olasılık aralıklarında otomatik düzeltilir.<br><br><span style='color:#90a2bd'>Bu testte her maç için yalnızca o tarihten önceki veriler kullanıldı; gelecek verisi sızdırılmadı.</span>";
+ el("backtestReport").innerHTML="<b>"+used+" maç gerçek geçmiş testi</b><br>1-X-2 doğruluk: <b>"+pct(correct/used)+"%</b> • KG Var/Yok doğruluk: <b>"+pct(bttsCorrect/used)+"%</b> • Alt/Üst 2.5 doğruluk: <b>"+pct(o25Correct/used)+"%</b> • 1-X-2 Brier: <b>"+(brier/used).toFixed(3)+"</b><br>Sürpriz Brier — 1/2: <b>"+(surBrier["1/2"]/used).toFixed(3)+"</b> • 2/1: <b>"+(surBrier["2/1"]/used).toFixed(3)+"</b> • 6+: <b>"+(surBrier["6+"]/used).toFixed(3)+"</b><br><br><b>Güven kalibrasyonu</b><br>"+cal+"<br><br><b>Kalibrasyon profili kaydedildi.</b> Artık 1-X-2, KG, 1.5/2.5/3.5 ve 1/2-2/1-6+ yüzdeleri yeterli örnek bulunan aralıklarda geçmiş gerçekleşme oranlarına göre düzeltilir.<br><br><span style='color:#90a2bd'>Bu testte her maç için yalnızca o tarihten önceki veriler kullanıldı; gelecek verisi sızdırılmadı.</span>";
  btn.disabled=false
 }
 
