@@ -5,5 +5,15 @@
   "display": "standalone",
   "background_color": "#fde100",
   "theme_color": "#fde100",
-  "description": "Tek tuş maç analizi, haftalık radar ve Excel/CSV analiz sistemi."
+  "description": "Tek tuş maç analizi, haftalık radar ve Excel/CSV analiz sistemi.",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "scope": "/",
+  "id": "/"
 }
