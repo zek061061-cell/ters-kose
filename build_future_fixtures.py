@@ -1,62 +1,114 @@
-import json, os, time
-from datetime import datetime, timedelta, timezone
-from concurrent.futures import ThreadPoolExecutor, as_completed
+import json, re, time
+from datetime import datetime, timezone
+from zoneinfo import ZoneInfo
+from urllib.parse import urljoin
+
 import requests
-from app import ESPN_LEAGUES
+from bs4 import BeautifulSoup
 
 OUT="data/future_fixtures.json"
-today=datetime.now(timezone.utc).date()
-end=today+timedelta(days=300)
-HORIZON_DAYS=300
-headers={"User-Agent":"Mozilla/5.0","Accept":"application/json"}
+BASE="https://www.sahadan.com"
+HEADERS={
+  "User-Agent":"Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 Version/18.0 Mobile/15E148 Safari/604.1",
+  "Accept":"text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+  "Accept-Language":"tr-TR,tr;q=0.9,en;q=0.7",
+  "Referer":BASE+"/",
+}
 
-def fetch_league(item):
-    code,league=item
-    out=[]
-    # ESPN's soccer scoreboard is reliable with date-scoped calls; query weekly anchors
-    # so we can collect announced fixtures without one oversized range request.
-    # Scan near term daily, then weekly farther out. This keeps GitHub refresh fast
-    # while still collecting announced season fixtures.
-    dates=[today+timedelta(days=i) for i in range(0,46)]
-    dates += [today+timedelta(days=i) for i in range(49,HORIZON_DAYS+1,7)]
-    for cursor in dates:
-      url=f"https://site.api.espn.com/apis/site/v2/sports/soccer/{code}/scoreboard?dates={cursor.strftime('%Y%m%d')}&limit=100"
-      try:
-        r=requests.get(url,headers=headers,timeout=15)
-        if not r.ok:
-            continue
-        data=r.json()
-      except Exception:
-        cursor+=timedelta(days=7); continue
-      for ev in data.get("events",[]):
-            comp=(ev.get("competitions") or [{}])[0]
-            cs=comp.get("competitors") or []
-            home=next((x for x in cs if x.get("homeAway")=="home"),None)
-            away=next((x for x in cs if x.get("homeAway")=="away"),None)
-            if not home or not away:continue
-            st=(ev.get("status") or {}).get("type") or {}
-            if st.get("completed"):continue
-            ht=home.get("team") or {}; at=away.get("team") or {}
-            date=(ev.get("date") or "")[:10]
-            if not date:continue
-            out.append({"event_id":ev.get("id",""),"date":date,"kickoff":ev.get("date",""),"league":league,"league_code":code,
-              "home":ht.get("displayName") or ht.get("name") or "","away":at.get("displayName") or at.get("name") or "",
-              "home_logo":ht.get("logo") or "","away_logo":at.get("logo") or "","status":st.get("description") or "Planlandı",
-              "completed":False,"state":"pre","referee":"","source":"ESPN sezon fikstürü"})
-      cursor+=timedelta(days=7)
-    return out
+# Verified Sahadan competition pages.
+LEAGUES={
+ "Türkiye Süper Lig":"https://www.sahadan.com/lig/trendyol-super-lig/482ofyysbdbeoxauk19yg7tdt/fikstur",
+ "İngiltere Premier League":"https://www.sahadan.com/lig/premier-lig/2kwbbcootiqqgmrzs6o5inle5/fikstur",
+ "İtalya Serie A":"https://www.sahadan.com/lig/serie-a/1r097lpxe0xn03ihb7wi98kao/fikstur",
+ "Almanya Bundesliga":"https://www.sahadan.com/lig/bundesliga/6by3h89i2eykc341oz7lv1ddd/fikstur",
+ "Fransa Ligue 1":"https://www.sahadan.com/lig/ligue-1/dm5ka0os1e3dxcp3vh05kmp33/fikstur",
+ "Hollanda Eredivisie":"https://www.sahadan.com/lig/eredivisie/akmkihra9ruad09ljapsm84b3/fikstur",
+ "ABD MLS":"https://www.sahadan.com/lig/mls/287tckirbfj9nb8ar2k9r60vn/fikstur",
+ "İskoçya Premiership":"https://www.sahadan.com/lig/premiership/e21cf135btr8t3upw0vl6n6x0/fikstur",
+}
+TR_MONTHS={"Ocak":1,"Şubat":2,"Mart":3,"Nisan":4,"Mayıs":5,"Haziran":6,"Temmuz":7,"Ağustos":8,"Eylül":9,"Ekim":10,"Kasım":11,"Aralık":12}
+now=datetime.now(ZoneInfo("Europe/Istanbul"))
+
+def fetch(url):
+    last=None
+    for attempt in range(4):
+        try:
+            r=requests.get(url,headers=HEADERS,timeout=30)
+            if r.ok and r.text:return r.text
+            last=RuntimeError(f"HTTP {r.status_code}")
+        except Exception as e:last=e
+        time.sleep(1.5*(attempt+1))
+    raise last or RuntimeError("fetch failed")
+
+def parse_date(text,year_hint):
+    m=re.search(r"(\d{1,2})\s+(Ocak|Şubat|Mart|Nisan|Mayıs|Haziran|Temmuz|Ağustos|Eylül|Ekim|Kasım|Aralık)(?:\s+(20\d{2}))?",text)
+    if not m:return ""
+    d,mon,y=m.groups(); y=int(y or year_hint)
+    month=TR_MONTHS[mon]
+    # season pages cross New Year: dates Jan-Jun after an Aug-Dec current date are next year.
+    if not m.group(3) and month < 7 and now.month >= 7:y=year_hint+1
+    return f"{y:04d}-{month:02d}-{int(d):02d}"
 
 rows=[]
-with ThreadPoolExecutor(max_workers=12) as ex:
-    fs=[ex.submit(fetch_league,x) for x in ESPN_LEAGUES.items()]
-    for f in as_completed(fs): rows.extend(f.result())
+diag={}
+for league,url in LEAGUES.items():
+    try:
+        html=fetch(url)
+        soup=BeautifulSoup(html,"html.parser")
+        text=soup.get_text("\n",strip=True)
+        # The page exposes upcoming match anchors. Parse only anchors that contain a
+        # time but not a completed score marker.
+        current_date=""
+        found=[]
+        for el in soup.find_all(["div","span","a","li","tr"]):
+            t=" ".join(el.get_text(" ",strip=True).split())
+            if not t:continue
+            d=parse_date(t,now.year)
+            if d and len(t)<45:
+                current_date=d
+            if el.name!="a":continue
+            mt=re.search(r"(?<!\d)(\d{1,2}:\d{2})\s+(.+?)\s+-\s+(.+?)(?:\s*$)",t)
+            if not mt:continue
+            hm,home,away=mt.groups()
+            if not current_date:
+                # compact preview uses DD/MM at the beginning
+                md=re.match(r"(\d{2})/(\d{2})\s+",t)
+                if md:
+                    dd,mm=map(int,md.groups()); y=now.year+(1 if mm<7 and now.month>=7 else 0)
+                    current_date=f"{y:04d}-{mm:02d}-{dd:02d}"
+            if not current_date:continue
+            kickoff=current_date+"T"+hm+":00+03:00"
+            try:
+                dt=datetime.fromisoformat(kickoff)
+                if dt < now:continue
+            except Exception:pass
+            href=urljoin(BASE,el.get("href") or "")
+            found.append({
+              "event_id":href or "|".join([current_date,league,home,away]),
+              "date":current_date,"kickoff":kickoff,"league":league,"league_code":"SAHADAN",
+              "home":home.strip(),"away":away.strip(),"home_logo":"","away_logo":"","status":"Planlandı",
+              "completed":False,"state":"pre","referee":"","source":"Sahadan lig fikstürü","source_url":href or url
+            })
+        diag[league]=len(found)
+        rows.extend(found)
+    except Exception as e:
+        diag[league]=f"error:{e}"
 
-seen=set(); clean=[]
+# Keep the rolling Sahadan İddaa snapshot too; it covers additional leagues.
+try:
+    with open("data/current_fixtures.json","r",encoding="utf-8") as f:cur=json.load(f)
+    rows.extend([x for x in cur.get("matches",[]) if not x.get("completed")])
+except Exception:pass
+
+seen=set();clean=[]
 for x in rows:
-    k=x.get("event_id") or "|".join([x["date"],x["league"],x["home"],x["away"]])
+    k="|".join([str(x.get("date") or ""),str(x.get("league") or ""),str(x.get("home") or ""),str(x.get("away") or "")])
     if k in seen:continue
-    seen.add(k); clean.append(x)
-clean.sort(key=lambda x:(x["date"],x["league"],x["home"]))
-payload={"ok":True,"generated_at":datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),"from":today.isoformat(),"to":end.isoformat(),"count":len(clean),"matches":clean}
-with open(OUT,"w",encoding="utf-8") as f: json.dump(payload,f,ensure_ascii=False,separators=(",",":"))
-print("future fixtures:",len(clean),"leagues:",len(set(x["league"] for x in clean)))
+    seen.add(k);clean.append(x)
+clean.sort(key=lambda x:(x.get("date") or "",x.get("kickoff") or "",x.get("league") or "",x.get("home") or ""))
+
+payload={"ok":True,"generated_at":datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),"source":"Sahadan lig fikstürleri + İddaa Programı","count":len(clean),"league_counts":diag,"matches":clean}
+with open(OUT,"w",encoding="utf-8") as f:json.dump(payload,f,ensure_ascii=False,separators=(",",":"))
+print("future fixtures:",len(clean))
+print("league counts:",json.dumps(diag,ensure_ascii=False))
+print("sample:",json.dumps(clean[:12],ensure_ascii=False))
