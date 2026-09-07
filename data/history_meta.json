@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "generated_at": "2026-09-07T16:08:12.415828Z",
+  "generated_at": "2026-09-07T16:16:35.972804Z",
   "matches": 68510,
   "leagues": 19,
   "league_counts": {
@@ -1695,7 +1695,7 @@
     "bad_team": 0,
     "bad_score": 0,
     "missing_date": 0,
-    "missing_week": 68510,
+    "missing_week": 0,
     "missing_ht": 69,
     "missing_odds": 91,
     "duplicate_keys": 0,
@@ -1709,7 +1709,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1718,7 +1718,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1727,7 +1727,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1736,7 +1736,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1745,7 +1745,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1754,7 +1754,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1763,7 +1763,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1772,7 +1772,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1781,7 +1781,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1790,7 +1790,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1799,7 +1799,7 @@
         "rows": 27,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": true
       },
       {
@@ -1808,7 +1808,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1817,7 +1817,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1826,7 +1826,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1835,7 +1835,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1844,7 +1844,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1853,7 +1853,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1862,7 +1862,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1871,7 +1871,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1880,7 +1880,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 0.9967,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1889,7 +1889,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1898,7 +1898,7 @@
         "rows": 9,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": true
       },
       {
@@ -1907,7 +1907,7 @@
         "rows": 240,
         "teams": 16,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1916,7 +1916,7 @@
         "rows": 240,
         "teams": 16,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1925,7 +1925,7 @@
         "rows": 240,
         "teams": 16,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1934,7 +1934,7 @@
         "rows": 232,
         "teams": 16,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1943,7 +1943,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1952,7 +1952,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 0.9935,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1961,7 +1961,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 0.9935,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1970,7 +1970,7 @@
         "rows": 312,
         "teams": 16,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1979,7 +1979,7 @@
         "rows": 312,
         "teams": 16,
         "ht_coverage": 0.9968,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1988,7 +1988,7 @@
         "rows": 311,
         "teams": 16,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -1997,7 +1997,7 @@
         "rows": 36,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": true
       },
       {
@@ -2006,7 +2006,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 0.9974,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2015,7 +2015,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2024,7 +2024,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2033,7 +2033,7 @@
         "rows": 279,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2042,7 +2042,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2051,7 +2051,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2060,7 +2060,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2069,7 +2069,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2078,7 +2078,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2087,7 +2087,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2096,7 +2096,7 @@
         "rows": 19,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": true
       },
       {
@@ -2105,7 +2105,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2114,7 +2114,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2123,7 +2123,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2132,7 +2132,7 @@
         "rows": 280,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2141,7 +2141,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 0.9974,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2150,7 +2150,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 0.9974,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2159,7 +2159,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 0.9974,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2168,7 +2168,7 @@
         "rows": 379,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2177,7 +2177,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2186,7 +2186,7 @@
         "rows": 305,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2195,7 +2195,7 @@
         "rows": 36,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": true
       },
       {
@@ -2204,7 +2204,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2213,7 +2213,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2222,7 +2222,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2231,7 +2231,7 @@
         "rows": 232,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2240,7 +2240,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2249,7 +2249,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2258,7 +2258,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2267,7 +2267,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2276,7 +2276,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2285,7 +2285,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2294,7 +2294,7 @@
         "rows": 33,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": true
       },
       {
@@ -2303,7 +2303,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2312,7 +2312,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2321,7 +2321,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2330,7 +2330,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2339,7 +2339,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2348,7 +2348,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2357,7 +2357,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2366,7 +2366,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2375,7 +2375,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2384,7 +2384,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2393,7 +2393,7 @@
         "rows": 33,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": true
       },
       {
@@ -2402,7 +2402,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2411,7 +2411,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2420,7 +2420,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2429,7 +2429,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2438,7 +2438,7 @@
         "rows": 420,
         "teams": 21,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2447,7 +2447,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2456,7 +2456,7 @@
         "rows": 342,
         "teams": 19,
         "ht_coverage": 0.9152,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2465,7 +2465,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 0.9974,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2474,7 +2474,7 @@
         "rows": 342,
         "teams": 19,
         "ht_coverage": 0.9971,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2483,7 +2483,7 @@
         "rows": 306,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2492,7 +2492,7 @@
         "rows": 27,
         "teams": 18,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": true
       },
       {
@@ -2501,7 +2501,7 @@
         "rows": 240,
         "teams": 16,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2510,7 +2510,7 @@
         "rows": 240,
         "teams": 16,
         "ht_coverage": 0.9917,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2519,7 +2519,7 @@
         "rows": 239,
         "teams": 16,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2528,7 +2528,7 @@
         "rows": 240,
         "teams": 14,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2537,7 +2537,7 @@
         "rows": 240,
         "teams": 14,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2546,7 +2546,7 @@
         "rows": 240,
         "teams": 14,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2555,7 +2555,7 @@
         "rows": 240,
         "teams": 14,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2564,7 +2564,7 @@
         "rows": 240,
         "teams": 14,
         "ht_coverage": 0.9958,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2573,7 +2573,7 @@
         "rows": 233,
         "teams": 14,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2582,7 +2582,7 @@
         "rows": 236,
         "teams": 14,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2591,7 +2591,7 @@
         "rows": 13,
         "teams": 14,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": true
       },
       {
@@ -2600,7 +2600,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2609,7 +2609,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2618,7 +2618,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 0.9982,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2627,7 +2627,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2636,7 +2636,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2645,7 +2645,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2654,7 +2654,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2663,7 +2663,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2672,7 +2672,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2681,7 +2681,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2690,7 +2690,7 @@
         "rows": 48,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": true
       },
       {
@@ -2699,7 +2699,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2708,7 +2708,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2717,7 +2717,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2726,7 +2726,7 @@
         "rows": 400,
         "teams": 23,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2735,7 +2735,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2744,7 +2744,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2753,7 +2753,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2762,7 +2762,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2771,7 +2771,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2780,7 +2780,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2789,7 +2789,7 @@
         "rows": 47,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": true
       },
       {
@@ -2798,7 +2798,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2807,7 +2807,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2816,7 +2816,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2825,7 +2825,7 @@
         "rows": 440,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2834,7 +2834,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2843,7 +2843,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2852,7 +2852,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2861,7 +2861,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2870,7 +2870,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2879,7 +2879,7 @@
         "rows": 552,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2888,7 +2888,7 @@
         "rows": 48,
         "teams": 24,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": true
       },
       {
@@ -2897,7 +2897,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2906,7 +2906,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2915,7 +2915,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2924,7 +2924,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2933,7 +2933,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2942,7 +2942,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2951,7 +2951,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2960,7 +2960,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2969,7 +2969,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2978,7 +2978,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -2987,7 +2987,7 @@
         "rows": 20,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": true
       },
       {
@@ -2996,7 +2996,7 @@
         "rows": 180,
         "teams": 10,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3005,7 +3005,7 @@
         "rows": 180,
         "teams": 10,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3014,7 +3014,7 @@
         "rows": 180,
         "teams": 10,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3023,7 +3023,7 @@
         "rows": 137,
         "teams": 10,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3032,7 +3032,7 @@
         "rows": 135,
         "teams": 10,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3041,7 +3041,7 @@
         "rows": 180,
         "teams": 10,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3050,7 +3050,7 @@
         "rows": 180,
         "teams": 10,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3059,7 +3059,7 @@
         "rows": 180,
         "teams": 10,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3068,7 +3068,7 @@
         "rows": 180,
         "teams": 10,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3077,7 +3077,7 @@
         "rows": 180,
         "teams": 10,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3086,7 +3086,7 @@
         "rows": 20,
         "teams": 10,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": true
       },
       {
@@ -3095,7 +3095,7 @@
         "rows": 228,
         "teams": 12,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3104,7 +3104,7 @@
         "rows": 228,
         "teams": 12,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3113,7 +3113,7 @@
         "rows": 228,
         "teams": 12,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3122,7 +3122,7 @@
         "rows": 179,
         "teams": 12,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3131,7 +3131,7 @@
         "rows": 228,
         "teams": 12,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3140,7 +3140,7 @@
         "rows": 228,
         "teams": 12,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3149,7 +3149,7 @@
         "rows": 228,
         "teams": 12,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3158,7 +3158,7 @@
         "rows": 228,
         "teams": 12,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3167,7 +3167,7 @@
         "rows": 228,
         "teams": 12,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3176,7 +3176,7 @@
         "rows": 228,
         "teams": 12,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3185,7 +3185,7 @@
         "rows": 25,
         "teams": 12,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": true
       },
       {
@@ -3194,7 +3194,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3203,7 +3203,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3212,7 +3212,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3221,7 +3221,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3230,7 +3230,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3239,7 +3239,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3248,7 +3248,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3257,7 +3257,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3266,7 +3266,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3275,7 +3275,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3284,7 +3284,7 @@
         "rows": 31,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": true
       },
       {
@@ -3293,7 +3293,7 @@
         "rows": 462,
         "teams": 22,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3302,7 +3302,7 @@
         "rows": 462,
         "teams": 22,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3311,7 +3311,7 @@
         "rows": 462,
         "teams": 22,
         "ht_coverage": 0.9545,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3320,7 +3320,7 @@
         "rows": 462,
         "teams": 22,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3329,7 +3329,7 @@
         "rows": 462,
         "teams": 22,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3338,7 +3338,7 @@
         "rows": 462,
         "teams": 22,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3347,7 +3347,7 @@
         "rows": 462,
         "teams": 22,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3356,7 +3356,7 @@
         "rows": 462,
         "teams": 22,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3365,7 +3365,7 @@
         "rows": 462,
         "teams": 22,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3374,7 +3374,7 @@
         "rows": 462,
         "teams": 22,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3383,7 +3383,7 @@
         "rows": 33,
         "teams": 22,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": true
       },
       {
@@ -3392,7 +3392,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 0.9974,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3401,7 +3401,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3410,7 +3410,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3419,7 +3419,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3428,7 +3428,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3437,7 +3437,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3446,7 +3446,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3455,7 +3455,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3464,7 +3464,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3473,7 +3473,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3482,7 +3482,7 @@
         "rows": 20,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": true
       },
       {
@@ -3491,7 +3491,7 @@
         "rows": 462,
         "teams": 22,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3500,7 +3500,7 @@
         "rows": 462,
         "teams": 22,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3509,7 +3509,7 @@
         "rows": 342,
         "teams": 19,
         "ht_coverage": 0.9971,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3518,7 +3518,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3527,7 +3527,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 0.9974,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3536,7 +3536,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3545,7 +3545,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3554,7 +3554,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3563,7 +3563,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3572,7 +3572,7 @@
         "rows": 380,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": false
       },
       {
@@ -3581,7 +3581,7 @@
         "rows": 20,
         "teams": 20,
         "ht_coverage": 1.0,
-        "week_coverage": 0.0,
+        "week_coverage": 1.0,
         "thin": true
       }
     ]
