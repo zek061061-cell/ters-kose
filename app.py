@@ -482,7 +482,10 @@ def build_history_10y():
                 worse_than_existing = True
             if failures > old_failures and len(all_rows) <= old_matches:
                 worse_than_existing = True
-            if old_quality and quality["quality_score"] + 0.03 < old_quality:
+            # A much larger warehouse can legitimately have lower optional-field
+            # coverage (for example HT scores in extra leagues). Reject a quality
+            # drop only when the replacement is not materially expanding coverage.
+            if old_quality and len(all_rows) <= old_matches * 1.05 and quality["quality_score"] + 0.03 < old_quality:
                 worse_than_existing = True
 
         if worse_than_existing:
