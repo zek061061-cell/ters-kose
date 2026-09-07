@@ -1,10 +1,13 @@
 from flask import Flask, request, Response, jsonify, send_from_directory
 import requests
+import time
 from urllib.parse import urlparse
 
 app = Flask(__name__)
 
 ALLOWED_HOSTS = {"www.football-data.co.uk", "football-data.co.uk"}
+APP_VERSION = "3.1"
+SOURCE_CACHE = {}
 
 @app.after_request
 def add_cors_headers(resp):
@@ -31,11 +34,15 @@ def service_worker():
 
 @app.get("/api")
 def api_info():
-    return jsonify({"ok": True, "service": "Ters Kose data proxy"})
+    return jsonify({"ok": True, "service": "Ters Kose data proxy", "version": APP_VERSION})
+
+@app.get("/index.html")
+def index_file():
+    return send_from_directory(".", "index.html")
 
 @app.get("/health")
 def health():
-    return jsonify({"ok": True, "frontend": True, "proxy": True})
+    return jsonify({"ok": True, "frontend": True, "proxy": True, "version": APP_VERSION, "cache_entries": len(SOURCE_CACHE)})
 
 def fetch_source(url):
     headers = {
@@ -49,13 +56,27 @@ def fetch_source(url):
     p = urlparse(url)
     for host in ("www.football-data.co.uk", "football-data.co.uk"):
         candidate = p._replace(netloc=host).geturl()
-        try:
-            r = requests.get(candidate, timeout=30, headers=headers, allow_redirects=True)
-            if r.ok and r.content:
-                return r
-            last_error = requests.HTTPError(f"{r.status_code} Server Error for url: {candidate}")
-        except requests.RequestException as e:
-            last_error = e
+        for attempt in range(3):
+            try:
+                r = requests.get(candidate, timeout=25, headers=headers, allow_redirects=True)
+                if r.ok and r.content:
+                    SOURCE_CACHE[url] = {
+                        "content": r.content,
+                        "content_type": r.headers.get("Content-Type", "text/csv; charset=utf-8"),
+                        "saved_at": time.time(),
+                    }
+                    if len(SOURCE_CACHE) > 128:
+                        oldest = min(SOURCE_CACHE, key=lambda k: SOURCE_CACHE[k]["saved_at"])
+                        SOURCE_CACHE.pop(oldest, None)
+                    return r
+                if r.status_code == 404:
+                    last_error = requests.HTTPError(f"404 Not Found for url: {candidate}")
+                    break
+                last_error = requests.HTTPError(f"{r.status_code} Server Error for url: {candidate}")
+            except requests.RequestException as e:
+                last_error = e
+            if attempt < 2:
+                time.sleep(0.6 * (attempt + 1))
     raise last_error or requests.RequestException("football-data kaynagina ulasilamadi")
 
 @app.get("/proxy")
@@ -70,10 +91,17 @@ def proxy():
 
     try:
         r = fetch_source(url)
+        resp = Response(r.content, status=200, content_type=r.headers.get("Content-Type", "text/csv; charset=utf-8"))
+        resp.headers["X-TersKose-Source"] = "live"
+        return resp
     except requests.RequestException as e:
+        cached = SOURCE_CACHE.get(url)
+        if cached:
+            resp = Response(cached["content"], status=200, content_type=cached["content_type"])
+            resp.headers["X-TersKose-Source"] = "cache"
+            resp.headers["X-TersKose-Cache-Age"] = str(int(time.time() - cached["saved_at"]))
+            return resp
         return jsonify({"error": "veri kaynagina ulasilamadi", "detail": str(e)}), 502
-
-    return Response(r.content, status=200, content_type=r.headers.get("Content-Type", "text/csv; charset=utf-8"))
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
