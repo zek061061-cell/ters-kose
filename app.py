@@ -338,14 +338,14 @@ def build_history_10y():
         # Last 10 completed seasons + current season (current can legitimately be partial).
         completed_starts = list(range(current_start - 10, current_start))
         starts = completed_starts + [current_start]
-        for code, name in MAIN_HISTORY_LEAGUES.items():
-            for y in starts:
-                rows, item = _load_main_history_season(code, name, y)
-                if y == current_start:
-                    item["expected_partial"] = True
-                all_rows.extend(rows)
-                audit.append(item)
-        for code, name in EXTRA_HISTORY_LEAGUES.items():
+
+        def _main_task(code, name, y):
+            rows, item = _load_main_history_season(code, name, y)
+            if y == current_start:
+                item["expected_partial"] = True
+            return rows, item
+
+        def _extra_task(code, name):
             url = f"https://www.football-data.co.uk/new/{code}.csv"
             try:
                 r = fetch_source(url)
@@ -361,10 +361,23 @@ def build_history_10y():
                             y = 0
                     if y >= current_start - 10:
                         filtered.append(x)
-                all_rows.extend(filtered)
-                audit.append({"league": name, "season": "2016-2026", "rows": len(filtered), "ok": bool(filtered)})
+                return filtered, {"league": name, "season": f"{current_start-10}-{current_start}", "rows": len(filtered), "ok": bool(filtered)}
             except Exception as e:
-                audit.append({"league": name, "season": "2016-2026", "rows": 0, "ok": False, "error": str(e)[:120]})
+                return [], {"league": name, "season": f"{current_start-10}-{current_start}", "rows": 0, "ok": False, "error": str(e)[:120]}
+
+        jobs = []
+        with ThreadPoolExecutor(max_workers=14) as pool:
+            for code, name in MAIN_HISTORY_LEAGUES.items():
+                for y in starts:
+                    jobs.append(pool.submit(_main_task, code, name, y))
+            for code, name in EXTRA_HISTORY_LEAGUES.items():
+                jobs.append(pool.submit(_extra_task, code, name))
+            for fut in as_completed(jobs):
+                rows, item = fut.result()
+                all_rows.extend(rows)
+                audit.append(item)
+
+        audit.sort(key=lambda a: (str(a.get("league","")), str(a.get("season",""))))
         all_rows = _dedupe_history(all_rows)
         quality = _audit_history_rows(all_rows)
         league_counts = {}
