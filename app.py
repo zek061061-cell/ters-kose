@@ -9,6 +9,7 @@ import re
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import threading
+import gzip
 from urllib.parse import urlparse
 
 app = Flask(__name__)
@@ -38,6 +39,7 @@ HISTORY_FILE = os.path.join(HISTORY_DIR, "history_10y.json")
 HISTORY_META_FILE = os.path.join(HISTORY_DIR, "history_meta.json")
 HISTORY_LOCK = False
 HISTORY_RETRY_LOCK = False
+HISTORY_RESPONSE_CACHE = {"mtime": None, "plain": None, "gzip": None, "count": 0}
 
 def _main_code_for_name(name):
     for code, league_name in MAIN_HISTORY_LEAGUES.items():
@@ -514,12 +516,42 @@ def build_history_10y():
 def history():
     if not os.path.exists(HISTORY_FILE):
         return jsonify({"ok": False, "error": "history_not_built"}), 404
+
     league = request.args.get("league", "").strip()
-    with open(HISTORY_FILE, "r", encoding="utf-8") as h:
-        rows = json.load(h)
     if league:
-        rows = [x for x in rows if x.get("league") == league]
-    return jsonify({"ok": True, "matches": rows, "count": len(rows)})
+        with open(HISTORY_FILE, "r", encoding="utf-8") as h:
+            rows = [x for x in json.load(h) if x.get("league") == league]
+        return jsonify({"ok": True, "matches": rows, "count": len(rows)})
+
+    # The full warehouse is large on mobile. Avoid parsing/re-serializing the
+    # 34 MB JSON array and cache a gzip representation keyed by file mtime.
+    mtime = os.path.getmtime(HISTORY_FILE)
+    if HISTORY_RESPONSE_CACHE.get("mtime") != mtime:
+        with open(HISTORY_FILE, "rb") as h:
+            raw = h.read()
+        count = 0
+        try:
+            if os.path.exists(HISTORY_META_FILE):
+                with open(HISTORY_META_FILE, "r", encoding="utf-8") as h:
+                    count = int(json.load(h).get("matches") or 0)
+        except Exception:
+            count = 0
+        payload = b'{"ok":true,"matches":' + raw + b',"count":' + str(count).encode("ascii") + b"}"
+        HISTORY_RESPONSE_CACHE.update({
+            "mtime": mtime,
+            "plain": payload,
+            "gzip": gzip.compress(payload, compresslevel=5),
+            "count": count,
+        })
+
+    accepts_gzip = "gzip" in (request.headers.get("Accept-Encoding") or "").lower()
+    body = HISTORY_RESPONSE_CACHE["gzip"] if accepts_gzip else HISTORY_RESPONSE_CACHE["plain"]
+    resp = Response(body, mimetype="application/json")
+    if accepts_gzip:
+        resp.headers["Content-Encoding"] = "gzip"
+    resp.headers["Vary"] = "Accept-Encoding"
+    resp.headers["Cache-Control"] = "public, max-age=300"
+    return resp
 
 @app.get("/history/status")
 def history_status():
