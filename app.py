@@ -689,19 +689,20 @@ def history_gaps():
         "critical_failures": meta.get("critical_failures", 0),
     })
 
+def _build_authorized():
+    expected = os.environ.get("HISTORY_BUILD_TOKEN", "").strip()
+    token = request.headers.get("X-Build-Token", "").strip()
+    return bool(expected and token and token == expected)
+
 @app.post("/history/retry-gaps")
 def history_retry_gaps():
-    token = request.headers.get("X-Build-Token", "")
-    expected = os.environ.get("HISTORY_BUILD_TOKEN", "")
-    if expected and token != expected:
+    if not _build_authorized():
         return jsonify({"ok": False, "error": "forbidden"}), 403
     return jsonify(retry_history_gaps())
 
 @app.post("/history/build")
 def history_build():
-    token = request.headers.get("X-Build-Token", "")
-    expected = os.environ.get("HISTORY_BUILD_TOKEN", "")
-    if expected and token != expected:
+    if not _build_authorized():
         return jsonify({"ok": False, "error": "forbidden"}), 403
     return jsonify(build_history_10y())
 
