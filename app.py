@@ -186,6 +186,11 @@ def fixtures():
                 ht = home.get("team", {})
                 at = away.get("team", {})
                 status = event.get("status", {}).get("type", {})
+                officials = comp.get("officials") or []
+                referee = ""
+                for off in officials:
+                    if str(off.get("position", {}).get("name", "")).lower() in {"referee", "hakem"} or not referee:
+                        referee = off.get("fullName") or off.get("displayName") or off.get("name") or referee
                 out.append({
                     "event_id": event.get("id", ""),
                     "date": (event.get("date") or "")[:10],
@@ -199,6 +204,7 @@ def fixtures():
                     "status": status.get("description") or status.get("detail") or "",
                     "completed": bool(status.get("completed")),
                     "state": status.get("state") or "",
+                    "referee": referee,
                 })
             return out, None
         except Exception as e:
