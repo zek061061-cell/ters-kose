@@ -782,5 +782,22 @@ def proxy():
             return resp
         return jsonify({"error": "veri kaynagina ulasilamadi", "detail": str(e)}), 502
 
+def _auto_history_bootstrap():
+    """Build the warehouse in the background after each cold start when the free instance has no persisted copy."""
+    if os.environ.get("TERS_KOSE_AUTO_HISTORY", "1") == "0":
+        return
+    if os.path.exists(HISTORY_FILE) and os.path.exists(HISTORY_META_FILE):
+        return
+    def _job():
+        # Give gunicorn a moment to bind the port before starting external data work.
+        time.sleep(2)
+        try:
+            build_history_10y()
+        except Exception:
+            pass
+    threading.Thread(target=_job, daemon=True, name="ters-kose-auto-history").start()
+
+_auto_history_bootstrap()
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
