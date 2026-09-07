@@ -17,7 +17,7 @@ HEADERS={
 
 # Verified Sahadan competition pages.
 LEAGUES={
- "Türkiye Süper Lig":"https://www.sahadan.com/lig/super-lig/482ofyysbdbeoxauk19yg7tdt/fikstur",
+ 
  "İngiltere Premier League":"https://www.sahadan.com/lig/premier-lig/2kwbbcootiqqgmrzs6o5inle5/fikstur",
  "İtalya Serie A":"https://www.sahadan.com/lig/serie-a/1r097lpxe0xn03ihb7wi98kao/fikstur",
  "Almanya Bundesliga":"https://www.sahadan.com/lig/bundesliga/6by3h89i2eykc341oz7lv1ddd/fikstur",
@@ -136,6 +136,34 @@ for league,url in LEAGUES.items():
               "home":home.strip(),"away":away.strip(),"home_logo":"","away_logo":"","status":"Planlandı",
               "completed":False,"state":"pre","referee":"","source":"Sahadan lig fikstürü","source_url":href or url
             })
+        # Fallback: some Sahadan league pages render fixtures as plain text
+        # rather than match anchors. Parse date sections and HH:MM Team - Team rows.
+        if not found:
+            flat="\n".join(soup.stripped_strings)
+            date_pat=r"(\d{1,2})\s+(Ocak|Şubat|Mart|Nisan|Mayıs|Haziran|Temmuz|Ağustos|Eylül|Ekim|Kasım|Aralık)\s+(20\d{2})"
+            parts=list(re.finditer(date_pat,flat))
+            for idx,mdate in enumerate(parts):
+                start=mdate.end(); endpos=parts[idx+1].start() if idx+1<len(parts) else len(flat)
+                section=flat[start:endpos]
+                dd,mon,yy=mdate.groups()
+                d=f"{int(yy):04d}-{TR_MONTHS[mon]:02d}-{int(dd):02d}"
+                for mm in re.finditer(r"(?<!\d)([0-2]?\d:[0-5]\d)\s+([^\n]+?)\s+-\s+([^\n]+?)(?=(?:\d{1,2}:\d{2})|MS|$)",section):
+                    hm,home,away=mm.groups()
+                    # remove ranking/stat fragments that sometimes trail team names
+                    home=re.sub(r"^\d+\s+Ligde\s+\d+\.sırada\s+","",home).strip()
+                    away=re.sub(r"\s+\d+\s+Ligde\s+\d+\.sırada.*$","",away).strip()
+                    home=resolve_slug_team(slugify(home))
+                    away=resolve_slug_team(slugify(away))
+                    kickoff=d+"T"+hm+":00+03:00"
+                    try:
+                        if datetime.fromisoformat(kickoff)<now: continue
+                    except Exception: pass
+                    found.append({
+                      "event_id":"text|"+"|".join([d,league,home,away]),
+                      "date":d,"kickoff":kickoff,"league":league,"league_code":"SAHADAN",
+                      "home":home,"away":away,"home_logo":"","away_logo":"","status":"Planlandı",
+                      "completed":False,"state":"pre","referee":"","source":"Sahadan lig fikstürü","source_url":url
+                    })
         diag[league]=len(found)
         rows.extend(found)
     except Exception as e:
