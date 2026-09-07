@@ -21,6 +21,27 @@ def home():
 def health():
     return jsonify({"ok": True})
 
+def fetch_source(url):
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/152 Safari/537.36",
+        "Accept": "text/csv,text/plain,*/*",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Referer": "https://www.football-data.co.uk/",
+        "Connection": "close",
+    }
+    last_error = None
+    p = urlparse(url)
+    for host in ("www.football-data.co.uk", "football-data.co.uk"):
+        candidate = p._replace(netloc=host).geturl()
+        try:
+            r = requests.get(candidate, timeout=30, headers=headers, allow_redirects=True)
+            if r.ok and r.content:
+                return r
+            last_error = requests.HTTPError(f"{r.status_code} Server Error for url: {candidate}")
+        except requests.RequestException as e:
+            last_error = e
+    raise last_error or requests.RequestException("football-data kaynagina ulasilamadi")
+
 @app.get("/proxy")
 def proxy():
     url = request.args.get("url", "").strip()
@@ -32,20 +53,11 @@ def proxy():
         return jsonify({"error": "izin verilmeyen kaynak"}), 403
 
     try:
-        r = requests.get(
-            url,
-            timeout=25,
-            headers={
-                "User-Agent": "Mozilla/5.0 TersKose/1.0",
-                "Accept": "text/csv,text/plain,*/*",
-            },
-        )
-        r.raise_for_status()
+        r = fetch_source(url)
     except requests.RequestException as e:
         return jsonify({"error": "veri kaynagina ulasilamadi", "detail": str(e)}), 502
 
-    content_type = r.headers.get("Content-Type", "text/plain; charset=utf-8")
-    return Response(r.content, status=200, content_type=content_type)
+    return Response(r.content, status=200, content_type=r.headers.get("Content-Type", "text/csv; charset=utf-8"))
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=10000)
