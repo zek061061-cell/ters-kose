@@ -169,9 +169,6 @@ function renderPatterns(rows){
  patternList.innerHTML=parts.length?parts.join(''):'<div class="empty">Bu seçimde aynı/komşu hafta, sezon kayması veya ortak rakip bağlantısıyla eşleşen zincir bulunamadı.</div>'
 }
 
-function runScan(){const l=leagueSelect.value,s=seasonSelect.value,w=+weekInput.value;const rows=matches.filter(x=>x.league===l&&x.season===s&&+x.week===w);renderCandidates(rows)}
-function renderCandidates(rows){const min=+minScore.value;const c=rows.map(m=>({m,...scoreMatch(m)})).filter(x=>x.score>=min).sort((a,b)=>b.score-a.score);candidateList.innerHTML=c.length?c.map(x=>`<div class="match candidate"><div><div class="teams">${esc(x.m.home)} — ${esc(x.m.away)}</div><div class="meta">${esc(x.m.league)} • ${esc(x.m.season)} • ${x.m.week}. hafta</div><div class="reason">${esc(x.reasons.join(' • ')||'Temel örüntü')}</div></div><div class="confidence">${x.score}%</div></div>`).join(''):'<div class="empty">Bu hafta için minimum puanı geçen aday yok. Ayarlardan eşik puanı düşürebilirsin.</div>';renderPatterns(rows)}
-function renderPatterns(rows){const teams=[...new Set(rows.flatMap(x=>[x.home,x.away]))],parts=[];for(const team of teams){const hist=matches.filter(x=>(x.home===team||x.away===team)&&classify(x).length).sort((a,b)=>String(a.season).localeCompare(String(b.season))||a.week-b.week);if(hist.length>=2){const seq=hist.slice(-8).map(x=>`${x.season} H${x.week} ${classify(x).join('/')}`).join(' → ');parts.push(`<div class="match"><div class="teams">${esc(team)}</div><div class="meta">${hist.length} sürpriz kayıt</div><div class="reason">${esc(seq)}</div></div>`)}}patternList.innerHTML=parts.length?parts.join(''):'<div class="empty">Bu seçimde sezonlar arası tekrar eden zincir bulunamadı.</div>'}
 fillSource();render();
 </script>
 </body></html>
