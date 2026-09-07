@@ -330,7 +330,7 @@ function deepPatternSuite(target){
  });
 
  // Hafta / tarih akışı genel
- var flow=teams.map(function(team){var h=teamHistory(team,target),ss=h.filter(function(x){return classify(x).length);return team+": "+h.length+" maç / "+ss.length+" sürpriz"}).join(" • ");push("Hafta / tarih akışı",.48,flow,[]);
+ var flow=teams.map(function(team){var h=teamHistory(team,target),ss=h.filter(function(x){return classify(x).length});return team+": "+h.length+" maç / "+ss.length+" sürpriz"}).join(" • ");push("Hafta / tarih akışı",.48,flow,[]);
  return out
 }
 function patternSignals(target){
