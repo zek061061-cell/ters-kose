@@ -83,6 +83,47 @@ def parse_date(text,year_hint):
     if not m.group(3) and month < 7 and now.month >= 7:y=year_hint+1
     return f"{y:04d}-{month:02d}-{int(d):02d}"
 
+def clean_tff_team(v):
+    v=str(v or "").strip()
+    v=re.sub(r"\s+A\.Ş\.$","",v).strip()
+    v=v.replace("TÜMOSAN ","").replace("CORENDON ","").replace("ARCA ","")
+    v=v.replace("FUTBOL KULÜBÜ","").replace("SPORTİF FAALİYETLER","").strip()
+    # Prefer the canonical historical team name where possible.
+    return resolve_slug_team(slugify(v))
+
+def fetch_tff_super_lig():
+    out=[]
+    base="https://www.tff.org/Default.aspx?pageId=198&hafta={}"
+    seen=set()
+    for week in range(1,35):
+        try:
+            html=fetch(base.format(week))
+            soup=BeautifulSoup(html,"html.parser")
+            txt="\n".join(soup.stripped_strings)
+            # TFF week pages expose rows like 14.08.2026 21:30 HOME - AWAY Detaylar
+            for m in re.finditer(r"(\d{2}\.\d{2}\.20\d{2})(?:\s+(\d{1,2}:\d{2}))?\s+([^\n]+?)\s+-\s+([^\n]+?)(?=\s+Detaylar|\n|$)",txt):
+                ds,hm,home,away=m.groups()
+                d=datetime.strptime(ds,"%d.%m.%Y").strftime("%Y-%m-%d")
+                home=clean_tff_team(home); away=clean_tff_team(away)
+                if not home or not away: continue
+                kickoff=d+(("T"+hm+":00+03:00") if hm else "")
+                try:
+                    if hm and datetime.fromisoformat(kickoff)<now: continue
+                except Exception: pass
+                k="|".join([d,home,away])
+                if k in seen: continue
+                seen.add(k)
+                out.append({
+                  "event_id":"TFF|"+str(week)+"|"+k,
+                  "date":d,"kickoff":kickoff,"league":"Türkiye Süper Lig","league_code":"TFF",
+                  "home":home,"away":away,"home_logo":"","away_logo":"","status":"Planlandı",
+                  "completed":False,"state":"pre","referee":"","source":"TFF resmi fikstür",
+                  "source_url":base.format(week),"week":week,"season":"2026/27"
+                })
+        except Exception as e:
+            print("TFF week error",week,repr(e))
+    return out
+
 rows=[]
 diag={}
 for league,url in LEAGUES.items():
@@ -168,6 +209,11 @@ for league,url in LEAGUES.items():
         rows.extend(found)
     except Exception as e:
         diag[league]=f"error:{e}"
+
+# Official TFF source for Türkiye Süper Lig avoids same-name league collisions.
+tff_rows=fetch_tff_super_lig()
+rows.extend(tff_rows)
+diag["Türkiye Süper Lig"]=len(tff_rows)
 
 # Keep the rolling Sahadan İddaa snapshot too; it covers additional leagues.
 try:
