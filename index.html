@@ -518,18 +518,21 @@ function deepPatternSuite(target){
  if(target.week){var round=matches.filter(function(x){return x.season===target.season&&canonicalLeague(x.league)===canonicalLeague(target.league)&&+x.week===+target.week}).sort(function(a,b){return String(a.date).localeCompare(String(b.date))||String(a.home).localeCompare(String(b.home))}),ri=round.findIndex(function(x){return sameTeam(x.home,target.home)&&sameTeam(x.away,target.away)});if(ri>=0){var adj=[round[ri-1],round[ri+1]].filter(Boolean),touch=[...new Set(adj.flatMap(function(x){return[x.home,x.away]}))];if(touch.length){var touchHits=globalRows.filter(function(x){return classify(x).length&&touch.some(function(t){return sameTeam(x.home,t)||sameTeam(x.away,t)})});if(touchHits.length)push("Fikstür temas radarı",Math.min(.9,.3+touchHits.length*.035),"1 üst / 1 alt temas takımları: "+touch.join(", ")+" • geçmiş sürpriz teması "+touchHits.length,surpriseTypes(touchHits))}}}
 
  // Lig sürpriz bağlantısı: target takımın geçmiş sürpriz günlerinde diğer ligler
- var refSur=globalRows.filter(function(x){return classify(x).length&&(sameTeam(x.home,target.home)||sameTeam(x.away,target.home)||sameTeam(x.home,target.away)||sameTeam(x.away,target.away))});var conn=[];refSur.slice(-12).forEach(function(r){globalRows.forEach(function(o){if(o.date===r.date&&canonicalLeague(o.league)!==canonicalLeague(r.league)&&classify(o).length)conn.push(o)})});if(conn.length)push("Lig sürpriz bağlantısı",Math.min(.91,.3+conn.length*.04),"Bu takımların geçmiş sürpriz günlerinde diğer liglerde "+conn.length+" eş zamanlı sürpriz bulundu",surpriseTypes(conn));
+ var globalSur=globalRows.filter(function(x){return classify(x).length}),surByDate=new Map();
+ globalSur.forEach(function(x){var d=String(x.date||"");if(!surByDate.has(d))surByDate.set(d,[]);surByDate.get(d).push(x)});
+ var refSur=globalSur.filter(function(x){return sameTeam(x.home,target.home)||sameTeam(x.away,target.home)||sameTeam(x.home,target.away)||sameTeam(x.away,target.away)}),conn=[];
+ refSur.slice(-12).forEach(function(r){(surByDate.get(String(r.date||""))||[]).forEach(function(o){if(canonicalLeague(o.league)!==canonicalLeague(r.league))conn.push(o)})});
+ if(conn.length)push("Lig sürpriz bağlantısı",Math.min(.91,.3+conn.length*.04),"Bu takımların geçmiş sürpriz günlerinde diğer liglerde "+conn.length+" eş zamanlı sürpriz bulundu",surpriseTypes(conn));
 
- // Zincir sürpriz A→B, B→C, C→A
+ // Zincir sürpriz A→B, B→C, C→A — indexed by the middle team.
  ["1/2","2/1"].forEach(function(tp){
-   var edges=globalRows.filter(function(x){return classify(x).includes(tp)}),hits=0;
+   var edges=globalSur.filter(function(x){return classify(x).includes(tp)}),byHome=new Map(),hits=0;
+   edges.forEach(function(e){var k=canonicalTeamKey(e.home);if(!byHome.has(k))byHome.set(k,[]);byHome.get(k).push(e)});
    edges.forEach(function(e1){
-     var A=e1.home,B=e1.away;
-     edges.forEach(function(e2){
-       if(sameTeam(e2.home,B)){
-         var C=e2.away;
-         if((sameTeam(C,target.home)&&sameTeam(A,target.away))||(sameTeam(C,target.away)&&sameTeam(A,target.home)))hits++;
-       }
+     var A=e1.home,B=e1.away,next=byHome.get(canonicalTeamKey(B))||[];
+     next.forEach(function(e2){
+       var C=e2.away;
+       if((sameTeam(C,target.home)&&sameTeam(A,target.away))||(sameTeam(C,target.away)&&sameTeam(A,target.home)))hits++;
      });
    });
    if(hits)push("Zincir sürpriz "+tp,Math.min(.95,.42+hits*.12),target.home+" — "+target.away+" için "+hits+" kapanabilir A→B→C→A zinciri bulundu",[tp]);
