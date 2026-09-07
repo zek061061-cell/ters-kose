@@ -355,8 +355,16 @@ async function fetchEspnBulletin(date){
  });
  return out
 }
-async function fetchBulletinDate(date){var j=null;try{var r=await apiFetch("/fixtures?date="+encodeURIComponent(date),{cache:"no-store"});if(r.ok)j=await r.json()}catch(e){}if(!j||!(j.matches||[]).length){try{var r2=await fetch("./data/current_fixtures.json",{cache:"no-store"});if(r2.ok){var all=await r2.json(),sm=(all.matches||[]).filter(function(x){return String(x.date||"")===String(date)});if(sm.length)j={matches:sm}}}catch(e){}}if(!j||!(j.matches||[]).length){try{j={matches:await fetchEspnBulletin(date)}}catch(e){}}if(!j)throw new Error("Bülten alınamadı");var rows=(j.matches||[]).filter(function(x){return !x.completed&&(x.state?x.state==="pre":true)}).map(function(x){return Object.assign({},x,{league:canonicalLeague(x.league),home:canonicalTeam(x.home),away:canonicalTeam(x.away),season:seasonForDate(x.date||date),week:0,referee:x.referee||"",ft_home:NaN,ft_away:NaN,ht_home:NaN,ht_away:NaN})});rows.forEach(function(x){if(x.home_logo)logoBook[canonicalTeamKey(x.home)]=x.home_logo;if(x.away_logo)logoBook[canonicalTeamKey(x.away)]=x.away_logo});try{localStorage.setItem("terskose_logo_book",JSON.stringify(logoBook))}catch(e){}return rows}
-async function loadBulletin(autoNearest){var date=el("bulletinDate").value||todayISO(),btn=el("bulletinBtn");btn.disabled=true;el("bulletinStatus").textContent="Bülten yükleniyor...";try{bulletinRows=await fetchBulletinDate(date);if(!bulletinRows.length&&autoNearest){for(var i=1;i<=7;i++){var nd=addDaysISO(date,i),nr=await fetchBulletinDate(nd);if(nr.length){date=nd;el("bulletinDate").value=nd;bulletinRows=nr;break}}}if(bulletinRows.length){matches=dedupe(matches.concat(bulletinRows));FILTER_INDEX.ref=null;MATCH_INDEX.ref=null;renderAll()}fillBulletinLeague();renderBulletin();el("bulletinStatus").innerHTML=bulletinRows.length?'<b>'+bulletinRows.length+' oynanacak maç bulundu.</b> Tarih: '+esc(date)+' • Radar bu maçları kullanacak.':'Seçilen tarihte maç bulunamadı. Sonraki maç günü düğmesini kullanabilirsin.'}catch(e){el("bulletinStatus").textContent=e.message||"Bülten yüklenemedi."}btn.disabled=false}
+async function fetchBulletinDate(date){var j=null,source="";
+ try{var r0=await fetch("./data/current_fixtures.json",{cache:"no-store"});if(r0.ok){var all=await r0.json(),sm=(all.matches||[]).filter(function(x){return String(x.date||"")===String(date)});if(sm.length){j={matches:sm};source=all.source||"Sahadan"}}}catch(e){}
+ if(!j||!(j.matches||[]).length){try{var r=await apiFetch("/fixtures?date="+encodeURIComponent(date),{cache:"no-store"});if(r.ok){j=await r.json();source="yedek servis"}}catch(e){}}
+ if(!j||!(j.matches||[]).length){try{j={matches:await fetchEspnBulletin(date)};source="ESPN yedek"}catch(e){}}
+ if(!j)throw new Error("Bülten alınamadı");
+ var rows=(j.matches||[]).filter(function(x){return !x.completed&&(x.state?x.state==="pre":true)}).map(function(x){return Object.assign({},x,{league:canonicalLeague(x.league),home:canonicalTeam(x.home),away:canonicalTeam(x.away),season:seasonForDate(x.date||date),week:0,referee:x.referee||"",ft_home:NaN,ft_away:NaN,ht_home:NaN,ht_away:NaN,__bulletinSource:source})});
+ rows.forEach(function(x){if(x.home_logo)logoBook[canonicalTeamKey(x.home)]=x.home_logo;if(x.away_logo)logoBook[canonicalTeamKey(x.away)]=x.away_logo});
+ try{localStorage.setItem("terskose_logo_book",JSON.stringify(logoBook))}catch(e){}
+ return rows}
+async function loadBulletin(autoNearest){var date=el("bulletinDate").value||todayISO(),btn=el("bulletinBtn");btn.disabled=true;el("bulletinStatus").textContent="Bülten yükleniyor...";try{bulletinRows=await fetchBulletinDate(date);if(!bulletinRows.length&&autoNearest){for(var i=1;i<=7;i++){var nd=addDaysISO(date,i),nr=await fetchBulletinDate(nd);if(nr.length){date=nd;el("bulletinDate").value=nd;bulletinRows=nr;break}}}if(bulletinRows.length){matches=dedupe(matches.concat(bulletinRows));FILTER_INDEX.ref=null;MATCH_INDEX.ref=null;renderAll()}fillBulletinLeague();renderBulletin();el("bulletinStatus").innerHTML=bulletinRows.length?'<b>'+bulletinRows.length+' oynanacak maç bulundu.</b> Tarih: '+esc(date)+' • Kaynak: '+esc((bulletinRows[0]&&bulletinRows[0].__bulletinSource)||"Sahadan")+' • Radar bu maçları kullanacak.':'Seçilen tarihte maç bulunamadı. Sonraki maç günü düğmesini kullanabilirsin.'}catch(e){el("bulletinStatus").textContent=e.message||"Bülten yüklenemedi."}btn.disabled=false}
 function openBulletinMatch(i){var l=el("bulletinLeague").value,rows=bulletinRows.filter(function(x){return !l||x.league===l}),m=rows[i];if(!m)return;openBulletinMatchByKey(matchIdentity(m))}
 var FILTER_INDEX={ref:null,leagues:[],seasonsAll:[],seasonsByLeague:new Map(),weeksByKey:new Map()};
 function ensureFilterIndex(){
@@ -857,6 +865,7 @@ function toggleRadarStrong(){radarStrongOnly=!radarStrongOnly;var b=el("radarStr
 function runWeeklyRadar(){var l=el("radarLeague").value,sn=el("radarSeason").value,w=+el("radarWeek").value,rows=[];
  if(bulletinRows&&bulletinRows.length){
    rows=bulletinRows.filter(function(x){return !l||canonicalLeague(x.league)===l});
+   if(!rows.length){rows=bulletinRows.slice();el("radarLeague").value="";}
  }else if(sn&&w){
    rows=matches.filter(function(x){return (!l||canonicalLeague(x.league)===l)&&x.season===sn&&+x.week===w});
  }
