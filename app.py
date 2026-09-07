@@ -36,6 +36,13 @@ HISTORY_DIR = os.path.join(os.path.dirname(__file__), "data")
 HISTORY_FILE = os.path.join(HISTORY_DIR, "history_10y.json")
 HISTORY_META_FILE = os.path.join(HISTORY_DIR, "history_meta.json")
 HISTORY_LOCK = False
+HISTORY_RETRY_LOCK = False
+
+def _main_code_for_name(name):
+    for code, league_name in MAIN_HISTORY_LEAGUES.items():
+        if league_name == name:
+            return code
+    return None
 
 ESPN_LEAGUES = {
     "tur.1": "Türkiye Süper Lig",
@@ -410,6 +417,86 @@ def history_status():
     meta["built"] = os.path.exists(HISTORY_FILE)
     return jsonify(meta)
 
+def retry_history_gaps():
+    global HISTORY_RETRY_LOCK
+    if HISTORY_RETRY_LOCK:
+        return {"ok": False, "detail": "retry_already_running"}
+    HISTORY_RETRY_LOCK = True
+    try:
+        if not os.path.exists(HISTORY_META_FILE) or not os.path.exists(HISTORY_FILE):
+            return {"ok": False, "detail": "history_not_built"}
+
+        with open(HISTORY_META_FILE, "r", encoding="utf-8") as h:
+            meta = json.load(h)
+        with open(HISTORY_FILE, "r", encoding="utf-8") as h:
+            rows = json.load(h)
+
+        gaps = list(meta.get("missing_completed", []))
+        recovered, failed = [], []
+        for item in gaps:
+            league = item.get("league")
+            season = str(item.get("season") or "")
+            code = _main_code_for_name(league)
+            m = re.match(r"^(20\d{2})/", season)
+            if not code or not m:
+                failed.append({"league": league, "season": season, "error": "unsupported_gap"})
+                continue
+            y = int(m.group(1))
+            new_rows, audit_item = _load_main_history_season(code, league, y)
+            if new_rows:
+                rows.extend(new_rows)
+                recovered.append({"league": league, "season": season, "rows": len(new_rows), "source": audit_item.get("source", "live")})
+            else:
+                failed.append({"league": league, "season": season, "error": audit_item.get("error", "retry_failed")})
+
+        if recovered:
+            rows = _dedupe_history(rows)
+            quality = _audit_history_rows(rows)
+
+            # Recompute missing completed gaps from previous gap list minus recovered items.
+            recovered_keys = {(x["league"], x["season"]) for x in recovered}
+            remaining = [g for g in gaps if (g.get("league"), str(g.get("season") or "")) not in recovered_keys]
+            # Preserve explicitly failed retry detail.
+            fail_map = {(x["league"], x["season"]): x for x in failed}
+            remaining = [
+                {"league": g.get("league"), "season": g.get("season"),
+                 "error": fail_map.get((g.get("league"), str(g.get("season") or "")), g).get("error", "")}
+                for g in remaining
+            ]
+
+            meta["matches"] = len(rows)
+            meta["quality"] = quality
+            meta["missing_completed"] = remaining
+            meta["critical_failures"] = len(remaining)
+            meta["verified"] = (
+                len(remaining) == 0 and quality["bad_team"] == 0 and
+                quality["bad_score"] == 0 and quality["duplicate_keys"] == 0
+            )
+            meta["last_gap_retry_at"] = datetime.utcnow().isoformat() + "Z"
+            meta["last_gap_retry_recovered"] = recovered
+            meta["last_gap_retry_failed"] = failed
+            meta["league_counts"] = {}
+            for x in rows:
+                lg = x.get("league", "")
+                meta["league_counts"][lg] = meta["league_counts"].get(lg, 0) + 1
+
+            with open(HISTORY_FILE + ".tmp", "w", encoding="utf-8") as h:
+                json.dump(rows, h, ensure_ascii=False, separators=(",", ":"))
+            os.replace(HISTORY_FILE + ".tmp", HISTORY_FILE)
+            with open(HISTORY_META_FILE + ".tmp", "w", encoding="utf-8") as h:
+                json.dump(meta, h, ensure_ascii=False, indent=2)
+            os.replace(HISTORY_META_FILE + ".tmp", HISTORY_META_FILE)
+
+        return {
+            "ok": True,
+            "attempted": len(gaps),
+            "recovered": recovered,
+            "failed": failed,
+            "remaining": len(meta.get("missing_completed", [])) if recovered else len(gaps),
+        }
+    finally:
+        HISTORY_RETRY_LOCK = False
+
 @app.get("/history/gaps")
 def history_gaps():
     if not os.path.exists(HISTORY_META_FILE):
@@ -423,6 +510,14 @@ def history_gaps():
         "thin_completed": meta.get("thin_completed", []),
         "critical_failures": meta.get("critical_failures", 0),
     })
+
+@app.post("/history/retry-gaps")
+def history_retry_gaps():
+    token = request.headers.get("X-Build-Token", "")
+    expected = os.environ.get("HISTORY_BUILD_TOKEN", "")
+    if expected and token != expected:
+        return jsonify({"ok": False, "error": "forbidden"}), 403
+    return jsonify(retry_history_gaps())
 
 @app.post("/history/build")
 def history_build():
