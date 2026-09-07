@@ -202,7 +202,7 @@ def _season_from_row(row, date_value):
     except Exception:
         return ""
 
-def _parse_history_csv(content, league_name, season_label=""):
+def _parse_history_csv(content, league_name, season_label="", calendar_season=False):
     text = content.decode("utf-8-sig", errors="replace")
     if "\ufffd" in text[:1000]:
         text = content.decode("cp1252", errors="replace")
@@ -211,23 +211,40 @@ def _parse_history_csv(content, league_name, season_label=""):
     for r in rows:
         home = str(r.get("HomeTeam") or r.get("Home") or "").strip()
         away = str(r.get("AwayTeam") or r.get("Away") or "").strip()
-        fh, fa = _num(r.get("FTHG")), _num(r.get("FTAG"))
+        fh = _num(r.get("FTHG") if r.get("FTHG") not in (None, "") else r.get("HG"))
+        fa = _num(r.get("FTAG") if r.get("FTAG") not in (None, "") else r.get("AG"))
         if not home or not away or fh is None or fa is None:
             continue
         date = _date(r.get("Date"))
-        ht_h, ht_a = _num(r.get("HTHG")), _num(r.get("HTAG"))
+        ht_h = _num(r.get("HTHG") if r.get("HTHG") not in (None, "") else r.get("HHG"))
+        ht_a = _num(r.get("HTAG") if r.get("HTAG") not in (None, "") else r.get("HAG"))
         week = _num(r.get("MW") or r.get("Round") or r.get("Matchday"))
 
         # Prefer market-average closing prices when football-data provides them.
         # Fallbacks keep older seasons useful because column availability changes by year.
-        odds_h = _float_num(r.get("AvgH") or r.get("B365H") or r.get("PSH") or r.get("MaxH"))
-        odds_d = _float_num(r.get("AvgD") or r.get("B365D") or r.get("PSD") or r.get("MaxD"))
-        odds_a = _float_num(r.get("AvgA") or r.get("B365A") or r.get("PSA") or r.get("MaxA"))
+        odds_h = _float_num(r.get("AvgH") or r.get("B365H") or r.get("PSH") or r.get("PSCH") or r.get("MaxH"))
+        odds_d = _float_num(r.get("AvgD") or r.get("B365D") or r.get("PSD") or r.get("PSCD") or r.get("MaxD"))
+        odds_a = _float_num(r.get("AvgA") or r.get("B365A") or r.get("PSA") or r.get("PSCA") or r.get("MaxA"))
         odds_o25 = _float_num(r.get("Avg>2.5") or r.get("B365>2.5") or r.get("P>2.5") or r.get("Max>2.5"))
         odds_u25 = _float_num(r.get("Avg<2.5") or r.get("B365<2.5") or r.get("P<2.5") or r.get("Max<2.5"))
 
+        if season_label:
+            parsed_season = season_label
+        elif calendar_season:
+            raw_season = str(r.get("Season") or r.get("season") or "").strip()
+            m = re.search(r"(20\d{2})", raw_season)
+            if m:
+                parsed_season = m.group(1)
+            else:
+                try:
+                    parsed_season = str(datetime.strptime(date, "%Y-%m-%d").year)
+                except Exception:
+                    parsed_season = ""
+        else:
+            parsed_season = _season_from_row(r, date)
+
         out.append({
-            "date": date, "league": league_name, "season": season_label or _season_from_row(r, date),
+            "date": date, "league": league_name, "season": parsed_season,
             "week": week or 0, "home": home, "away": away,
             "ht_home": ht_h, "ht_away": ht_a, "ft_home": fh, "ft_away": fa,
             "referee": str(r.get("Referee") or "").strip(),
@@ -391,11 +408,13 @@ def build_history_10y():
                 item["expected_partial"] = True
             return rows, item
 
+        calendar_codes = {"ARG", "BRA", "CHN", "FIN", "IRL", "JPN", "NOR", "SWE", "USA"}
+
         def _extra_task(code, name):
             url = f"https://www.football-data.co.uk/new/{code}.csv"
             try:
                 r = fetch_source(url)
-                rows = _parse_history_csv(r.content, name)
+                rows = _parse_history_csv(r.content, name, calendar_season=code in calendar_codes)
                 filtered = []
                 for x in rows:
                     try:
