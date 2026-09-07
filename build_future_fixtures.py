@@ -20,7 +20,7 @@ def fetch_league(item):
       try:
         r=requests.get(url,headers=headers,timeout=15)
         if not r.ok:
-            cursor+=timedelta(days=7); continue
+            cursor+=timedelta(days=1); continue
         data=r.json()
       except Exception:
         cursor+=timedelta(days=7); continue
