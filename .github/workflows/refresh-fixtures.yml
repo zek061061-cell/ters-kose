@@ -27,11 +27,12 @@ jobs:
           python-version: '3.12'
       - run: pip install -r requirements.txt
       - run: python build_current_fixtures.py
+      - run: python build_bulletin_archive.py
       - name: Commit fixtures
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/current_fixtures.json
+          git add data/current_fixtures.json data/bulletin_1y.json
           if git diff --cached --quiet; then
             echo "No fixture changes"
           else
