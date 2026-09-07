@@ -2,14 +2,40 @@ from flask import Flask, request, Response, jsonify, send_from_directory
 import requests
 import time
 import os
+import csv
+import io
+import json
+import re
+from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from urllib.parse import urlparse
 
 app = Flask(__name__)
 
 ALLOWED_HOSTS = {"www.football-data.co.uk", "football-data.co.uk"}
-APP_VERSION = "4.0"
+APP_VERSION = "4.1"
 SOURCE_CACHE = {}
+
+MAIN_HISTORY_LEAGUES = {
+    "T1": "Türkiye Süper Lig", "E0": "İngiltere Premier League", "E1": "İngiltere EFL Championship",
+    "E2": "İngiltere EFL League One", "E3": "İngiltere EFL League Two", "SC0": "İskoçya Premiership",
+    "SC1": "İskoçya Championship", "D1": "Almanya Bundesliga", "D2": "Almanya 2. Bundesliga",
+    "SP1": "İspanya La Liga", "SP2": "İspanya LaLiga 2", "I1": "İtalya Serie A", "I2": "İtalya Serie B",
+    "F1": "Fransa Ligue 1", "F2": "Fransa Ligue 2", "N1": "Hollanda Eredivisie",
+    "B1": "Belçika Pro League", "P1": "Portekiz Primeira Liga", "G1": "Yunanistan Super League",
+}
+EXTRA_HISTORY_LEAGUES = {
+    "ARG": "Arjantin Primera División", "AUT": "Avusturya Bundesliga", "BRA": "Brezilya Série A",
+    "CHN": "Çin Süper Ligi", "DNK": "Danimarka Superliga", "FIN": "Finlandiya Veikkausliiga",
+    "IRL": "İrlanda Premier Division", "JPN": "Japonya J1 League", "MEX": "Meksika Liga MX",
+    "NOR": "Norveç Eliteserien", "POL": "Polonya Ekstraklasa", "ROU": "Romanya Liga I",
+    "RUS": "Rusya Premier League", "SWE": "İsveç Allsvenskan", "SWZ": "İsviçre Super League",
+    "USA": "ABD MLS",
+}
+HISTORY_DIR = os.path.join(os.path.dirname(__file__), "data")
+HISTORY_FILE = os.path.join(HISTORY_DIR, "history_10y.json")
+HISTORY_META_FILE = os.path.join(HISTORY_DIR, "history_meta.json")
+HISTORY_LOCK = False
 
 ESPN_LEAGUES = {
     "tur.1": "Türkiye Süper Lig",
@@ -110,6 +136,162 @@ def index_file():
 def health():
     return jsonify({"ok": True, "frontend": True, "proxy": True, "version": APP_VERSION, "cache_entries": len(SOURCE_CACHE)})
 
+
+def _num(v):
+    try:
+        if v is None or str(v).strip() == "":
+            return None
+        return int(float(str(v).strip()))
+    except Exception:
+        return None
+
+def _date(v):
+    v = str(v or "").strip()
+    for fmt in ("%d/%m/%Y", "%d/%m/%y", "%Y-%m-%d", "%d-%m-%Y", "%d.%m.%Y"):
+        try:
+            return datetime.strptime(v, fmt).strftime("%Y-%m-%d")
+        except Exception:
+            pass
+    return v[:10] if re.match(r"^\d{4}-\d{2}-\d{2}", v) else v
+
+def _season_from_row(row, date_value):
+    raw = str(row.get("Season") or row.get("season") or "").strip()
+    if raw:
+        m = re.search(r"(20\d{2})", raw)
+        if m:
+            y = int(m.group(1))
+            return f"{y}/{str(y+1)[-2:]}"
+        m = re.search(r"(\d{4})", raw)
+        if m:
+            y = int(m.group(1))
+            return f"{y}/{str(y+1)[-2:]}"
+    try:
+        d = datetime.strptime(date_value, "%Y-%m-%d")
+        y = d.year if d.month >= 7 else d.year - 1
+        return f"{y}/{str(y+1)[-2:]}"
+    except Exception:
+        return ""
+
+def _parse_history_csv(content, league_name, season_label=""):
+    text = content.decode("utf-8-sig", errors="replace")
+    if "\ufffd" in text[:1000]:
+        text = content.decode("cp1252", errors="replace")
+    rows = list(csv.DictReader(io.StringIO(text)))
+    out = []
+    for r in rows:
+        home = str(r.get("HomeTeam") or r.get("Home") or "").strip()
+        away = str(r.get("AwayTeam") or r.get("Away") or "").strip()
+        fh, fa = _num(r.get("FTHG")), _num(r.get("FTAG"))
+        if not home or not away or fh is None or fa is None:
+            continue
+        date = _date(r.get("Date"))
+        ht_h, ht_a = _num(r.get("HTHG")), _num(r.get("HTAG"))
+        week = _num(r.get("MW") or r.get("Round") or r.get("Matchday"))
+        out.append({
+            "date": date, "league": league_name, "season": season_label or _season_from_row(r, date),
+            "week": week or 0, "home": home, "away": away,
+            "ht_home": ht_h, "ht_away": ht_a, "ft_home": fh, "ft_away": fa,
+            "referee": str(r.get("Referee") or "").strip(),
+        })
+    return out
+
+def _dedupe_history(rows):
+    best = {}
+    for x in rows:
+        k = "|".join([str(x.get("date","")), str(x.get("league","")), str(x.get("season","")),
+                      str(x.get("home","")).lower(), str(x.get("away","")).lower()])
+        richness = sum(1 for z in ("week","ht_home","ht_away","referee") if x.get(z) not in (None,"",0))
+        old = best.get(k)
+        if old is None or richness > old[0]:
+            best[k] = (richness, x)
+    return [v[1] for v in best.values()]
+
+def build_history_10y():
+    global HISTORY_LOCK
+    if HISTORY_LOCK:
+        return {"ok": False, "detail": "already_building"}
+    HISTORY_LOCK = True
+    try:
+        os.makedirs(HISTORY_DIR, exist_ok=True)
+        all_rows, audit = [], []
+        current_start = 2026
+        starts = list(range(current_start - 10, current_start + 1))
+        for code, name in MAIN_HISTORY_LEAGUES.items():
+            for y in starts:
+                sc = f"{str(y)[-2:]}{str(y+1)[-2:]}"
+                url = f"https://www.football-data.co.uk/mmz4281/{sc}/{code}.csv"
+                try:
+                    r = fetch_source(url)
+                    rows = _parse_history_csv(r.content, name, f"{y}/{str(y+1)[-2:]}")
+                    all_rows.extend(rows)
+                    audit.append({"league": name, "season": f"{y}/{str(y+1)[-2:]}", "rows": len(rows), "ok": bool(rows)})
+                except Exception as e:
+                    audit.append({"league": name, "season": f"{y}/{str(y+1)[-2:]}", "rows": 0, "ok": False, "error": str(e)[:120]})
+        for code, name in EXTRA_HISTORY_LEAGUES.items():
+            url = f"https://www.football-data.co.uk/new/{code}.csv"
+            try:
+                r = fetch_source(url)
+                rows = _parse_history_csv(r.content, name)
+                filtered = []
+                for x in rows:
+                    try:
+                        y = int(str(x.get("season",""))[:4])
+                    except Exception:
+                        try:
+                            y = datetime.strptime(x["date"], "%Y-%m-%d").year
+                        except Exception:
+                            y = 0
+                    if y >= current_start - 10:
+                        filtered.append(x)
+                all_rows.extend(filtered)
+                audit.append({"league": name, "season": "2016-2026", "rows": len(filtered), "ok": bool(filtered)})
+            except Exception as e:
+                audit.append({"league": name, "season": "2016-2026", "rows": 0, "ok": False, "error": str(e)[:120]})
+        all_rows = _dedupe_history(all_rows)
+        league_counts = {}
+        for x in all_rows:
+            league_counts[x["league"]] = league_counts.get(x["league"], 0) + 1
+        meta = {
+            "ok": True, "generated_at": datetime.utcnow().isoformat()+"Z", "matches": len(all_rows),
+            "leagues": len(league_counts), "league_counts": league_counts, "audit": audit,
+            "critical_failures": sum(1 for a in audit if not a["ok"]),
+        }
+        with open(HISTORY_FILE+".tmp", "w", encoding="utf-8") as h:
+            json.dump(all_rows, h, ensure_ascii=False, separators=(",",":"))
+        os.replace(HISTORY_FILE+".tmp", HISTORY_FILE)
+        with open(HISTORY_META_FILE, "w", encoding="utf-8") as h:
+            json.dump(meta, h, ensure_ascii=False, indent=2)
+        return meta
+    finally:
+        HISTORY_LOCK = False
+
+@app.get("/history")
+def history():
+    if not os.path.exists(HISTORY_FILE):
+        return jsonify({"ok": False, "error": "history_not_built"}), 404
+    league = request.args.get("league", "").strip()
+    with open(HISTORY_FILE, "r", encoding="utf-8") as h:
+        rows = json.load(h)
+    if league:
+        rows = [x for x in rows if x.get("league") == league]
+    return jsonify({"ok": True, "matches": rows, "count": len(rows)})
+
+@app.get("/history/status")
+def history_status():
+    if not os.path.exists(HISTORY_META_FILE):
+        return jsonify({"ok": False, "built": False})
+    with open(HISTORY_META_FILE, "r", encoding="utf-8") as h:
+        meta = json.load(h)
+    meta["built"] = os.path.exists(HISTORY_FILE)
+    return jsonify(meta)
+
+@app.post("/history/build")
+def history_build():
+    token = request.headers.get("X-Build-Token", "")
+    expected = os.environ.get("HISTORY_BUILD_TOKEN", "")
+    if expected and token != expected:
+        return jsonify({"ok": False, "error": "forbidden"}), 403
+    return jsonify(build_history_10y())
 
 @app.get("/leagues")
 def leagues():
