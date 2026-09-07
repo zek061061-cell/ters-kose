@@ -1,0 +1,47 @@
+name: Build 10-year history warehouse
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - 'data/history_10y.json'
+      - 'data/history_meta.json'
+
+permissions:
+  contents: write
+
+jobs:
+  build-history:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      TERS_KOSE_AUTO_HISTORY: "0"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Build historical warehouse
+        run: |
+          python - <<'PY'
+          import json
+          import app
+          result = app.build_history_10y()
+          print(json.dumps(result, ensure_ascii=False, indent=2))
+          if not result.get("promoted"):
+              raise SystemExit("history build was not promoted")
+          PY
+      - name: Commit warehouse
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/history_10y.json data/history_meta.json
+          if git diff --cached --quiet; then
+            echo "No warehouse changes"
+          else
+            git commit -m "Update verified 10-year history warehouse"
+            git push
+          fi
