@@ -373,7 +373,8 @@ async function fetchEspnBulletin(date){
  return out
 }
 async function fetchBulletinDate(date){var j=null,source="";
- try{var ar=await fetch("./data/bulletin_1y.json",{cache:"no-store"});if(ar.ok){var archive=await ar.json(),am=(archive.matches||[]).filter(function(x){return String(x.date||"")===String(date)});if(am.length){j={matches:am};source="1 yıllık arşiv"}}}catch(e){}
+ try{var fr=await fetch("./data/future_fixtures.json",{cache:"no-store"});if(fr.ok){var future=await fr.json(),fm=(future.matches||[]).filter(function(x){return String(x.date||"")===String(date)});if(fm.length){j={matches:fm};source="sezon fikstürü"}}}catch(e){}
+ if(!j||!(j.matches||[]).length){try{var ar=await fetch("./data/bulletin_1y.json",{cache:"no-store"});if(ar.ok){var archive=await ar.json(),am=(archive.matches||[]).filter(function(x){return String(x.date||"")===String(date)});if(am.length){j={matches:am};source="1 yıllık arşiv"}}}catch(e){}}
  if(!j||!(j.matches||[]).length){try{var r0=await fetch("./data/current_fixtures.json",{cache:"no-store"});if(r0.ok){var all=await r0.json(),sm=(all.matches||[]).filter(function(x){return String(x.date||"")===String(date)});if(sm.length){j={matches:sm};source=all.source||"Sahadan"}}}catch(e){}}
  if(!j||!(j.matches||[]).length){try{var r=await apiFetch("/fixtures?date="+encodeURIComponent(date),{cache:"no-store"});if(r.ok){j=await r.json();source="yedek servis"}}catch(e){}}
  if(!j||!(j.matches||[]).length){try{j={matches:await fetchEspnBulletin(date)};source="ESPN yedek"}catch(e){}}
