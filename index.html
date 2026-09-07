@@ -74,6 +74,8 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:rgba(6,16,29,.9
 <h2>Model Sağlık Kontrolü</h2><div class="card" id="healthReport"></div>
 <h2>Model doğrulama</h2>
 <div class="card"><div class="tiny">Geçmiş maçları, yalnızca o maçtan önce bilinen verilerle yeniden tahmin eder. Böylece modelin yüzdelerinin ne kadar güvenilir olduğunu kontrol ederiz.</div><div class="row" style="margin-top:12px"><button id="backtestBtn" onclick="runBacktest()">Geriye dönük test yap</button><select id="backtestSize" style="max-width:180px"><option value="60">Son 60 maç</option><option value="120" selected>Son 120 maç</option><option value="240">Son 240 maç</option></select></div><div id="backtestReport" class="tiny" style="margin-top:12px">Henüz test yapılmadı.</div></div>
+<h2>Hızlı Sistem Testi</h2>
+<div class="card"><div class="tiny">Veri yapısı, olasılık tutarlılığı ve kritik fonksiyonların çalışması tek tuşla kontrol edilir.</div><div class="row" style="margin-top:12px"><button onclick="runSelfTest()">Sistem testini çalıştır</button></div><div id="selfTestReport" class="tiny" style="margin-top:12px">Henüz test yapılmadı.</div></div>
 </section>
 
 </main>
@@ -399,8 +401,20 @@ async function runBacktest(){
  btn.disabled=false
 }
 
+function runSelfTest(){
+ var checks=[];
+ function add(name,ok,detail){checks.push({name:name,ok:!!ok,detail:detail||""})}
+ try{add("Veri dizisi",Array.isArray(matches),"Toplam "+matches.length+" kayıt")}catch(e){add("Veri dizisi",false,e.message)}
+ try{var dup=matches.length-dedupe(matches).length;add("Yinelenen kayıt",dup===0,dup+" yinelenen")}catch(e){add("Yinelenen kayıt",false,e.message)}
+ try{var bad=matches.filter(function(x){return !x.home||!x.away}).length;add("Takım alanları",bad===0,bad+" hatalı satır")}catch(e){add("Takım alanları",false,e.message)}
+ try{var sample=matches.find(function(x){return x.home&&x.away});if(sample){var a=modelMatch(sample,true),mc=marketConsistency(a);add("Model çalıştırma",Number.isFinite(a.p1)&&Number.isFinite(a.o25),"1="+pct(a.p1)+"%, Üst2.5="+pct(a.o25)+"%");add("Pazar tutarlılığı",mc.ok,mc.issues.join(", "))}else add("Model çalıştırma",false,"Örnek maç yok")}catch(e){add("Model çalıştırma",false,e.message)}
+ try{add("Excel modülü",!!window.XLSX,window.XLSX?"Hazır":"Yüklenemedi")}catch(e){add("Excel modülü",false,e.message)}
+ try{add("PWA desteği","serviceWorker" in navigator,("serviceWorker" in navigator)?"Destekleniyor":"Tarayıcı desteklemiyor")}catch(e){add("PWA desteği",false,e.message)}
+ var ok=checks.filter(function(x){return x.ok}).length;
+ el("selfTestReport").innerHTML='<div class="row"><span class="pill '+(ok===checks.length?"green":"red")+'">'+ok+'/'+checks.length+' test geçti</span></div><div style="margin-top:10px">'+checks.map(function(x){return '<div class="scoreline"><b>'+(x.ok?"✓ ":"✗ ")+esc(x.name)+'</b><span style="color:'+(x.ok?"#9af0ce":"#ffb9bf")+'">'+esc(x.detail)+'</span></div>'}).join("")+'</div>'
+}
 function fillSource(){el("sourceLeague").innerHTML=Object.keys(SOURCES).map(function(x){return"<option>"+esc(x)+"</option>"}).join("")}
-matches=dedupe(normalizeStoredMatches(matches));save();fillSource();renderAll();
-if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js").catch(function(){})})}
+matches=dedupe(normalizeStoredMatches(matches));save();fillSource();renderAll();setTimeout(function(){try{runSelfTest()}catch(e){}},300);
+if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("/sw.js?v=20260907").catch(function(){})})}
 </script>
 </body></html>
