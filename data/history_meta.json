@@ -1,0 +1,3591 @@
+{
+  "ok": true,
+  "generated_at": "2026-09-07T16:08:12.415828Z",
+  "matches": 68510,
+  "leagues": 19,
+  "league_counts": {
+    "Türkiye Süper Lig": 3421,
+    "İngiltere Premier League": 3820,
+    "İngiltere EFL Championship": 5568,
+    "İngiltere EFL League One": 5415,
+    "İngiltere EFL League Two": 5456,
+    "İskoçya Premiership": 2256,
+    "İskoçya Championship": 1732,
+    "Almanya Bundesliga": 3069,
+    "Almanya 2. Bundesliga": 3087,
+    "İspanya La Liga": 3831,
+    "İspanya LaLiga 2": 4653,
+    "İtalya Serie A": 3820,
+    "İtalya Serie B": 3946,
+    "Fransa Ligue 1": 3496,
+    "Fransa Ligue 2": 3586,
+    "Hollanda Eredivisie": 3019,
+    "Belçika Pro League": 2841,
+    "Portekiz Primeira Liga": 3093,
+    "Yunanistan Super League": 2401
+  },
+  "audit": [
+    {
+      "league": "ABD MLS",
+      "season": "2016-2026",
+      "rows": 0,
+      "ok": false
+    },
+    {
+      "league": "Almanya 2. Bundesliga",
+      "season": "2016/17",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Almanya 2. Bundesliga",
+      "season": "2017/18",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Almanya 2. Bundesliga",
+      "season": "2018/19",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Almanya 2. Bundesliga",
+      "season": "2019/20",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Almanya 2. Bundesliga",
+      "season": "2020/21",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Almanya 2. Bundesliga",
+      "season": "2021/22",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Almanya 2. Bundesliga",
+      "season": "2022/23",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Almanya 2. Bundesliga",
+      "season": "2023/24",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Almanya 2. Bundesliga",
+      "season": "2024/25",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Almanya 2. Bundesliga",
+      "season": "2025/26",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Almanya 2. Bundesliga",
+      "season": "2026/27",
+      "rows": 27,
+      "ok": true,
+      "source": "live",
+      "expected_partial": true
+    },
+    {
+      "league": "Almanya Bundesliga",
+      "season": "2016/17",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Almanya Bundesliga",
+      "season": "2017/18",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Almanya Bundesliga",
+      "season": "2018/19",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Almanya Bundesliga",
+      "season": "2019/20",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Almanya Bundesliga",
+      "season": "2020/21",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Almanya Bundesliga",
+      "season": "2021/22",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Almanya Bundesliga",
+      "season": "2022/23",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Almanya Bundesliga",
+      "season": "2023/24",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Almanya Bundesliga",
+      "season": "2024/25",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Almanya Bundesliga",
+      "season": "2025/26",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Almanya Bundesliga",
+      "season": "2026/27",
+      "rows": 9,
+      "ok": true,
+      "source": "live",
+      "expected_partial": true
+    },
+    {
+      "league": "Arjantin Primera División",
+      "season": "2016-2026",
+      "rows": 0,
+      "ok": false
+    },
+    {
+      "league": "Avusturya Bundesliga",
+      "season": "2016-2026",
+      "rows": 0,
+      "ok": false
+    },
+    {
+      "league": "Belçika Pro League",
+      "season": "2016/17",
+      "rows": 240,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Belçika Pro League",
+      "season": "2017/18",
+      "rows": 240,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Belçika Pro League",
+      "season": "2018/19",
+      "rows": 240,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Belçika Pro League",
+      "season": "2019/20",
+      "rows": 232,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Belçika Pro League",
+      "season": "2020/21",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Belçika Pro League",
+      "season": "2021/22",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Belçika Pro League",
+      "season": "2022/23",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Belçika Pro League",
+      "season": "2023/24",
+      "rows": 312,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Belçika Pro League",
+      "season": "2024/25",
+      "rows": 312,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Belçika Pro League",
+      "season": "2025/26",
+      "rows": 311,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Belçika Pro League",
+      "season": "2026/27",
+      "rows": 36,
+      "ok": true,
+      "source": "live",
+      "expected_partial": true
+    },
+    {
+      "league": "Brezilya Série A",
+      "season": "2016-2026",
+      "rows": 0,
+      "ok": false
+    },
+    {
+      "league": "Danimarka Superliga",
+      "season": "2016-2026",
+      "rows": 0,
+      "ok": false
+    },
+    {
+      "league": "Finlandiya Veikkausliiga",
+      "season": "2016-2026",
+      "rows": 0,
+      "ok": false
+    },
+    {
+      "league": "Fransa Ligue 1",
+      "season": "2016/17",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Fransa Ligue 1",
+      "season": "2017/18",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Fransa Ligue 1",
+      "season": "2018/19",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Fransa Ligue 1",
+      "season": "2019/20",
+      "rows": 279,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Fransa Ligue 1",
+      "season": "2020/21",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Fransa Ligue 1",
+      "season": "2021/22",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Fransa Ligue 1",
+      "season": "2022/23",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Fransa Ligue 1",
+      "season": "2023/24",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Fransa Ligue 1",
+      "season": "2024/25",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Fransa Ligue 1",
+      "season": "2025/26",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Fransa Ligue 1",
+      "season": "2026/27",
+      "rows": 19,
+      "ok": true,
+      "source": "live",
+      "expected_partial": true
+    },
+    {
+      "league": "Fransa Ligue 2",
+      "season": "2016/17",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Fransa Ligue 2",
+      "season": "2017/18",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Fransa Ligue 2",
+      "season": "2018/19",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Fransa Ligue 2",
+      "season": "2019/20",
+      "rows": 280,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Fransa Ligue 2",
+      "season": "2020/21",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Fransa Ligue 2",
+      "season": "2021/22",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Fransa Ligue 2",
+      "season": "2022/23",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Fransa Ligue 2",
+      "season": "2023/24",
+      "rows": 379,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Fransa Ligue 2",
+      "season": "2024/25",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Fransa Ligue 2",
+      "season": "2025/26",
+      "rows": 305,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Fransa Ligue 2",
+      "season": "2026/27",
+      "rows": 36,
+      "ok": true,
+      "source": "live",
+      "expected_partial": true
+    },
+    {
+      "league": "Hollanda Eredivisie",
+      "season": "2016/17",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Hollanda Eredivisie",
+      "season": "2017/18",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Hollanda Eredivisie",
+      "season": "2018/19",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Hollanda Eredivisie",
+      "season": "2019/20",
+      "rows": 232,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Hollanda Eredivisie",
+      "season": "2020/21",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Hollanda Eredivisie",
+      "season": "2021/22",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Hollanda Eredivisie",
+      "season": "2022/23",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Hollanda Eredivisie",
+      "season": "2023/24",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Hollanda Eredivisie",
+      "season": "2024/25",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Hollanda Eredivisie",
+      "season": "2025/26",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Hollanda Eredivisie",
+      "season": "2026/27",
+      "rows": 33,
+      "ok": true,
+      "source": "live",
+      "expected_partial": true
+    },
+    {
+      "league": "Japonya J1 League",
+      "season": "2016-2026",
+      "rows": 0,
+      "ok": false
+    },
+    {
+      "league": "Meksika Liga MX",
+      "season": "2016-2026",
+      "rows": 0,
+      "ok": false
+    },
+    {
+      "league": "Norveç Eliteserien",
+      "season": "2016-2026",
+      "rows": 0,
+      "ok": false
+    },
+    {
+      "league": "Polonya Ekstraklasa",
+      "season": "2016-2026",
+      "rows": 0,
+      "ok": false
+    },
+    {
+      "league": "Portekiz Primeira Liga",
+      "season": "2016/17",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Portekiz Primeira Liga",
+      "season": "2017/18",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Portekiz Primeira Liga",
+      "season": "2018/19",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Portekiz Primeira Liga",
+      "season": "2019/20",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Portekiz Primeira Liga",
+      "season": "2020/21",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Portekiz Primeira Liga",
+      "season": "2021/22",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Portekiz Primeira Liga",
+      "season": "2022/23",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Portekiz Primeira Liga",
+      "season": "2023/24",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Portekiz Primeira Liga",
+      "season": "2024/25",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Portekiz Primeira Liga",
+      "season": "2025/26",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Portekiz Primeira Liga",
+      "season": "2026/27",
+      "rows": 33,
+      "ok": true,
+      "source": "live",
+      "expected_partial": true
+    },
+    {
+      "league": "Romanya Liga I",
+      "season": "2016-2026",
+      "rows": 0,
+      "ok": false
+    },
+    {
+      "league": "Rusya Premier League",
+      "season": "2016-2026",
+      "rows": 0,
+      "ok": false
+    },
+    {
+      "league": "Türkiye Süper Lig",
+      "season": "2016/17",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Türkiye Süper Lig",
+      "season": "2017/18",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Türkiye Süper Lig",
+      "season": "2018/19",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Türkiye Süper Lig",
+      "season": "2019/20",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Türkiye Süper Lig",
+      "season": "2020/21",
+      "rows": 420,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Türkiye Süper Lig",
+      "season": "2021/22",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Türkiye Süper Lig",
+      "season": "2022/23",
+      "rows": 342,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Türkiye Süper Lig",
+      "season": "2023/24",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Türkiye Süper Lig",
+      "season": "2024/25",
+      "rows": 342,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Türkiye Süper Lig",
+      "season": "2025/26",
+      "rows": 306,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Türkiye Süper Lig",
+      "season": "2026/27",
+      "rows": 27,
+      "ok": true,
+      "source": "live",
+      "expected_partial": true
+    },
+    {
+      "league": "Yunanistan Super League",
+      "season": "2016/17",
+      "rows": 240,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Yunanistan Super League",
+      "season": "2017/18",
+      "rows": 240,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Yunanistan Super League",
+      "season": "2018/19",
+      "rows": 239,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Yunanistan Super League",
+      "season": "2019/20",
+      "rows": 240,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Yunanistan Super League",
+      "season": "2020/21",
+      "rows": 240,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Yunanistan Super League",
+      "season": "2021/22",
+      "rows": 240,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Yunanistan Super League",
+      "season": "2022/23",
+      "rows": 240,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Yunanistan Super League",
+      "season": "2023/24",
+      "rows": 240,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Yunanistan Super League",
+      "season": "2024/25",
+      "rows": 233,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Yunanistan Super League",
+      "season": "2025/26",
+      "rows": 236,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "Yunanistan Super League",
+      "season": "2026/27",
+      "rows": 13,
+      "ok": true,
+      "source": "live",
+      "expected_partial": true
+    },
+    {
+      "league": "Çin Süper Ligi",
+      "season": "2016-2026",
+      "rows": 0,
+      "ok": false
+    },
+    {
+      "league": "İngiltere EFL Championship",
+      "season": "2016/17",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL Championship",
+      "season": "2017/18",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL Championship",
+      "season": "2018/19",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL Championship",
+      "season": "2019/20",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL Championship",
+      "season": "2020/21",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL Championship",
+      "season": "2021/22",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL Championship",
+      "season": "2022/23",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL Championship",
+      "season": "2023/24",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL Championship",
+      "season": "2024/25",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL Championship",
+      "season": "2025/26",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL Championship",
+      "season": "2026/27",
+      "rows": 48,
+      "ok": true,
+      "source": "live",
+      "expected_partial": true
+    },
+    {
+      "league": "İngiltere EFL League One",
+      "season": "2016/17",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL League One",
+      "season": "2017/18",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL League One",
+      "season": "2018/19",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL League One",
+      "season": "2019/20",
+      "rows": 400,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL League One",
+      "season": "2020/21",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL League One",
+      "season": "2021/22",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL League One",
+      "season": "2022/23",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL League One",
+      "season": "2023/24",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL League One",
+      "season": "2024/25",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL League One",
+      "season": "2025/26",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL League One",
+      "season": "2026/27",
+      "rows": 47,
+      "ok": true,
+      "source": "live",
+      "expected_partial": true
+    },
+    {
+      "league": "İngiltere EFL League Two",
+      "season": "2016/17",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL League Two",
+      "season": "2017/18",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL League Two",
+      "season": "2018/19",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL League Two",
+      "season": "2019/20",
+      "rows": 440,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL League Two",
+      "season": "2020/21",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL League Two",
+      "season": "2021/22",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL League Two",
+      "season": "2022/23",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL League Two",
+      "season": "2023/24",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL League Two",
+      "season": "2024/25",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL League Two",
+      "season": "2025/26",
+      "rows": 552,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere EFL League Two",
+      "season": "2026/27",
+      "rows": 48,
+      "ok": true,
+      "source": "live",
+      "expected_partial": true
+    },
+    {
+      "league": "İngiltere Premier League",
+      "season": "2016/17",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere Premier League",
+      "season": "2017/18",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere Premier League",
+      "season": "2018/19",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere Premier League",
+      "season": "2019/20",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere Premier League",
+      "season": "2020/21",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere Premier League",
+      "season": "2021/22",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere Premier League",
+      "season": "2022/23",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere Premier League",
+      "season": "2023/24",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere Premier League",
+      "season": "2024/25",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere Premier League",
+      "season": "2025/26",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İngiltere Premier League",
+      "season": "2026/27",
+      "rows": 20,
+      "ok": true,
+      "source": "live",
+      "expected_partial": true
+    },
+    {
+      "league": "İrlanda Premier Division",
+      "season": "2016-2026",
+      "rows": 0,
+      "ok": false
+    },
+    {
+      "league": "İskoçya Championship",
+      "season": "2016/17",
+      "rows": 180,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İskoçya Championship",
+      "season": "2017/18",
+      "rows": 180,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İskoçya Championship",
+      "season": "2018/19",
+      "rows": 180,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İskoçya Championship",
+      "season": "2019/20",
+      "rows": 137,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İskoçya Championship",
+      "season": "2020/21",
+      "rows": 135,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İskoçya Championship",
+      "season": "2021/22",
+      "rows": 180,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İskoçya Championship",
+      "season": "2022/23",
+      "rows": 180,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İskoçya Championship",
+      "season": "2023/24",
+      "rows": 180,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İskoçya Championship",
+      "season": "2024/25",
+      "rows": 180,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İskoçya Championship",
+      "season": "2025/26",
+      "rows": 180,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İskoçya Championship",
+      "season": "2026/27",
+      "rows": 20,
+      "ok": true,
+      "source": "live",
+      "expected_partial": true
+    },
+    {
+      "league": "İskoçya Premiership",
+      "season": "2016/17",
+      "rows": 228,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İskoçya Premiership",
+      "season": "2017/18",
+      "rows": 228,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İskoçya Premiership",
+      "season": "2018/19",
+      "rows": 228,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İskoçya Premiership",
+      "season": "2019/20",
+      "rows": 179,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İskoçya Premiership",
+      "season": "2020/21",
+      "rows": 228,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İskoçya Premiership",
+      "season": "2021/22",
+      "rows": 228,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İskoçya Premiership",
+      "season": "2022/23",
+      "rows": 228,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İskoçya Premiership",
+      "season": "2023/24",
+      "rows": 228,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İskoçya Premiership",
+      "season": "2024/25",
+      "rows": 228,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İskoçya Premiership",
+      "season": "2025/26",
+      "rows": 228,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İskoçya Premiership",
+      "season": "2026/27",
+      "rows": 25,
+      "ok": true,
+      "source": "live",
+      "expected_partial": true
+    },
+    {
+      "league": "İspanya La Liga",
+      "season": "2016/17",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya La Liga",
+      "season": "2017/18",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya La Liga",
+      "season": "2018/19",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya La Liga",
+      "season": "2019/20",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya La Liga",
+      "season": "2020/21",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya La Liga",
+      "season": "2021/22",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya La Liga",
+      "season": "2022/23",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya La Liga",
+      "season": "2023/24",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya La Liga",
+      "season": "2024/25",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya La Liga",
+      "season": "2025/26",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya La Liga",
+      "season": "2026/27",
+      "rows": 31,
+      "ok": true,
+      "source": "live",
+      "expected_partial": true
+    },
+    {
+      "league": "İspanya LaLiga 2",
+      "season": "2016/17",
+      "rows": 462,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya LaLiga 2",
+      "season": "2017/18",
+      "rows": 462,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya LaLiga 2",
+      "season": "2018/19",
+      "rows": 462,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya LaLiga 2",
+      "season": "2019/20",
+      "rows": 462,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya LaLiga 2",
+      "season": "2020/21",
+      "rows": 462,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya LaLiga 2",
+      "season": "2021/22",
+      "rows": 462,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya LaLiga 2",
+      "season": "2022/23",
+      "rows": 462,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya LaLiga 2",
+      "season": "2023/24",
+      "rows": 462,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya LaLiga 2",
+      "season": "2024/25",
+      "rows": 462,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya LaLiga 2",
+      "season": "2025/26",
+      "rows": 462,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya LaLiga 2",
+      "season": "2026/27",
+      "rows": 33,
+      "ok": true,
+      "source": "live",
+      "expected_partial": true
+    },
+    {
+      "league": "İsveç Allsvenskan",
+      "season": "2016-2026",
+      "rows": 0,
+      "ok": false
+    },
+    {
+      "league": "İsviçre Super League",
+      "season": "2016-2026",
+      "rows": 0,
+      "ok": false
+    },
+    {
+      "league": "İtalya Serie A",
+      "season": "2016/17",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İtalya Serie A",
+      "season": "2017/18",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İtalya Serie A",
+      "season": "2018/19",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İtalya Serie A",
+      "season": "2019/20",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İtalya Serie A",
+      "season": "2020/21",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İtalya Serie A",
+      "season": "2021/22",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İtalya Serie A",
+      "season": "2022/23",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İtalya Serie A",
+      "season": "2023/24",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İtalya Serie A",
+      "season": "2024/25",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İtalya Serie A",
+      "season": "2025/26",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İtalya Serie A",
+      "season": "2026/27",
+      "rows": 20,
+      "ok": true,
+      "source": "live",
+      "expected_partial": true
+    },
+    {
+      "league": "İtalya Serie B",
+      "season": "2016/17",
+      "rows": 462,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İtalya Serie B",
+      "season": "2017/18",
+      "rows": 462,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İtalya Serie B",
+      "season": "2018/19",
+      "rows": 342,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İtalya Serie B",
+      "season": "2019/20",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İtalya Serie B",
+      "season": "2020/21",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İtalya Serie B",
+      "season": "2021/22",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İtalya Serie B",
+      "season": "2022/23",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İtalya Serie B",
+      "season": "2023/24",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İtalya Serie B",
+      "season": "2024/25",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İtalya Serie B",
+      "season": "2025/26",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İtalya Serie B",
+      "season": "2026/27",
+      "rows": 20,
+      "ok": true,
+      "source": "live",
+      "expected_partial": true
+    }
+  ],
+  "critical_failures": 16,
+  "current_partial_failures": 0,
+  "missing_completed": [
+    {
+      "league": "ABD MLS",
+      "season": "2016-2026",
+      "error": ""
+    },
+    {
+      "league": "Arjantin Primera División",
+      "season": "2016-2026",
+      "error": ""
+    },
+    {
+      "league": "Avusturya Bundesliga",
+      "season": "2016-2026",
+      "error": ""
+    },
+    {
+      "league": "Brezilya Série A",
+      "season": "2016-2026",
+      "error": ""
+    },
+    {
+      "league": "Danimarka Superliga",
+      "season": "2016-2026",
+      "error": ""
+    },
+    {
+      "league": "Finlandiya Veikkausliiga",
+      "season": "2016-2026",
+      "error": ""
+    },
+    {
+      "league": "Japonya J1 League",
+      "season": "2016-2026",
+      "error": ""
+    },
+    {
+      "league": "Meksika Liga MX",
+      "season": "2016-2026",
+      "error": ""
+    },
+    {
+      "league": "Norveç Eliteserien",
+      "season": "2016-2026",
+      "error": ""
+    },
+    {
+      "league": "Polonya Ekstraklasa",
+      "season": "2016-2026",
+      "error": ""
+    },
+    {
+      "league": "Romanya Liga I",
+      "season": "2016-2026",
+      "error": ""
+    },
+    {
+      "league": "Rusya Premier League",
+      "season": "2016-2026",
+      "error": ""
+    },
+    {
+      "league": "Çin Süper Ligi",
+      "season": "2016-2026",
+      "error": ""
+    },
+    {
+      "league": "İrlanda Premier Division",
+      "season": "2016-2026",
+      "error": ""
+    },
+    {
+      "league": "İsveç Allsvenskan",
+      "season": "2016-2026",
+      "error": ""
+    },
+    {
+      "league": "İsviçre Super League",
+      "season": "2016-2026",
+      "error": ""
+    }
+  ],
+  "thin_completed": [],
+  "current_season": "2026/27",
+  "quality": {
+    "rows": 68510,
+    "bad_team": 0,
+    "bad_score": 0,
+    "missing_date": 0,
+    "missing_week": 68510,
+    "missing_ht": 69,
+    "missing_odds": 91,
+    "duplicate_keys": 0,
+    "groups": 209,
+    "thin_groups": 19,
+    "quality_score": 0.9768,
+    "group_audit": [
+      {
+        "league": "Almanya 2. Bundesliga",
+        "season": "2016/17",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Almanya 2. Bundesliga",
+        "season": "2017/18",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Almanya 2. Bundesliga",
+        "season": "2018/19",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Almanya 2. Bundesliga",
+        "season": "2019/20",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Almanya 2. Bundesliga",
+        "season": "2020/21",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Almanya 2. Bundesliga",
+        "season": "2021/22",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Almanya 2. Bundesliga",
+        "season": "2022/23",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Almanya 2. Bundesliga",
+        "season": "2023/24",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Almanya 2. Bundesliga",
+        "season": "2024/25",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Almanya 2. Bundesliga",
+        "season": "2025/26",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Almanya 2. Bundesliga",
+        "season": "2026/27",
+        "rows": 27,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": true
+      },
+      {
+        "league": "Almanya Bundesliga",
+        "season": "2016/17",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Almanya Bundesliga",
+        "season": "2017/18",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Almanya Bundesliga",
+        "season": "2018/19",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Almanya Bundesliga",
+        "season": "2019/20",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Almanya Bundesliga",
+        "season": "2020/21",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Almanya Bundesliga",
+        "season": "2021/22",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Almanya Bundesliga",
+        "season": "2022/23",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Almanya Bundesliga",
+        "season": "2023/24",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Almanya Bundesliga",
+        "season": "2024/25",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 0.9967,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Almanya Bundesliga",
+        "season": "2025/26",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Almanya Bundesliga",
+        "season": "2026/27",
+        "rows": 9,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": true
+      },
+      {
+        "league": "Belçika Pro League",
+        "season": "2016/17",
+        "rows": 240,
+        "teams": 16,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Belçika Pro League",
+        "season": "2017/18",
+        "rows": 240,
+        "teams": 16,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Belçika Pro League",
+        "season": "2018/19",
+        "rows": 240,
+        "teams": 16,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Belçika Pro League",
+        "season": "2019/20",
+        "rows": 232,
+        "teams": 16,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Belçika Pro League",
+        "season": "2020/21",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Belçika Pro League",
+        "season": "2021/22",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 0.9935,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Belçika Pro League",
+        "season": "2022/23",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 0.9935,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Belçika Pro League",
+        "season": "2023/24",
+        "rows": 312,
+        "teams": 16,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Belçika Pro League",
+        "season": "2024/25",
+        "rows": 312,
+        "teams": 16,
+        "ht_coverage": 0.9968,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Belçika Pro League",
+        "season": "2025/26",
+        "rows": 311,
+        "teams": 16,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Belçika Pro League",
+        "season": "2026/27",
+        "rows": 36,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": true
+      },
+      {
+        "league": "Fransa Ligue 1",
+        "season": "2016/17",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 0.9974,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Fransa Ligue 1",
+        "season": "2017/18",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Fransa Ligue 1",
+        "season": "2018/19",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Fransa Ligue 1",
+        "season": "2019/20",
+        "rows": 279,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Fransa Ligue 1",
+        "season": "2020/21",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Fransa Ligue 1",
+        "season": "2021/22",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Fransa Ligue 1",
+        "season": "2022/23",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Fransa Ligue 1",
+        "season": "2023/24",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Fransa Ligue 1",
+        "season": "2024/25",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Fransa Ligue 1",
+        "season": "2025/26",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Fransa Ligue 1",
+        "season": "2026/27",
+        "rows": 19,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": true
+      },
+      {
+        "league": "Fransa Ligue 2",
+        "season": "2016/17",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Fransa Ligue 2",
+        "season": "2017/18",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Fransa Ligue 2",
+        "season": "2018/19",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Fransa Ligue 2",
+        "season": "2019/20",
+        "rows": 280,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Fransa Ligue 2",
+        "season": "2020/21",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 0.9974,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Fransa Ligue 2",
+        "season": "2021/22",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 0.9974,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Fransa Ligue 2",
+        "season": "2022/23",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 0.9974,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Fransa Ligue 2",
+        "season": "2023/24",
+        "rows": 379,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Fransa Ligue 2",
+        "season": "2024/25",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Fransa Ligue 2",
+        "season": "2025/26",
+        "rows": 305,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Fransa Ligue 2",
+        "season": "2026/27",
+        "rows": 36,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": true
+      },
+      {
+        "league": "Hollanda Eredivisie",
+        "season": "2016/17",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Hollanda Eredivisie",
+        "season": "2017/18",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Hollanda Eredivisie",
+        "season": "2018/19",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Hollanda Eredivisie",
+        "season": "2019/20",
+        "rows": 232,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Hollanda Eredivisie",
+        "season": "2020/21",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Hollanda Eredivisie",
+        "season": "2021/22",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Hollanda Eredivisie",
+        "season": "2022/23",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Hollanda Eredivisie",
+        "season": "2023/24",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Hollanda Eredivisie",
+        "season": "2024/25",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Hollanda Eredivisie",
+        "season": "2025/26",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Hollanda Eredivisie",
+        "season": "2026/27",
+        "rows": 33,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": true
+      },
+      {
+        "league": "Portekiz Primeira Liga",
+        "season": "2016/17",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Portekiz Primeira Liga",
+        "season": "2017/18",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Portekiz Primeira Liga",
+        "season": "2018/19",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Portekiz Primeira Liga",
+        "season": "2019/20",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Portekiz Primeira Liga",
+        "season": "2020/21",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Portekiz Primeira Liga",
+        "season": "2021/22",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Portekiz Primeira Liga",
+        "season": "2022/23",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Portekiz Primeira Liga",
+        "season": "2023/24",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Portekiz Primeira Liga",
+        "season": "2024/25",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Portekiz Primeira Liga",
+        "season": "2025/26",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Portekiz Primeira Liga",
+        "season": "2026/27",
+        "rows": 33,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": true
+      },
+      {
+        "league": "Türkiye Süper Lig",
+        "season": "2016/17",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Türkiye Süper Lig",
+        "season": "2017/18",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Türkiye Süper Lig",
+        "season": "2018/19",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Türkiye Süper Lig",
+        "season": "2019/20",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Türkiye Süper Lig",
+        "season": "2020/21",
+        "rows": 420,
+        "teams": 21,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Türkiye Süper Lig",
+        "season": "2021/22",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Türkiye Süper Lig",
+        "season": "2022/23",
+        "rows": 342,
+        "teams": 19,
+        "ht_coverage": 0.9152,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Türkiye Süper Lig",
+        "season": "2023/24",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 0.9974,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Türkiye Süper Lig",
+        "season": "2024/25",
+        "rows": 342,
+        "teams": 19,
+        "ht_coverage": 0.9971,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Türkiye Süper Lig",
+        "season": "2025/26",
+        "rows": 306,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Türkiye Süper Lig",
+        "season": "2026/27",
+        "rows": 27,
+        "teams": 18,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": true
+      },
+      {
+        "league": "Yunanistan Super League",
+        "season": "2016/17",
+        "rows": 240,
+        "teams": 16,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Yunanistan Super League",
+        "season": "2017/18",
+        "rows": 240,
+        "teams": 16,
+        "ht_coverage": 0.9917,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Yunanistan Super League",
+        "season": "2018/19",
+        "rows": 239,
+        "teams": 16,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Yunanistan Super League",
+        "season": "2019/20",
+        "rows": 240,
+        "teams": 14,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Yunanistan Super League",
+        "season": "2020/21",
+        "rows": 240,
+        "teams": 14,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Yunanistan Super League",
+        "season": "2021/22",
+        "rows": 240,
+        "teams": 14,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Yunanistan Super League",
+        "season": "2022/23",
+        "rows": 240,
+        "teams": 14,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Yunanistan Super League",
+        "season": "2023/24",
+        "rows": 240,
+        "teams": 14,
+        "ht_coverage": 0.9958,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Yunanistan Super League",
+        "season": "2024/25",
+        "rows": 233,
+        "teams": 14,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Yunanistan Super League",
+        "season": "2025/26",
+        "rows": 236,
+        "teams": 14,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "Yunanistan Super League",
+        "season": "2026/27",
+        "rows": 13,
+        "teams": 14,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": true
+      },
+      {
+        "league": "İngiltere EFL Championship",
+        "season": "2016/17",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL Championship",
+        "season": "2017/18",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL Championship",
+        "season": "2018/19",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 0.9982,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL Championship",
+        "season": "2019/20",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL Championship",
+        "season": "2020/21",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL Championship",
+        "season": "2021/22",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL Championship",
+        "season": "2022/23",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL Championship",
+        "season": "2023/24",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL Championship",
+        "season": "2024/25",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL Championship",
+        "season": "2025/26",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL Championship",
+        "season": "2026/27",
+        "rows": 48,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": true
+      },
+      {
+        "league": "İngiltere EFL League One",
+        "season": "2016/17",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL League One",
+        "season": "2017/18",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL League One",
+        "season": "2018/19",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL League One",
+        "season": "2019/20",
+        "rows": 400,
+        "teams": 23,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL League One",
+        "season": "2020/21",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL League One",
+        "season": "2021/22",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL League One",
+        "season": "2022/23",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL League One",
+        "season": "2023/24",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL League One",
+        "season": "2024/25",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL League One",
+        "season": "2025/26",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL League One",
+        "season": "2026/27",
+        "rows": 47,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": true
+      },
+      {
+        "league": "İngiltere EFL League Two",
+        "season": "2016/17",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL League Two",
+        "season": "2017/18",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL League Two",
+        "season": "2018/19",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL League Two",
+        "season": "2019/20",
+        "rows": 440,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL League Two",
+        "season": "2020/21",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL League Two",
+        "season": "2021/22",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL League Two",
+        "season": "2022/23",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL League Two",
+        "season": "2023/24",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL League Two",
+        "season": "2024/25",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL League Two",
+        "season": "2025/26",
+        "rows": 552,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere EFL League Two",
+        "season": "2026/27",
+        "rows": 48,
+        "teams": 24,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": true
+      },
+      {
+        "league": "İngiltere Premier League",
+        "season": "2016/17",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere Premier League",
+        "season": "2017/18",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere Premier League",
+        "season": "2018/19",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere Premier League",
+        "season": "2019/20",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere Premier League",
+        "season": "2020/21",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere Premier League",
+        "season": "2021/22",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere Premier League",
+        "season": "2022/23",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere Premier League",
+        "season": "2023/24",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere Premier League",
+        "season": "2024/25",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere Premier League",
+        "season": "2025/26",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İngiltere Premier League",
+        "season": "2026/27",
+        "rows": 20,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": true
+      },
+      {
+        "league": "İskoçya Championship",
+        "season": "2016/17",
+        "rows": 180,
+        "teams": 10,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İskoçya Championship",
+        "season": "2017/18",
+        "rows": 180,
+        "teams": 10,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İskoçya Championship",
+        "season": "2018/19",
+        "rows": 180,
+        "teams": 10,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İskoçya Championship",
+        "season": "2019/20",
+        "rows": 137,
+        "teams": 10,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İskoçya Championship",
+        "season": "2020/21",
+        "rows": 135,
+        "teams": 10,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İskoçya Championship",
+        "season": "2021/22",
+        "rows": 180,
+        "teams": 10,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İskoçya Championship",
+        "season": "2022/23",
+        "rows": 180,
+        "teams": 10,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İskoçya Championship",
+        "season": "2023/24",
+        "rows": 180,
+        "teams": 10,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İskoçya Championship",
+        "season": "2024/25",
+        "rows": 180,
+        "teams": 10,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İskoçya Championship",
+        "season": "2025/26",
+        "rows": 180,
+        "teams": 10,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İskoçya Championship",
+        "season": "2026/27",
+        "rows": 20,
+        "teams": 10,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": true
+      },
+      {
+        "league": "İskoçya Premiership",
+        "season": "2016/17",
+        "rows": 228,
+        "teams": 12,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İskoçya Premiership",
+        "season": "2017/18",
+        "rows": 228,
+        "teams": 12,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İskoçya Premiership",
+        "season": "2018/19",
+        "rows": 228,
+        "teams": 12,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İskoçya Premiership",
+        "season": "2019/20",
+        "rows": 179,
+        "teams": 12,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İskoçya Premiership",
+        "season": "2020/21",
+        "rows": 228,
+        "teams": 12,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İskoçya Premiership",
+        "season": "2021/22",
+        "rows": 228,
+        "teams": 12,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İskoçya Premiership",
+        "season": "2022/23",
+        "rows": 228,
+        "teams": 12,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İskoçya Premiership",
+        "season": "2023/24",
+        "rows": 228,
+        "teams": 12,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İskoçya Premiership",
+        "season": "2024/25",
+        "rows": 228,
+        "teams": 12,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İskoçya Premiership",
+        "season": "2025/26",
+        "rows": 228,
+        "teams": 12,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İskoçya Premiership",
+        "season": "2026/27",
+        "rows": 25,
+        "teams": 12,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": true
+      },
+      {
+        "league": "İspanya La Liga",
+        "season": "2016/17",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İspanya La Liga",
+        "season": "2017/18",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İspanya La Liga",
+        "season": "2018/19",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İspanya La Liga",
+        "season": "2019/20",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İspanya La Liga",
+        "season": "2020/21",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İspanya La Liga",
+        "season": "2021/22",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İspanya La Liga",
+        "season": "2022/23",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İspanya La Liga",
+        "season": "2023/24",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İspanya La Liga",
+        "season": "2024/25",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İspanya La Liga",
+        "season": "2025/26",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İspanya La Liga",
+        "season": "2026/27",
+        "rows": 31,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": true
+      },
+      {
+        "league": "İspanya LaLiga 2",
+        "season": "2016/17",
+        "rows": 462,
+        "teams": 22,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İspanya LaLiga 2",
+        "season": "2017/18",
+        "rows": 462,
+        "teams": 22,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İspanya LaLiga 2",
+        "season": "2018/19",
+        "rows": 462,
+        "teams": 22,
+        "ht_coverage": 0.9545,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İspanya LaLiga 2",
+        "season": "2019/20",
+        "rows": 462,
+        "teams": 22,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İspanya LaLiga 2",
+        "season": "2020/21",
+        "rows": 462,
+        "teams": 22,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İspanya LaLiga 2",
+        "season": "2021/22",
+        "rows": 462,
+        "teams": 22,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İspanya LaLiga 2",
+        "season": "2022/23",
+        "rows": 462,
+        "teams": 22,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İspanya LaLiga 2",
+        "season": "2023/24",
+        "rows": 462,
+        "teams": 22,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İspanya LaLiga 2",
+        "season": "2024/25",
+        "rows": 462,
+        "teams": 22,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İspanya LaLiga 2",
+        "season": "2025/26",
+        "rows": 462,
+        "teams": 22,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İspanya LaLiga 2",
+        "season": "2026/27",
+        "rows": 33,
+        "teams": 22,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": true
+      },
+      {
+        "league": "İtalya Serie A",
+        "season": "2016/17",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 0.9974,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İtalya Serie A",
+        "season": "2017/18",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İtalya Serie A",
+        "season": "2018/19",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İtalya Serie A",
+        "season": "2019/20",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İtalya Serie A",
+        "season": "2020/21",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İtalya Serie A",
+        "season": "2021/22",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İtalya Serie A",
+        "season": "2022/23",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İtalya Serie A",
+        "season": "2023/24",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İtalya Serie A",
+        "season": "2024/25",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İtalya Serie A",
+        "season": "2025/26",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İtalya Serie A",
+        "season": "2026/27",
+        "rows": 20,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": true
+      },
+      {
+        "league": "İtalya Serie B",
+        "season": "2016/17",
+        "rows": 462,
+        "teams": 22,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İtalya Serie B",
+        "season": "2017/18",
+        "rows": 462,
+        "teams": 22,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İtalya Serie B",
+        "season": "2018/19",
+        "rows": 342,
+        "teams": 19,
+        "ht_coverage": 0.9971,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İtalya Serie B",
+        "season": "2019/20",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İtalya Serie B",
+        "season": "2020/21",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 0.9974,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İtalya Serie B",
+        "season": "2021/22",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İtalya Serie B",
+        "season": "2022/23",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İtalya Serie B",
+        "season": "2023/24",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İtalya Serie B",
+        "season": "2024/25",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İtalya Serie B",
+        "season": "2025/26",
+        "rows": 380,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": false
+      },
+      {
+        "league": "İtalya Serie B",
+        "season": "2026/27",
+        "rows": 20,
+        "teams": 20,
+        "ht_coverage": 1.0,
+        "week_coverage": 0.0,
+        "thin": true
+      }
+    ]
+  },
+  "verified": false,
+  "promoted": true
+}
