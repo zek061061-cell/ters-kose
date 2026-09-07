@@ -206,6 +206,70 @@ def _dedupe_history(rows):
             best[k] = (richness, x)
     return [v[1] for v in best.values()]
 
+def _audit_history_rows(rows):
+    bad_team = bad_score = missing_date = missing_week = missing_ht = 0
+    groups = {}
+    seen = set()
+    duplicate_keys = 0
+    for x in rows:
+        home = str(x.get("home") or "").strip()
+        away = str(x.get("away") or "").strip()
+        if not home or not away or home.casefold() == away.casefold():
+            bad_team += 1
+        try:
+            fh, fa = float(x.get("ft_home")), float(x.get("ft_away"))
+            if fh < 0 or fa < 0:
+                bad_score += 1
+        except Exception:
+            bad_score += 1
+        if not x.get("date"):
+            missing_date += 1
+        if not x.get("week"):
+            missing_week += 1
+        if x.get("ht_home") is None or x.get("ht_away") is None:
+            missing_ht += 1
+        key = "|".join([str(x.get("date","")), str(x.get("league","")), str(x.get("season","")),
+                        home.casefold(), away.casefold()])
+        if key in seen:
+            duplicate_keys += 1
+        seen.add(key)
+        gk = (str(x.get("league","")), str(x.get("season","")))
+        g = groups.setdefault(gk, {"rows": 0, "teams": set(), "missing_ht": 0, "missing_week": 0})
+        g["rows"] += 1
+        g["teams"].update([home, away])
+        if x.get("ht_home") is None or x.get("ht_away") is None:
+            g["missing_ht"] += 1
+        if not x.get("week"):
+            g["missing_week"] += 1
+
+    group_audit = []
+    thin_groups = 0
+    for (league, season), g in sorted(groups.items()):
+        teams = len([t for t in g["teams"] if t])
+        thin = g["rows"] < 80 or teams < 8
+        if thin:
+            thin_groups += 1
+        group_audit.append({
+            "league": league, "season": season, "rows": g["rows"], "teams": teams,
+            "ht_coverage": round(1 - g["missing_ht"] / max(1, g["rows"]), 4),
+            "week_coverage": round(1 - g["missing_week"] / max(1, g["rows"]), 4),
+            "thin": thin,
+        })
+
+    total = max(1, len(rows))
+    score = 1.0
+    score -= min(0.35, (bad_team + bad_score + duplicate_keys) / total * 4)
+    score -= min(0.20, missing_date / total)
+    score -= min(0.15, missing_ht / total * 0.5)
+    score -= min(0.10, thin_groups / max(1, len(groups)) * 0.25)
+    score = max(0.0, min(1.0, score))
+    return {
+        "rows": len(rows), "bad_team": bad_team, "bad_score": bad_score,
+        "missing_date": missing_date, "missing_week": missing_week, "missing_ht": missing_ht,
+        "duplicate_keys": duplicate_keys, "groups": len(groups), "thin_groups": thin_groups,
+        "quality_score": round(score, 4), "group_audit": group_audit,
+    }
+
 def build_history_10y():
     global HISTORY_LOCK
     if HISTORY_LOCK:
@@ -248,17 +312,51 @@ def build_history_10y():
             except Exception as e:
                 audit.append({"league": name, "season": "2016-2026", "rows": 0, "ok": False, "error": str(e)[:120]})
         all_rows = _dedupe_history(all_rows)
+        quality = _audit_history_rows(all_rows)
         league_counts = {}
         for x in all_rows:
             league_counts[x["league"]] = league_counts.get(x["league"], 0) + 1
+        failures = sum(1 for a in audit if not a["ok"])
         meta = {
             "ok": True, "generated_at": datetime.utcnow().isoformat()+"Z", "matches": len(all_rows),
             "leagues": len(league_counts), "league_counts": league_counts, "audit": audit,
-            "critical_failures": sum(1 for a in audit if not a["ok"]),
+            "critical_failures": failures, "quality": quality,
+            "verified": failures == 0 and quality["bad_team"] == 0 and quality["bad_score"] == 0 and quality["duplicate_keys"] == 0,
+            "promoted": False,
         }
+
+        # Last-known-good protection: a transient source outage must not overwrite a healthier warehouse.
+        old_meta = None
+        if os.path.exists(HISTORY_META_FILE):
+            try:
+                with open(HISTORY_META_FILE, "r", encoding="utf-8") as h:
+                    old_meta = json.load(h)
+            except Exception:
+                old_meta = None
+        worse_than_existing = False
+        if old_meta and os.path.exists(HISTORY_FILE):
+            old_matches = int(old_meta.get("matches") or 0)
+            old_failures = int(old_meta.get("critical_failures") or 0)
+            old_quality = float((old_meta.get("quality") or {}).get("quality_score") or 0)
+            if old_matches and len(all_rows) < old_matches * 0.95:
+                worse_than_existing = True
+            if failures > old_failures and len(all_rows) <= old_matches:
+                worse_than_existing = True
+            if old_quality and quality["quality_score"] + 0.03 < old_quality:
+                worse_than_existing = True
+
+        if worse_than_existing:
+            meta["ok"] = False
+            meta["promoted"] = False
+            meta["preserved_previous"] = True
+            meta["detail"] = "new_build_failed_quality_gate"
+            meta["previous_matches"] = int((old_meta or {}).get("matches") or 0)
+            return meta
+
         with open(HISTORY_FILE+".tmp", "w", encoding="utf-8") as h:
             json.dump(all_rows, h, ensure_ascii=False, separators=(",",":"))
         os.replace(HISTORY_FILE+".tmp", HISTORY_FILE)
+        meta["promoted"] = True
         with open(HISTORY_META_FILE, "w", encoding="utf-8") as h:
             json.dump(meta, h, ensure_ascii=False, indent=2)
         return meta
