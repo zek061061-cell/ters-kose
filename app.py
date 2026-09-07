@@ -10,6 +10,28 @@ ALLOWED_HOSTS = {"www.football-data.co.uk", "football-data.co.uk"}
 APP_VERSION = "3.2"
 SOURCE_CACHE = {}
 
+ESPN_LEAGUES = {
+    "tur.1": "Türkiye Süper Lig",
+    "eng.1": "İngiltere Premier League",
+    "eng.2": "İngiltere EFL Championship",
+    "eng.3": "İngiltere EFL League One",
+    "eng.4": "İngiltere EFL League Two",
+    "sco.1": "İskoçya Premiership",
+    "ger.1": "Almanya Bundesliga",
+    "ger.2": "Almanya 2. Bundesliga",
+    "esp.1": "İspanya La Liga",
+    "esp.2": "İspanya LaLiga 2",
+    "ita.1": "İtalya Serie A",
+    "ita.2": "İtalya Serie B",
+    "fra.1": "Fransa Ligue 1",
+    "fra.2": "Fransa Ligue 2",
+    "ned.1": "Hollanda Eredivisie",
+    "bel.1": "Belçika Pro League",
+    "por.1": "Portekiz Primeira Liga",
+    "gre.1": "Yunanistan Super League",
+}
+
+
 @app.after_request
 def add_cors_headers(resp):
     resp.headers["Access-Control-Allow-Origin"] = "*"
@@ -44,6 +66,53 @@ def index_file():
 @app.get("/health")
 def health():
     return jsonify({"ok": True, "frontend": True, "proxy": True, "version": APP_VERSION, "cache_entries": len(SOURCE_CACHE)})
+
+
+@app.get("/fixtures")
+def fixtures():
+    date = request.args.get("date", "").strip().replace("-", "")
+    if len(date) != 8 or not date.isdigit():
+        return jsonify({"error": "date YYYY-MM-DD gerekli"}), 400
+    all_matches = []
+    errors = []
+    for league_code, league_name in ESPN_LEAGUES.items():
+        url = f"https://site.api.espn.com/apis/site/v2/sports/soccer/{league_code}/scoreboard?dates={date}&limit=100"
+        try:
+            r = requests.get(url, timeout=12, headers={"User-Agent": "Mozilla/5.0"})
+            if not r.ok:
+                errors.append({"league": league_name, "status": r.status_code})
+                continue
+            data = r.json()
+            for event in data.get("events", []):
+                comps = event.get("competitions") or []
+                if not comps:
+                    continue
+                comp = comps[0]
+                competitors = comp.get("competitors") or []
+                home = next((x for x in competitors if x.get("homeAway") == "home"), None)
+                away = next((x for x in competitors if x.get("homeAway") == "away"), None)
+                if not home or not away:
+                    continue
+                ht = home.get("team", {})
+                at = away.get("team", {})
+                status = event.get("status", {}).get("type", {})
+                all_matches.append({
+                    "event_id": event.get("id", ""),
+                    "date": (event.get("date") or "")[:10],
+                    "kickoff": event.get("date", ""),
+                    "league": league_name,
+                    "league_code": league_code,
+                    "home": ht.get("displayName") or ht.get("name") or "",
+                    "away": at.get("displayName") or at.get("name") or "",
+                    "home_logo": ht.get("logo") or "",
+                    "away_logo": at.get("logo") or "",
+                    "status": status.get("description") or status.get("detail") or "",
+                    "completed": bool(status.get("completed")),
+                })
+        except Exception as e:
+            errors.append({"league": league_name, "detail": str(e)})
+    all_matches.sort(key=lambda x: (x.get("kickoff") or "", x.get("league") or "", x.get("home") or ""))
+    return jsonify({"ok": True, "date": date, "matches": all_matches, "count": len(all_matches), "errors": errors})
 
 @app.get("/smoke")
 def smoke():
