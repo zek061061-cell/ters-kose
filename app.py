@@ -1,6 +1,7 @@
 from flask import Flask, request, Response, jsonify, send_from_directory
 import requests
 import time
+import os
 from urllib.parse import urlparse
 
 app = Flask(__name__)
@@ -43,6 +44,32 @@ def index_file():
 @app.get("/health")
 def health():
     return jsonify({"ok": True, "frontend": True, "proxy": True, "version": APP_VERSION, "cache_entries": len(SOURCE_CACHE)})
+
+@app.get("/smoke")
+def smoke():
+    files = {}
+    for name in ("index.html", "manifest.json", "sw.js", "requirements.txt"):
+        files[name] = {"exists": os.path.exists(name), "bytes": os.path.getsize(name) if os.path.exists(name) else 0}
+    frontend_ok = files["index.html"]["exists"] and files["index.html"]["bytes"] > 1000
+    pwa_ok = files["manifest.json"]["exists"] and files["sw.js"]["exists"]
+    source = {"ok": False, "status": None, "bytes": 0, "detail": ""}
+    try:
+        probe = fetch_source("https://www.football-data.co.uk/matches/resources/fixtures.csv")
+        source = {"ok": bool(probe.ok and probe.content), "status": probe.status_code, "bytes": len(probe.content), "detail": "live"}
+    except Exception as e:
+        cached = SOURCE_CACHE.get("https://www.football-data.co.uk/matches/resources/fixtures.csv")
+        if cached:
+            source = {"ok": True, "status": 200, "bytes": len(cached["content"]), "detail": "cache"}
+        else:
+            source = {"ok": False, "status": None, "bytes": 0, "detail": str(e)}
+    return jsonify({
+        "ok": frontend_ok and pwa_ok,
+        "version": APP_VERSION,
+        "frontend_ok": frontend_ok,
+        "pwa_ok": pwa_ok,
+        "files": files,
+        "fixture_source": source,
+    })
 
 def fetch_source(url):
     headers = {
