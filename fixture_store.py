@@ -14,7 +14,7 @@ from threading import Lock
 
 from league_catalog import load_league_catalog
 from riskbudur_data_import import convert
-from source_adapters import AdapterRegistry, SourceAdapter, canonical_key, fixture_identity, normalize_fixture
+from source_adapters import AdapterRegistry, SourceAdapter, AdapterHealth, canonical_key, fixture_identity, normalize_fixture
 from team_catalog import Team, TeamCatalog
 
 
