@@ -128,8 +128,12 @@ def convert(rows: list[list]) -> dict:
         source_key = (str(raw[18] or "").strip(), str(raw[0] or "").strip())
         league_id = SOURCE_TO_CANONICAL.get(source_key)
         if not league_id:
-            rejected["outside_core57"] += 1
-            continue
+            # Preserve every Riskbudur country/league pair instead of discarding it.
+            # The central store can resolve catalog-backed rows, while source metadata
+            # remains available for direct Riskbudur-only operation.
+            country_slug = re.sub(r"[^a-z0-9]+", "-", source_key[0].casefold().replace("ı", "i").replace("ş", "s").replace("ğ", "g").replace("ü", "u").replace("ö", "o").replace("ç", "c")).strip("-")
+            league_slug = re.sub(r"[^a-z0-9]+", "-", source_key[1].casefold().replace("ı", "i").replace("ş", "s").replace("ğ", "g").replace("ü", "u").replace("ö", "o").replace("ç", "c")).strip("-")
+            league_id = f"riskbudur.{country_slug}.{league_slug}"
 
         match_date = str(raw[15] or "").strip()[:10]
         home, away = str(raw[4] or "").strip(), str(raw[5] or "").strip()
@@ -147,7 +151,7 @@ def convert(rows: list[list]) -> dict:
         ht_home, ht_away = _score(raw[7])
         completed = ft_home is not None and ft_away is not None
         total = ft_home + ft_away if completed else None
-        country, league_name = CANONICAL_META[league_id]
+        country, league_name = CANONICAL_META.get(league_id, source_key)
         kickoff_time = str(raw[17] or "").strip()
         kickoff = f"{match_date}T{kickoff_time}:00" if re.fullmatch(r"\d{1,2}:\d{2}", kickoff_time) else match_date
 
@@ -158,6 +162,8 @@ def convert(rows: list[list]) -> dict:
             "league_id": league_id,
             "league": f"{country} {league_name}",
             "country": country,
+            "source_country": source_key[0],
+            "source_league": source_key[1],
             "season": str(raw[1] or "").strip(),
             "week": str(raw[2] or "").strip() or None,
             "day": str(raw[3] or "").strip(),
