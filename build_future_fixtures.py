@@ -42,6 +42,7 @@ LEAGUES={
  "İskoçya Premiership":"https://www.sahadan.com/lig/premiership/e21cf135btr8t3upw0vl6n6x0/fikstur",
  "İngiltere EFL Championship":"https://www.sahadan.com/lig/championship/7ntvbsyq31jnzoqoa8850b9b8/fikstur",
  "İngiltere EFL League One":"https://www.sahadan.com/lig/1-lig/3frp1zxrqulrlrnk503n6l4l/fikstur",
+ "İngiltere EFL League Two":"https://www.sahadan.com/lig/2-lig/7j1jtn1skeji5iavxu9yty4os/fikstur",
  "İtalya Serie B":"https://www.sahadan.com/lig/serie-b/8ey0ww2zsosdmwr8ehsorh6t7/fikstur",
  "İspanya La Liga":"https://www.sahadan.com/lig/laliga/34pl8szyvrbwcmfkuocjm3r6t/fikstur",
  "İspanya LaLiga 2":"https://www.sahadan.com/lig/laliga-2/3is4bkgf3loxv9qfg3hm8zfqb/fikstur",
@@ -367,6 +368,14 @@ for x in rows:
         best[k]=x
 clean=list(best.values())
 clean.sort(key=lambda x:(x.get("date") or "",x.get("kickoff") or "",x.get("league") or "",x.get("home") or ""))
+
+# Recalculate coverage from the final deduplicated dataset. This includes
+# Sahadan's current İddaa snapshot as well as season fixture pages.
+final_counts={l:0 for l in WAREHOUSE_35}
+for _m in clean:
+    _lg=str(_m.get("league") or "")
+    if _lg in final_counts: final_counts[_lg]+=1
+diag=final_counts
 
 payload={"ok":True,"generated_at":datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),"source":"Sahadan + TFF + ESPN 35 lig fikstürleri + İddaa Programı","count":len(clean),"league_counts":diag,"football_data":fd_counts,"espn_errors":espn_errors,"coverage_leagues":sum(1 for l in WAREHOUSE_35 if int(diag.get(l,0) or 0)>0),"target_leagues":35,"matches":clean}
 with open(OUT,"w",encoding="utf-8") as f:json.dump(payload,f,ensure_ascii=False,separators=(",",":"))
