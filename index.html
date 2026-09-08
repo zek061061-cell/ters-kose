@@ -135,13 +135,22 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:#303030;backdro
 </div>
 <script>
 const SOURCES={"Türkiye Süper Lig":"T1","İngiltere Premier League":"E0","İngiltere EFL Championship":"E1","İngiltere EFL League One":"E2","İngiltere EFL League Two":"E3","İskoçya Premiership":"SC0","İskoçya Championship":"SC1","Almanya Bundesliga":"D1","Almanya 2. Bundesliga":"D2","İspanya La Liga":"SP1","İspanya LaLiga 2":"SP2","İtalya Serie A":"I1","İtalya Serie B":"I2","Fransa Ligue 1":"F1","Fransa Ligue 2":"F2","Hollanda Eredivisie":"N1","Belçika Pro League":"B1","Portekiz Primeira Liga":"P1","Yunanistan Super League":"G1"};
-const CURRENT_START=26,MODEL_VERSION="6.6";let lastRuntimeError="";
+const CURRENT_START=26,MODEL_VERSION="6.7";let lastRuntimeError="";
 let matches=[], sourceName="Henüz veri yüklenmedi", importedRows=[], importedAnalysis=[], currentReport=null, currentRadar=[], radarStrongOnly=false, bulletinRows=[], logoBook={},teamNameBook={},leagueCatalog=[];try{logoBook=JSON.parse(localStorage.getItem("terskose_logo_book")||"{}")||{}}catch(e){logoBook={}}try{teamNameBook=JSON.parse(localStorage.getItem("terskose_team_name_book")||"{}")||{}}catch(e){teamNameBook={}}
-try{matches=JSON.parse(localStorage.getItem("terskose_v2_matches")||localStorage.getItem("terskose_matches_final")||"[]")||[]}catch(e){matches=[]}
+try{
+ var rawLocal=localStorage.getItem("terskose_v2_matches")||localStorage.getItem("terskose_matches_final")||"[]";
+ // Old builds sometimes stored thousands of historical rows in localStorage.
+ // Do not JSON.parse multi-megabyte payloads on iPhone startup.
+ if(rawLocal.length>600000){
+   matches=[];
+   localStorage.removeItem("terskose_v2_matches");
+   localStorage.removeItem("terskose_matches_final");
+ }else{
+   matches=JSON.parse(rawLocal)||[];
+ }
+}catch(e){matches=[]}
 sourceName=localStorage.getItem("terskose_v2_source")||localStorage.getItem("terskose_source")||sourceName;
-// Historical warehouse data is server-owned and should not be persisted in
-// mobile localStorage. Drop legacy copies from older builds before reloading it.
-if(/^Ters Köşe • 10 yıllık tarihsel depo/.test(sourceName)&&matches.length>5000){matches=[];try{localStorage.removeItem("terskose_v2_matches")}catch(e){}}
+if(/^Ters Köşe • 10 yıllık tarihsel depo/.test(sourceName)&&matches.length>1500){matches=[];try{localStorage.removeItem("terskose_v2_matches")}catch(e){}}
 let calibration=null,leagueCalibration={},enginePerformance={global:{},leagues:{},baseRates:{"1/2":.05,"2/1":.05,"6+":.04}};try{calibration=JSON.parse(localStorage.getItem("terskose_calibration")||"null")}catch(e){calibration=null}try{leagueCalibration=JSON.parse(localStorage.getItem("terskose_league_calibration")||"{}")||{}}catch(e){leagueCalibration={}}try{enginePerformance=JSON.parse(localStorage.getItem("terskose_engine_performance")||"null")||enginePerformance}catch(e){}
 function el(id){return document.getElementById(id)}
 function updateConnectionState(){var on=navigator.onLine,d=el("connectionDot"),t=el("connectionText");if(d)d.style.background=on?"var(--green)":"#ff6b74";if(t)t.textContent=on?"çevrimiçi":"çevrimdışı • kayıtlı veriler kullanılabilir"}
@@ -154,7 +163,19 @@ function played(m){return Number.isFinite(+m.ft_home)&&Number.isFinite(+m.ft_awa
 function classify(m){if(!played(m))return[];var c=+m.ft_home,d=+m.ft_away,t=[];if(Number.isFinite(+m.ht_home)&&Number.isFinite(+m.ht_away)){var a=+m.ht_home,b=+m.ht_away;if(a>b&&c<d)t.push("1/2");if(a<b&&c>d)t.push("2/1")}if(c+d>=6)t.push("6+");return t}
 function seasonStart(s){var m=String(s||"").match(/(\d{4})/);return m?+m[1]:0}
 function save(){try{var persistent=matches.filter(function(x){return !x.__warehouse});localStorage.setItem("terskose_v2_matches",JSON.stringify(persistent));localStorage.setItem("terskose_v2_source",persistent.length?sourceName:"Yerel veri yok • tarihsel depo sunucudan yüklenir")}catch(e){}}
-function goTab(n){["match","bulletin","radar","data"].forEach(function(t){el("tab-"+t).classList.toggle("hidden",t!==n);el("nav-"+t).classList.toggle("active",t===n)});window.scrollTo(0,0)}
+var LAZY_STARTED={bulletin:false,radar:false,data:false};
+function goTab(n){
+ ["match","bulletin","radar","data"].forEach(function(t){el("tab-"+t).classList.toggle("hidden",t!==n);el("nav-"+t).classList.toggle("active",t===n)});
+ window.scrollTo(0,0);
+ if(n==="bulletin"&&!LAZY_STARTED.bulletin){
+   LAZY_STARTED.bulletin=true;
+   setTimeout(function(){loadBulletin(true)},30);
+ }
+ if(n==="data"&&!LAZY_STARTED.data){
+   LAZY_STARTED.data=true;
+   setTimeout(function(){refreshWarehouseStatus();refreshFutureCoverage()},30);
+ }
+}
 function dateNorm(x){if(!x)return"";if(typeof x==="number"&&window.XLSX){var d=XLSX.SSF.parse_date_code(x);if(d)return d.y+"-"+String(d.m).padStart(2,"0")+"-"+String(d.d).padStart(2,"0")}var p=String(x).split(/[\/.-]/);if(p.length===3){var d1=p[0],m=p[1],y=p[2];if(y.length===2)y=(+y<50?"20":"19")+y;return y+"-"+String(m).padStart(2,"0")+"-"+String(d1).padStart(2,"0")}return String(x)}
 function assignWeeks(rows){var ordered=[...rows].sort(function(a,b){return matchOrderKey(a).localeCompare(matchOrderKey(b))});var teams=[...new Set(ordered.flatMap(function(x){return[x.home,x.away]}))];var per=Math.max(1,Math.floor(teams.length/2));ordered.forEach(function(r,i){if(!r.week)r.week=Math.floor(i/per)+1})}
 function seasonCode(start){return String(start).padStart(2,"0")+String((start+1)%100).padStart(2,"0")}
@@ -262,9 +283,9 @@ async function loadWarehouseHistory(){
    var ir=await fetch("./data/history_index.json",{cache:"no-store"});
    if(!ir.ok)throw new Error("Mobil veri indeksi henüz hazır değil");
    HISTORY_SHARD_INDEX=await ir.json();
-   await ensureLeagueHistory("Türkiye Süper Lig",false);
    sourceName="Ters Köşe • "+(HISTORY_SHARD_INDEX.leagues||0)+" lig • hızlı mobil mod";
-   renderAll();refreshWarehouseStatus();refreshFutureCoverage();
+   leagueCatalog=Object.keys(HISTORY_SHARD_INDEX.files||{}).sort();
+   syncMatchFilters();syncRadarFilters();refreshWarehouseStatus();refreshFutureCoverage();
    if(ds)ds.innerHTML='<b>'+esc(sourceName)+'</b><br>'+(HISTORY_SHARD_INDEX.matches||0)+' maç sunucuda hazır • telefona yalnız kullanılan ligler indirilir.';
    return true
  }catch(e){
@@ -1001,7 +1022,19 @@ function runSelfTest(){
 async function hydrateLeagueCatalog(){try{var r=await apiFetch("/leagues",{cache:"no-store"});if(!r.ok)return;var j=await r.json();leagueCatalog=(j.leagues||[]).map(function(x){return x.name}).filter(Boolean);syncMatchFilters();syncRadarFilters();if(el("bulletinLeague")){var cur=el("bulletinLeague").value;el("bulletinLeague").innerHTML='<option value="">Tüm Ligler</option>'+leagueCatalog.map(function(x){return'<option value="'+esc(x)+'">'+esc(x)+'</option>'}).join("");if(cur&&leagueCatalog.includes(cur))el("bulletinLeague").value=cur}}catch(e){}}
 async function hydrateTeamAssets(){try{var r=await apiFetch("/teams",{cache:"no-store"});if(!r.ok)return;var j=await r.json();(j.teams||[]).forEach(function(t){var full=String(t.name||"").trim();if(!full)return;[t.name,t.short,t.abbreviation,t.slug].filter(Boolean).forEach(function(v){teamNameBook[teamKey(v)]=full});if(t.logo){[t.name,t.short,t.abbreviation,t.slug].filter(Boolean).forEach(function(v){logoBook[teamKey(v)]=t.logo});logoBook[teamKey(full)]=t.logo}});try{localStorage.setItem("terskose_team_name_book",JSON.stringify(teamNameBook));localStorage.setItem("terskose_logo_book",JSON.stringify(logoBook))}catch(e){}matches=dedupe(normalizeStoredMatches(matches));save();renderAll();if(bulletinRows.length)renderBulletin()}catch(e){}}
 function fillSource(){if(el("bulletinDate")&&!el("bulletinDate").value)el("bulletinDate").value=todayISO();if(el("bulletinLeague"))el("bulletinLeague").onchange=renderBulletin}
-updateConnectionState();var mv=el("modelVersionBadge");if(mv)mv.textContent="Model v"+MODEL_VERSION;matches=dedupe(normalizeStoredMatches(matches));save();fillSource();renderAll();refreshWarehouseStatus();refreshFutureCoverage();setTimeout(function(){try{runSelfTest()}catch(e){}},300);setTimeout(async function(){if(navigator.onLine){await loadWarehouseHistory();hydrateLeagueCatalog();hydrateTeamAssets();loadBulletin(true)}},500);
-if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("./sw.js?v=20260908j").catch(function(){})})}
+updateConnectionState();
+var mv=el("modelVersionBadge");if(mv)mv.textContent="Model v"+MODEL_VERSION;
+matches=dedupe(normalizeStoredMatches(matches));
+save();
+fillSource();
+renderAll();
+// First paint must stay light on iPhone. Load only the tiny history index after
+// the UI is interactive; bulletin/team assets/history shards are lazy.
+setTimeout(async function(){
+ if(navigator.onLine){
+   await loadWarehouseHistory();
+ }
+},1200);
+if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("./sw.js?v=20260908k").catch(function(){})})}
 </script>
 </body></html>
