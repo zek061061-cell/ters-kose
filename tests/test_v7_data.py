@@ -10,6 +10,7 @@ from source_adapters import AdapterRegistry, SourceAdapter, canonical_key, norma
 from team_catalog import Team, TeamCatalog
 from shard_store import ShardStore
 from riskbudur_import import import_file
+from riskbudur_data_import import convert
 from core57 import core57_ids, filter_coverage
 
 
@@ -197,6 +198,23 @@ class RiskbudurImportTests(unittest.TestCase):
             self.assertEqual(row["ht_ft"], "1/2")
             self.assertFalse(row["six_plus"])
             self.assertTrue(row["btts"])
+
+
+    def test_browser_data_export_maps_real_labels_without_inventing_scores(self):
+        played = ["3. Lig","2026/2027","5","Cumartesi","Viktoria Köln","H. Rostock","2-1","0-1","İY 2/MS 1","6+ HAYIR","2.5 ÜST","3.5 ALT","KG VAR","İY 0.5 ÜST","İY 1.5 ALT","2026-09-12","2026","15:00","Almanya","Ref A","1"]
+        future = ["Superettan","2026","24","Pazar","Norrköping","IK Oddevold","","","","","","","","","","2026-09-13","2026","16:00","İsveç","","1"]
+        payload = convert([played, future])
+        self.assertEqual(payload["match_count"], 2)
+        self.assertEqual(payload["mapped_leagues"], 2)
+        first = next(row for row in payload["matches"] if row["completed"])
+        pending = next(row for row in payload["matches"] if not row["completed"])
+        self.assertEqual(first["league_id"], "almanya.3-liga")
+        self.assertEqual(first["ht_ft"], "2/1")
+        self.assertTrue(first["btts"])
+        self.assertEqual(pending["league_id"], "isvec.superettan")
+        self.assertIsNone(pending["ft_home"])
+        self.assertEqual(payload["history_count"], 1)
+        self.assertEqual(payload["future_count"], 1)
 
 
 class Core57RuntimeTests(unittest.TestCase):
