@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import gzip
 import json
 from collections import defaultdict
 from pathlib import Path
@@ -85,6 +86,43 @@ def build_coverage(data_dir: Path | str = DATA_DIR) -> dict:
                     last_dates[name] = max(last_dates.get(name, match_date), match_date)
         except (OSError, json.JSONDecodeError):
             pass
+
+    master_file = root / "riskbudur_57_master.json.gz"
+    if master_file.exists():
+        try:
+            with gzip.open(master_file, "rt", encoding="utf-8") as handle:
+                master_payload = json.load(handle)
+            for match in master_payload.get("matches", []):
+                name = str(match.get("league") or "")
+                name = LEGACY_NAMES.get(name, name)
+                if not name:
+                    continue
+                match_date = str(match.get("date") or "")[:10]
+                identity = (name, match_date, str(match.get("home") or ""), str(match.get("away") or ""))
+                completed = match.get("ft_home") not in (None, "") and match.get("ft_away") not in (None, "")
+                if completed:
+                    if identity in seen_history:
+                        continue
+                    seen_history.add(identity)
+                    historical[name] = int(historical.get(name, 0)) + 1
+                    quality[name]["played"] += 1
+                    quality[name]["ft"] += 1
+                    quality[name]["ht"] += int(match.get("ht_home") not in (None, "") and match.get("ht_away") not in (None, ""))
+                    quality[name]["week"] += int(bool(match.get("week")))
+                else:
+                    upcoming[name] += 1
+                    for field in ("home", "away"):
+                        if match.get(field):
+                            future_teams[name].add(str(match[field]))
+                for field in ("home", "away"):
+                    if match.get(field):
+                        teams[name].add(str(match[field]))
+                if match_date:
+                    first_dates[name] = min(first_dates.get(name, match_date), match_date)
+                    last_dates[name] = max(last_dates.get(name, match_date), match_date)
+        except (OSError, json.JSONDecodeError):
+            pass
+
     for match in future.get("matches", []):
         name = str(match.get("league") or "")
         if name:

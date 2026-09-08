@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import gzip
 import json
 from pathlib import Path
 
@@ -17,11 +18,13 @@ def build_team_catalog(data_dir: Path | str = DATA_DIR) -> dict:
     root = Path(data_dir)
     store = FixtureStore(root)
     groups: dict[tuple[str, str], dict] = {}
-    for filename in INPUTS:
-        path = root / filename
+    sources = [(root / filename, False) for filename in INPUTS]
+    sources.append((root / "riskbudur_57_master.json.gz", True))
+    for path, compressed in sources:
         if not path.exists():
             continue
-        with path.open(encoding="utf-8") as handle:
+        opener = gzip.open if compressed else open
+        with opener(path, "rt", encoding="utf-8") as handle:
             payload = json.load(handle)
         rows = payload if isinstance(payload, list) else payload.get("matches", [])
         for match in rows:

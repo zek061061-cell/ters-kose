@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import gzip
 import json
 from datetime import date
 from pathlib import Path
@@ -44,6 +45,18 @@ class JsonFixtureAdapter(SourceAdapter):
             return self._cached_rows
 
 
+class GzipJsonFixtureAdapter(JsonFixtureAdapter):
+    def _load(self) -> list[dict]:
+        mtime = self.path.stat().st_mtime_ns
+        with self._cache_lock:
+            if self._cached_mtime != mtime:
+                with gzip.open(self.path, "rt", encoding="utf-8") as handle:
+                    payload = json.load(handle)
+                self._cached_rows = payload.get("matches", [])
+                self._cached_mtime = mtime
+            return self._cached_rows
+
+
 class FixtureStore:
     def __init__(self, data_dir: Path | str = DATA_DIR) -> None:
         root = Path(data_dir)
@@ -57,7 +70,9 @@ class FixtureStore:
         ]
         if (root / "v7_ingested_fixtures.json").exists():
             adapters.insert(0, JsonFixtureAdapter("v7-ingested", root / "v7_ingested_fixtures.json", 5))
-        if (root / "riskbudur_57_history.json").exists():
+        if (root / "riskbudur_57_master.json.gz").exists():
+            adapters.append(GzipJsonFixtureAdapter("riskbudur-57-master", root / "riskbudur_57_master.json.gz", 35))
+        elif (root / "riskbudur_57_history.json").exists():
             adapters.append(JsonFixtureAdapter("riskbudur-57-history", root / "riskbudur_57_history.json", 40))
         self.registry = AdapterRegistry(adapters)
 
