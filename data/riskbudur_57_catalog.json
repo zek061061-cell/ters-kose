@@ -1,0 +1,648 @@
+{
+  "schema_version": 1,
+  "profile": "riskbudur-57",
+  "purpose": "Stable historical-analysis core; daily bulletin remains a separate fixture layer.",
+  "league_count": 57,
+  "countries": 23,
+  "leagues": [
+    {
+      "league_id": "abd-kanada.major-league-soccer",
+      "country": "ABD/Kanada",
+      "canonical_name": "Major League Soccer",
+      "tier": 1,
+      "aliases": [
+        "Major League Soccer",
+        "MLS"
+      ],
+      "season_format": "calendar_year",
+      "active": true
+    },
+    {
+      "league_id": "almanya.bundesliga",
+      "country": "Almanya",
+      "canonical_name": "Bundesliga",
+      "tier": 1,
+      "aliases": [
+        "Bundesliga"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "almanya.2-bundesliga",
+      "country": "Almanya",
+      "canonical_name": "2. Bundesliga",
+      "tier": 2,
+      "aliases": [
+        "2. Bundesliga"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "almanya.3-liga",
+      "country": "Almanya",
+      "canonical_name": "3. Liga",
+      "tier": 3,
+      "aliases": [
+        "3. Liga"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "avusturya.bundesliga",
+      "country": "Avusturya",
+      "canonical_name": "Bundesliga",
+      "tier": 1,
+      "aliases": [
+        "Bundesliga"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "avusturya.2-liga",
+      "country": "Avusturya",
+      "canonical_name": "2. Liga",
+      "tier": 2,
+      "aliases": [
+        "2. Liga"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "belcika.pro-league",
+      "country": "Belçika",
+      "canonical_name": "Pro League",
+      "tier": 1,
+      "aliases": [
+        "Pro League"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "belcika.challenger-pro-league",
+      "country": "Belçika",
+      "canonical_name": "Challenger Pro League",
+      "tier": 2,
+      "aliases": [
+        "Challenger Pro League"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "brezilya.serie-a",
+      "country": "Brezilya",
+      "canonical_name": "Série A",
+      "tier": 1,
+      "aliases": [
+        "Série A"
+      ],
+      "season_format": "calendar_year",
+      "active": true
+    },
+    {
+      "league_id": "danimarka.superliga",
+      "country": "Danimarka",
+      "canonical_name": "Superliga",
+      "tier": 1,
+      "aliases": [
+        "Superliga"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "danimarka.1st-division",
+      "country": "Danimarka",
+      "canonical_name": "1st Division",
+      "tier": 2,
+      "aliases": [
+        "1st Division"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "finlandiya.veikkausliiga",
+      "country": "Finlandiya",
+      "canonical_name": "Veikkausliiga",
+      "tier": 1,
+      "aliases": [
+        "Veikkausliiga"
+      ],
+      "season_format": "calendar_year",
+      "active": true
+    },
+    {
+      "league_id": "finlandiya.ykkosliiga",
+      "country": "Finlandiya",
+      "canonical_name": "Ykkösliiga",
+      "tier": 2,
+      "aliases": [
+        "Ykkösliiga",
+        "Ykkosliiga"
+      ],
+      "season_format": "calendar_year",
+      "active": true
+    },
+    {
+      "league_id": "fransa.ligue-1",
+      "country": "Fransa",
+      "canonical_name": "Ligue 1",
+      "tier": 1,
+      "aliases": [
+        "Ligue 1"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "fransa.ligue-2",
+      "country": "Fransa",
+      "canonical_name": "Ligue 2",
+      "tier": 2,
+      "aliases": [
+        "Ligue 2"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "fransa.national",
+      "country": "Fransa",
+      "canonical_name": "National",
+      "tier": 3,
+      "aliases": [
+        "National"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "guney-kore.k-league-1",
+      "country": "Güney Kore",
+      "canonical_name": "K League 1",
+      "tier": 1,
+      "aliases": [
+        "K League 1",
+        "K-League 1"
+      ],
+      "season_format": "calendar_year",
+      "active": true
+    },
+    {
+      "league_id": "guney-kore.k-league-2",
+      "country": "Güney Kore",
+      "canonical_name": "K League 2",
+      "tier": 2,
+      "aliases": [
+        "K League 2",
+        "K-League 2"
+      ],
+      "season_format": "calendar_year",
+      "active": true
+    },
+    {
+      "league_id": "hollanda.eredivisie",
+      "country": "Hollanda",
+      "canonical_name": "Eredivisie",
+      "tier": 1,
+      "aliases": [
+        "Eredivisie"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "hollanda.eerste-divisie",
+      "country": "Hollanda",
+      "canonical_name": "Eerste Divisie",
+      "tier": 2,
+      "aliases": [
+        "Eerste Divisie"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "japonya.j1-league",
+      "country": "Japonya",
+      "canonical_name": "J1 League",
+      "tier": 1,
+      "aliases": [
+        "J1 League"
+      ],
+      "season_format": "calendar_year",
+      "active": true
+    },
+    {
+      "league_id": "japonya.j2-league",
+      "country": "Japonya",
+      "canonical_name": "J2 League",
+      "tier": 2,
+      "aliases": [
+        "J2 League"
+      ],
+      "season_format": "calendar_year",
+      "active": true
+    },
+    {
+      "league_id": "japonya.j3-league",
+      "country": "Japonya",
+      "canonical_name": "J3 League",
+      "tier": 3,
+      "aliases": [
+        "J3 League"
+      ],
+      "season_format": "calendar_year",
+      "active": true
+    },
+    {
+      "league_id": "norvec.eliteserien",
+      "country": "Norveç",
+      "canonical_name": "Eliteserien",
+      "tier": 1,
+      "aliases": [
+        "Eliteserien"
+      ],
+      "season_format": "calendar_year",
+      "active": true
+    },
+    {
+      "league_id": "norvec.1-division",
+      "country": "Norveç",
+      "canonical_name": "1. Division",
+      "tier": 2,
+      "aliases": [
+        "1. Division",
+        "OBOS-ligaen"
+      ],
+      "season_format": "calendar_year",
+      "active": true
+    },
+    {
+      "league_id": "portekiz.primeira-liga",
+      "country": "Portekiz",
+      "canonical_name": "Primeira Liga",
+      "tier": 1,
+      "aliases": [
+        "Primeira Liga"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "portekiz.liga-portugal-2",
+      "country": "Portekiz",
+      "canonical_name": "Liga Portugal 2",
+      "tier": 2,
+      "aliases": [
+        "Liga Portugal 2"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "turkiye.super-lig",
+      "country": "Türkiye",
+      "canonical_name": "Süper Lig",
+      "tier": 1,
+      "aliases": [
+        "Süper Lig",
+        "Trendyol Süper Lig"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "turkiye.1-lig",
+      "country": "Türkiye",
+      "canonical_name": "1. Lig",
+      "tier": 2,
+      "aliases": [
+        "1. Lig",
+        "TFF 1. Lig",
+        "Trendyol 1. Lig"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "turkiye.2-lig",
+      "country": "Türkiye",
+      "canonical_name": "2. Lig",
+      "tier": 3,
+      "aliases": [
+        "2. Lig",
+        "TFF 2. Lig"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "turkiye.3-lig",
+      "country": "Türkiye",
+      "canonical_name": "3. Lig",
+      "tier": 4,
+      "aliases": [
+        "3. Lig",
+        "TFF 3. Lig"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "yunanistan.super-league",
+      "country": "Yunanistan",
+      "canonical_name": "Super League",
+      "tier": 1,
+      "aliases": [
+        "Super League"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "yunanistan.super-league-2",
+      "country": "Yunanistan",
+      "canonical_name": "Super League 2",
+      "tier": 2,
+      "aliases": [
+        "Super League 2"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "cin.chinese-super-league",
+      "country": "Çin",
+      "canonical_name": "Chinese Super League",
+      "tier": 1,
+      "aliases": [
+        "Chinese Super League",
+        "CSL"
+      ],
+      "season_format": "calendar_year",
+      "active": true
+    },
+    {
+      "league_id": "cin.china-league-one",
+      "country": "Çin",
+      "canonical_name": "China League One",
+      "tier": 2,
+      "aliases": [
+        "China League One"
+      ],
+      "season_format": "calendar_year",
+      "active": true
+    },
+    {
+      "league_id": "cin.china-league-two",
+      "country": "Çin",
+      "canonical_name": "China League Two",
+      "tier": 3,
+      "aliases": [
+        "China League Two"
+      ],
+      "season_format": "calendar_year",
+      "active": true
+    },
+    {
+      "league_id": "ingiltere.premier-league",
+      "country": "İngiltere",
+      "canonical_name": "Premier League",
+      "tier": 1,
+      "aliases": [
+        "Premier League"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "ingiltere.championship",
+      "country": "İngiltere",
+      "canonical_name": "Championship",
+      "tier": 2,
+      "aliases": [
+        "Championship",
+        "EFL Championship"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "ingiltere.league-one",
+      "country": "İngiltere",
+      "canonical_name": "League One",
+      "tier": 3,
+      "aliases": [
+        "League One"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "ingiltere.league-two",
+      "country": "İngiltere",
+      "canonical_name": "League Two",
+      "tier": 4,
+      "aliases": [
+        "League Two"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "ingiltere.national-league",
+      "country": "İngiltere",
+      "canonical_name": "National League",
+      "tier": 5,
+      "aliases": [
+        "National League"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "irlanda.premier-division",
+      "country": "İrlanda",
+      "canonical_name": "Premier Division",
+      "tier": 1,
+      "aliases": [
+        "Premier Division"
+      ],
+      "season_format": "calendar_year",
+      "active": true
+    },
+    {
+      "league_id": "irlanda.first-division",
+      "country": "İrlanda",
+      "canonical_name": "First Division",
+      "tier": 2,
+      "aliases": [
+        "First Division"
+      ],
+      "season_format": "calendar_year",
+      "active": true
+    },
+    {
+      "league_id": "iskocya.premiership",
+      "country": "İskoçya",
+      "canonical_name": "Premiership",
+      "tier": 1,
+      "aliases": [
+        "Premiership"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "iskocya.championship",
+      "country": "İskoçya",
+      "canonical_name": "Championship",
+      "tier": 2,
+      "aliases": [
+        "Championship"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "iskocya.league-one",
+      "country": "İskoçya",
+      "canonical_name": "League One",
+      "tier": 3,
+      "aliases": [
+        "League One"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "iskocya.league-two",
+      "country": "İskoçya",
+      "canonical_name": "League Two",
+      "tier": 4,
+      "aliases": [
+        "League Two"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "ispanya.la-liga",
+      "country": "İspanya",
+      "canonical_name": "La Liga",
+      "tier": 1,
+      "aliases": [
+        "La Liga"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "ispanya.laliga-2",
+      "country": "İspanya",
+      "canonical_name": "LaLiga 2",
+      "tier": 2,
+      "aliases": [
+        "LaLiga 2"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "ispanya.primera-federacion",
+      "country": "İspanya",
+      "canonical_name": "Primera Federación",
+      "tier": 3,
+      "aliases": [
+        "Primera Federación"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "isvec.allsvenskan",
+      "country": "İsveç",
+      "canonical_name": "Allsvenskan",
+      "tier": 1,
+      "aliases": [
+        "Allsvenskan"
+      ],
+      "season_format": "calendar_year",
+      "active": true
+    },
+    {
+      "league_id": "isvec.superettan",
+      "country": "İsveç",
+      "canonical_name": "Superettan",
+      "tier": 2,
+      "aliases": [
+        "Superettan"
+      ],
+      "season_format": "calendar_year",
+      "active": true
+    },
+    {
+      "league_id": "isvicre.super-league",
+      "country": "İsviçre",
+      "canonical_name": "Super League",
+      "tier": 1,
+      "aliases": [
+        "Super League"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "isvicre.challenge-league",
+      "country": "İsviçre",
+      "canonical_name": "Challenge League",
+      "tier": 2,
+      "aliases": [
+        "Challenge League"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "italya.serie-a",
+      "country": "İtalya",
+      "canonical_name": "Serie A",
+      "tier": 1,
+      "aliases": [
+        "Serie A"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "italya.serie-b",
+      "country": "İtalya",
+      "canonical_name": "Serie B",
+      "tier": 2,
+      "aliases": [
+        "Serie B"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    },
+    {
+      "league_id": "italya.serie-c",
+      "country": "İtalya",
+      "canonical_name": "Serie C",
+      "tier": 3,
+      "aliases": [
+        "Serie C"
+      ],
+      "season_format": "cross_year",
+      "active": true
+    }
+  ]
+}

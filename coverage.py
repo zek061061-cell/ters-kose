@@ -25,13 +25,14 @@ def build_coverage(data_dir: Path | str = DATA_DIR) -> dict:
     catalog = load_league_catalog(root / "league_catalog.json")
     history_meta = _read(root / "history_meta.json")
     future = _read(root / "future_fixtures.json")
-    historical = history_meta.get("league_counts", {})
+    historical = dict(history_meta.get("league_counts", {}))
     upcoming: dict[str, int] = defaultdict(int)
     teams: dict[str, set[str]] = defaultdict(set)
     future_teams: dict[str, set[str]] = defaultdict(set)
     quality: dict[str, dict[str, int]] = defaultdict(lambda: {"played": 0, "ht": 0, "ft": 0, "week": 0})
     first_dates: dict[str, str] = {}
     last_dates: dict[str, str] = {}
+    seen_history: set[tuple[str, str, str, str]] = set()
     history_file = root / "history_10y.json"
     if history_file.exists():
         try:
@@ -42,6 +43,34 @@ def build_coverage(data_dir: Path | str = DATA_DIR) -> dict:
                 match_date = str(match.get("date") or "")[:10]
                 if not name:
                     continue
+                identity = (name, match_date, str(match.get("home") or ""), str(match.get("away") or ""))
+                seen_history.add(identity)
+                for field in ("home", "away"):
+                    if match.get(field):
+                        teams[name].add(str(match[field]))
+                completed = match.get("ft_home") not in (None, "") and match.get("ft_away") not in (None, "")
+                if completed:
+                    quality[name]["played"] += 1
+                    quality[name]["ft"] += 1
+                    quality[name]["ht"] += int(match.get("ht_home") not in (None, "") and match.get("ht_away") not in (None, ""))
+                    quality[name]["week"] += int(bool(match.get("week")))
+                if match_date:
+                    first_dates[name] = min(first_dates.get(name, match_date), match_date)
+                    last_dates[name] = max(last_dates.get(name, match_date), match_date)
+        except (OSError, json.JSONDecodeError):
+            pass
+    imported_file = root / "riskbudur_57_history.json"
+    if imported_file.exists():
+        try:
+            imported_payload = json.loads(imported_file.read_text(encoding="utf-8"))
+            for match in imported_payload.get("matches", []):
+                name = str(match.get("league") or "")
+                match_date = str(match.get("date") or "")[:10]
+                identity = (name, match_date, str(match.get("home") or ""), str(match.get("away") or ""))
+                if not name or identity in seen_history:
+                    continue
+                seen_history.add(identity)
+                historical[name] = int(historical.get(name, 0)) + 1
                 for field in ("home", "away"):
                     if match.get(field):
                         teams[name].add(str(match[field]))

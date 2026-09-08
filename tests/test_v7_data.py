@@ -9,6 +9,7 @@ from league_catalog import load_league_catalog
 from source_adapters import AdapterRegistry, SourceAdapter, canonical_key, normalize_fixture
 from team_catalog import Team, TeamCatalog
 from shard_store import ShardStore
+from riskbudur_import import import_file
 
 
 class RowsAdapter(SourceAdapter):
@@ -171,6 +172,30 @@ class CentralFixtureStoreTests(unittest.TestCase):
             self.assertEqual(fixtures[0]["league_id"], "ingiltere.premier-league")
             self.assertEqual(len(fixtures[0]["sources"]), 3)
             self.assertEqual(len(store.teams_for(fixtures)), 2)
+
+
+class RiskbudurImportTests(unittest.TestCase):
+    def test_focused_catalog_has_exactly_57_leagues(self):
+        payload = json.loads(Path("data/riskbudur_57_catalog.json").read_text(encoding="utf-8"))
+        self.assertEqual(payload["league_count"], 57)
+        self.assertEqual(len(payload["leagues"]), 57)
+
+    def test_csv_import_normalizes_scores_and_flags(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "sample.csv"
+            path.write_text(
+                "Ülke,Lig,Sezon,Tarih,Saat,Hafta,Ev Sahibi,Deplasman,İY S,MS S,İY-MS,+6,KG\n"
+                "Türkiye,Süper Lig,2026/2027,08.09.2026,20:00,4,Trabzonspor,Galatasaray,1-0,1-2,1/2,0,Var\n",
+                encoding="utf-8",
+            )
+            result = import_file(path)
+            self.assertEqual(result["match_count"], 1)
+            row = result["matches"][0]
+            self.assertEqual(row["league_id"], "turkiye.super-lig")
+            self.assertEqual((row["ht_home"], row["ht_away"], row["ft_home"], row["ft_away"]), (1, 0, 1, 2))
+            self.assertEqual(row["ht_ft"], "1/2")
+            self.assertFalse(row["six_plus"])
+            self.assertTrue(row["btts"])
 
 
 if __name__ == "__main__":

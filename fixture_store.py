@@ -57,6 +57,8 @@ class FixtureStore:
         ]
         if (root / "v7_ingested_fixtures.json").exists():
             adapters.insert(0, JsonFixtureAdapter("v7-ingested", root / "v7_ingested_fixtures.json", 5))
+        if (root / "riskbudur_57_history.json").exists():
+            adapters.append(JsonFixtureAdapter("riskbudur-57-history", root / "riskbudur_57_history.json", 40))
         self.registry = AdapterRegistry(adapters)
 
     @staticmethod
