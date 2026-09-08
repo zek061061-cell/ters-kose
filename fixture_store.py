@@ -5,6 +5,9 @@ from __future__ import annotations
 import gzip
 import json
 import lzma
+import os
+import tempfile
+import urllib.request
 from datetime import date
 from pathlib import Path
 from threading import Lock
@@ -17,6 +20,7 @@ from team_catalog import Team, TeamCatalog
 
 DATA_DIR = Path(__file__).with_name("data")
 PRIVATE_FIXTURE_PATH = __import__("os").environ.get("TERS_KOSE_PRIVATE_FIXTURE_PATH", "").strip()
+PRIVATE_FIXTURE_URL = __import__("os").environ.get("TERS_KOSE_PRIVATE_FIXTURE_URL", "").strip()
 
 
 class JsonFixtureAdapter(SourceAdapter):
@@ -76,6 +80,28 @@ class RiskbudurSourceAdapter(JsonFixtureAdapter):
             return self._cached_rows
 
 
+class RemoteGzipRiskbudurAdapter(GzipJsonFixtureAdapter):
+    """Download the private Riskbudur master once per process and query it locally."""
+
+    def __init__(self, source_id: str, url: str, priority: int) -> None:
+        self.url = url
+        target = Path(tempfile.gettempdir()) / "ters_kose_riskbudur_master.json.gz"
+        super().__init__(source_id, target, priority)
+
+    def _ensure_downloaded(self) -> None:
+        if self.path.exists() and self.path.stat().st_size > 0:
+            return
+        tmp = self.path.with_suffix(self.path.suffix + ".tmp")
+        req = urllib.request.Request(self.url, headers={"User-Agent": "TersKose/1.0"})
+        with urllib.request.urlopen(req, timeout=60) as response, tmp.open("wb") as out:
+            out.write(response.read())
+        tmp.replace(self.path)
+
+    def _load(self) -> list[dict]:
+        self._ensure_downloaded()
+        return super()._load()
+
+
 class FixtureStore:
     def __init__(self, data_dir: Path | str = DATA_DIR) -> None:
         root = Path(data_dir)
@@ -85,6 +111,8 @@ class FixtureStore:
         adapters = []
 
         private_path = Path(PRIVATE_FIXTURE_PATH).expanduser() if PRIVATE_FIXTURE_PATH else None
+        if PRIVATE_FIXTURE_URL:
+            adapters.append(RemoteGzipRiskbudurAdapter("riskbudur-private-master", PRIVATE_FIXTURE_URL, 1))
         if private_path and private_path.exists():
             if private_path.suffix == ".xz":
                 adapters.append(RiskbudurSourceAdapter("private-runtime-source", private_path, 4))
