@@ -4,10 +4,12 @@ from __future__ import annotations
 
 import gzip
 import json
+import lzma
 from collections import defaultdict
 from pathlib import Path
 
 from league_catalog import CATALOG_PATH, load_league_catalog
+from riskbudur_data_import import convert
 
 
 DATA_DIR = CATALOG_PATH.parent
@@ -87,12 +89,29 @@ def build_coverage(data_dir: Path | str = DATA_DIR) -> dict:
         except (OSError, json.JSONDecodeError):
             pass
 
+    source_file = root / "riskbudur_57_source.json.xz"
+    if source_file.exists():
+        try:
+            with lzma.open(source_file, "rt", encoding="utf-8") as handle:
+                source_payload = convert(json.load(handle))
+            master_matches = source_payload.get("matches", [])
+        except (OSError, json.JSONDecodeError, lzma.LZMAError):
+            master_matches = []
+    else:
+        master_matches = []
+
     master_file = root / "riskbudur_57_master.json.gz"
-    if master_file.exists():
+    if master_file.exists() and not master_matches:
         try:
             with gzip.open(master_file, "rt", encoding="utf-8") as handle:
                 master_payload = json.load(handle)
-            for match in master_payload.get("matches", []):
+            master_matches = master_payload.get("matches", [])
+        except (OSError, json.JSONDecodeError):
+            master_matches = []
+
+    if master_matches:
+        try:
+            for match in master_matches:
                 name = str(match.get("league") or "")
                 name = LEGACY_NAMES.get(name, name)
                 if not name:
