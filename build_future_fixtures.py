@@ -36,6 +36,74 @@ LEAGUES={
 TR_MONTHS={"Ocak":1,"Şubat":2,"Mart":3,"Nisan":4,"Mayıs":5,"Haziran":6,"Temmuz":7,"Ağustos":8,"Eylül":9,"Ekim":10,"Kasım":11,"Aralık":12}
 now=datetime.now(ZoneInfo("Europe/Istanbul"))
 
+# Exact 35-league catalogue used by the historical warehouse. ESPN is a
+# fallback/coverage source; Sahadan/TFF rows still win when both sources have
+# the same fixture.
+ESPN_35={
+ "tur.1":"Türkiye Süper Lig",
+ "eng.1":"İngiltere Premier League","eng.2":"İngiltere EFL Championship","eng.3":"İngiltere EFL League One","eng.4":"İngiltere EFL League Two",
+ "sco.1":"İskoçya Premiership","sco.2":"İskoçya Championship",
+ "ger.1":"Almanya Bundesliga","ger.2":"Almanya 2. Bundesliga",
+ "esp.1":"İspanya La Liga","esp.2":"İspanya LaLiga 2",
+ "ita.1":"İtalya Serie A","ita.2":"İtalya Serie B",
+ "fra.1":"Fransa Ligue 1","fra.2":"Fransa Ligue 2",
+ "ned.1":"Hollanda Eredivisie","bel.1":"Belçika Pro League","por.1":"Portekiz Primeira Liga","gre.1":"Yunanistan Super League",
+ "arg.1":"Arjantin Primera División","aut.1":"Avusturya Bundesliga","bra.1":"Brezilya Série A","chn.1":"Çin Süper Ligi",
+ "den.1":"Danimarka Superliga","fin.1":"Finlandiya Veikkausliiga","irl.1":"İrlanda Premier Division","jpn.1":"Japonya J1 League",
+ "mex.1":"Meksika Liga MX","nor.1":"Norveç Eliteserien","pol.1":"Polonya Ekstraklasa","rou.1":"Romanya Liga I",
+ "rus.1":"Rusya Premier League","swe.1":"İsveç Allsvenskan","sui.1":"İsviçre Super League","usa.1":"ABD MLS",
+}
+WAREHOUSE_35=set(ESPN_35.values())
+
+def fetch_espn_35():
+    """Fetch season/range fixtures for the same 35 leagues as the model warehouse.
+    ESPN accepts a date range on scoreboard endpoints for many competitions.
+    Leagues that do not expose the full range simply contribute zero rows and
+    remain covered by Sahadan/TFF/current-snapshot fallbacks.
+    """
+    from datetime import timedelta
+    start=now.date()
+    end=(now+timedelta(days=370)).date()
+    date_range=start.strftime("%Y%m%d")+"-"+end.strftime("%Y%m%d")
+    out=[]; counts={}; errors={}
+    for code,league in ESPN_35.items():
+        url=f"https://site.api.espn.com/apis/site/v2/sports/soccer/{code}/scoreboard?dates={date_range}&limit=1000"
+        try:
+            r=requests.get(url,headers={"User-Agent":HEADERS["User-Agent"],"Accept":"application/json"},timeout=25)
+            if not r.ok:
+                counts[league]=0;errors[league]=f"HTTP {r.status_code}";continue
+            data=r.json()
+            found=[]
+            for event in data.get("events",[]):
+                comps=event.get("competitions") or []
+                if not comps: continue
+                comp=comps[0]
+                cs=comp.get("competitors") or []
+                home=next((x for x in cs if x.get("homeAway")=="home"),None)
+                away=next((x for x in cs if x.get("homeAway")=="away"),None)
+                if not home or not away: continue
+                status=(event.get("status") or {}).get("type") or {}
+                if status.get("completed") or status.get("state")=="post": continue
+                kickoff=str(event.get("date") or "")
+                d=kickoff[:10]
+                if not d or d < start.isoformat() or d > end.isoformat(): continue
+                ht=home.get("team") or {}; at=away.get("team") or {}
+                hn=resolve_slug_team(slugify(ht.get("displayName") or ht.get("name") or ""))
+                an=resolve_slug_team(slugify(at.get("displayName") or at.get("name") or ""))
+                if not hn or not an: continue
+                found.append({
+                  "event_id":"ESPN|"+code+"|"+str(event.get("id") or ""),
+                  "date":d,"kickoff":kickoff,"league":league,"league_code":code,
+                  "home":hn,"away":an,"home_logo":ht.get("logo") or "","away_logo":at.get("logo") or "",
+                  "status":status.get("description") or status.get("detail") or "Planlandı",
+                  "completed":False,"state":status.get("state") or "pre","referee":"",
+                  "source":"ESPN lig fikstürü","source_url":url
+                })
+            counts[league]=len(found);out.extend(found)
+        except Exception as e:
+            counts[league]=0;errors[league]=repr(e)
+    return out,counts,errors
+
 def slugify(v):
     import unicodedata
     v=str(v or "").strip().casefold()
@@ -126,6 +194,9 @@ def fetch_tff_super_lig():
 
 rows=[]
 diag={}
+espn_rows,espn_counts,espn_errors=fetch_espn_35()
+rows.extend(espn_rows)
+for _lg in WAREHOUSE_35: diag[_lg]=espn_counts.get(_lg,0)
 for league,url in LEAGUES.items():
     try:
         html=fetch(url)
@@ -205,15 +276,15 @@ for league,url in LEAGUES.items():
                       "home":home,"away":away,"home_logo":"","away_logo":"","status":"Planlandı",
                       "completed":False,"state":"pre","referee":"","source":"Sahadan lig fikstürü","source_url":url
                     })
-        diag[league]=len(found)
+        diag[league]=int(diag.get(league,0) or 0)+len(found)
         rows.extend(found)
     except Exception as e:
-        diag[league]=f"error:{e}"
+        diag[league]=diag.get(league,0)
 
 # Official TFF source for Türkiye Süper Lig avoids same-name league collisions.
 tff_rows=fetch_tff_super_lig()
 rows.extend(tff_rows)
-diag["Türkiye Süper Lig"]=len(tff_rows)
+diag["Türkiye Süper Lig"]=int(diag.get("Türkiye Süper Lig",0) or 0)+len(tff_rows)
 
 # Keep the rolling Sahadan İddaa snapshot too; it covers additional leagues.
 try:
@@ -221,14 +292,24 @@ try:
     rows.extend([x for x in cur.get("matches",[]) if not x.get("completed")])
 except Exception:pass
 
-seen=set();clean=[]
+def source_rank(x):
+    s=str(x.get("source") or "").lower()
+    if "tff" in s:return 40
+    if "sahadan lig" in s:return 35
+    if s.startswith("sahadan"):return 30
+    if "espn" in s:return 20
+    return 10
+
+best={}
 for x in rows:
-    k="|".join([str(x.get("date") or ""),str(x.get("league") or ""),str(x.get("home") or ""),str(x.get("away") or "")])
-    if k in seen:continue
-    seen.add(k);clean.append(x)
+    k="|".join([str(x.get("date") or ""),str(x.get("league") or ""),slugify(x.get("home") or ""),slugify(x.get("away") or "")])
+    old=best.get(k)
+    if old is None or source_rank(x)>source_rank(old):
+        best[k]=x
+clean=list(best.values())
 clean.sort(key=lambda x:(x.get("date") or "",x.get("kickoff") or "",x.get("league") or "",x.get("home") or ""))
 
-payload={"ok":True,"generated_at":datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),"source":"Sahadan lig fikstürleri + İddaa Programı","count":len(clean),"league_counts":diag,"matches":clean}
+payload={"ok":True,"generated_at":datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),"source":"Sahadan + TFF + ESPN 35 lig fikstürleri + İddaa Programı","count":len(clean),"league_counts":diag,"espn_errors":espn_errors,"coverage_leagues":sum(1 for l in WAREHOUSE_35 if int(diag.get(l,0) or 0)>0),"target_leagues":35,"matches":clean}
 with open(OUT,"w",encoding="utf-8") as f:json.dump(payload,f,ensure_ascii=False,separators=(",",":"))
 print("future fixtures:",len(clean))
 print("league counts:",json.dumps(diag,ensure_ascii=False))
