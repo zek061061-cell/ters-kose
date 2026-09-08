@@ -131,6 +131,11 @@ def add_cors_headers(resp):
 def home():
     return send_from_directory(".", "index.html")
 
+@app.get("/data/<path:filename>")
+def data_file(filename):
+    """Serve generated mobile history shards and metadata from the repository data directory."""
+    return send_from_directory(str(DATA_DIR), filename)
+
 @app.get("/manifest.json")
 def manifest():
     return send_from_directory(".", "manifest.json", mimetype="application/manifest+json")
