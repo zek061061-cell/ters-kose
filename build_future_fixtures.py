@@ -25,6 +25,7 @@ LEAGUES={
  "Fransa Ligue 2":"https://www.sahadan.com/lig/ligue-2/4w7x0s5gfs5abasphlha5de8k/fikstur",
  "İskoçya Championship":"https://www.sahadan.com/lig/championship/8t2o4huu2e48ij23dxnl9w5qx/fikstur",
  "Polonya Ekstraklasa":"https://www.sahadan.com/lig/ekstraklasa/7hl0svs2hg225i2zud0g3xzp2/fikstur",
+ "Avusturya Bundesliga":"https://www.sahadan.com/lig/bundesliga/5c96g1zm7vo5ons9c42uy2w3r/fikstur",
  "Fransa Ligue 1":"https://www.sahadan.com/lig/ligue-1/dm5ka0os1e3dxcp3vh05kmp33/fikstur",
  "Hollanda Eredivisie":"https://www.sahadan.com/lig/eredivisie/akmkihra9ruad09ljapsm84b3/fikstur",
  "ABD MLS":"https://www.sahadan.com/lig/mls/287tckirbfj9nb8ar2k9r60vn/fikstur",
