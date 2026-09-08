@@ -146,6 +146,21 @@ def data_file(filename):
     """Serve generated mobile history shards and metadata from the repository data directory."""
     return send_from_directory(str(DATA_DIR), filename)
 
+@app.get("/diagnostics/fixtures")
+def fixture_diagnostics():
+    try:
+        from fixture_store import STORE
+        rows = STORE.query(date="2026-09-11")
+        return jsonify({
+            "ok": True,
+            "date": "2026-09-11",
+            "count": len(rows),
+            "sources": sorted(set(str(row.get("source") or "") for row in rows)),
+            "sample": rows[:3],
+        })
+    except Exception as exc:
+        return jsonify({"ok": False, "error": f"{type(exc).__name__}: {exc}"}), 500
+
 @app.get("/diagnostics/mobile")
 def mobile_diagnostics():
     index_path = os.path.join(DATA_DIR, "history_index.json")
