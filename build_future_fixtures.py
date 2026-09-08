@@ -34,6 +34,8 @@ LEAGUES={
  "Meksika Liga MX":"https://www.sahadan.com/lig/liga-mx/2hsidwomhjsaaytdy9u5niyi4/fikstur",
  "Çin Süper Ligi":"https://www.sahadan.com/lig/super-lig/82jkgccg7phfjpd0mltdl3pat/fikstur",
  "Rusya Premier League":"https://www.sahadan.com/en/league/premier-league/3ab1uwtoyjopdj1y1fynyy9jg/fixtures",
+ "İrlanda Premier Division":"https://www.sahadan.com/en/league/premier-division/4mbfidy8zum5u0aqjqo0vuqs2/fixtures",
+ "Japonya J1 League":"https://www.sahadan.com/en/league/j1-100-year-vision-league/1okgv7alq5gggbccv5r9p63v8/fixtures",
  "Fransa Ligue 1":"https://www.sahadan.com/lig/ligue-1/dm5ka0os1e3dxcp3vh05kmp33/fikstur",
  "Hollanda Eredivisie":"https://www.sahadan.com/lig/eredivisie/akmkihra9ruad09ljapsm84b3/fikstur",
  "ABD MLS":"https://www.sahadan.com/lig/mls/287tckirbfj9nb8ar2k9r60vn/fikstur",
