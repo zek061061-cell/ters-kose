@@ -30,6 +30,8 @@ LEAGUES={
  "Finlandiya Veikkausliiga":"https://www.sahadan.com/lig/veikkausliiga/dvstmwnvw0mt5p38twn9yttyb/fikstur",
  "Danimarka Superliga":"https://www.sahadan.com/lig/superliga/29actv1ohj8r10kd9hu0jnb0n/fikstur",
  "İsviçre Super League":"https://www.sahadan.com/lig/super-league/e0lck99w8meo9qoalfrxgo33o/fikstur",
+ "Brezilya Série A":"https://www.sahadan.com/lig/serie-a/scf9p4y91yjvqvg5jndxzhxj/fikstur",
+ "Meksika Liga MX":"https://www.sahadan.com/lig/liga-mx/2hsidwomhjsaaytdy9u5niyi4/fikstur",
  "Fransa Ligue 1":"https://www.sahadan.com/lig/ligue-1/dm5ka0os1e3dxcp3vh05kmp33/fikstur",
  "Hollanda Eredivisie":"https://www.sahadan.com/lig/eredivisie/akmkihra9ruad09ljapsm84b3/fikstur",
  "ABD MLS":"https://www.sahadan.com/lig/mls/287tckirbfj9nb8ar2k9r60vn/fikstur",
