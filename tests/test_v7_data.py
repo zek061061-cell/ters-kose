@@ -10,6 +10,7 @@ from source_adapters import AdapterRegistry, SourceAdapter, canonical_key, norma
 from team_catalog import Team, TeamCatalog
 from shard_store import ShardStore
 from riskbudur_import import import_file
+from core57 import core57_ids, filter_coverage
 
 
 class RowsAdapter(SourceAdapter):
@@ -196,6 +197,18 @@ class RiskbudurImportTests(unittest.TestCase):
             self.assertEqual(row["ht_ft"], "1/2")
             self.assertFalse(row["six_plus"])
             self.assertTrue(row["btts"])
+
+
+class Core57RuntimeTests(unittest.TestCase):
+    def test_core57_has_exactly_57_unique_league_ids(self):
+        ids = core57_ids()
+        self.assertEqual(len(ids), 57)
+
+    def test_core57_coverage_filters_154_report(self):
+        full = json.loads(Path("data/coverage_report.json").read_text(encoding="utf-8"))
+        focused = filter_coverage(full)
+        self.assertEqual(focused["summary"]["leagues"], 57)
+        self.assertEqual(len(focused["leagues"]), 57)
 
 
 if __name__ == "__main__":

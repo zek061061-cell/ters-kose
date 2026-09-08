@@ -13,6 +13,7 @@ import gzip
 from urllib.parse import urlparse
 
 from coverage import load_coverage_report
+from core57 import core57_ids, filter_coverage, load_core57
 from fixture_store import STORE
 from league_catalog import catalog_summary, load_league_catalog
 
@@ -724,6 +725,17 @@ def league_catalog_api():
     return jsonify({"ok": True, "summary": catalog_summary(rows), "leagues": rows})
 
 
+@app.get("/v7/core57/leagues")
+def core57_leagues_api():
+    rows = load_core57()
+    return jsonify({"ok": True, "count": len(rows), "leagues": rows})
+
+
+@app.get("/v7/core57/coverage")
+def core57_coverage_api():
+    return jsonify({"ok": True, **filter_coverage(load_coverage_report())})
+
+
 @app.get("/data-coverage")
 def data_coverage_api():
     """Report honest catalogue coverage; only fully populated leagues are OK."""
@@ -737,6 +749,9 @@ def central_fixtures_api():
         selected_date, request.args.get("date_to") or selected_date,
         request.args.get("league_id", "").strip(), request.args.get("country", "").strip(),
     )
+    if request.args.get("core57") in ("1", "true", "yes"):
+        allowed = core57_ids()
+        rows = [row for row in rows if row.get("league_id") in allowed]
     return jsonify({"ok": True, "count": len(rows), "matches": rows})
 
 
