@@ -69,24 +69,70 @@ class FootballDataCsvAdapter(SourceAdapter):
         super().__init__()
         self.csv_urls = csv_urls
         self.timeout = timeout
+        self.last_requests = []
 
     def fetch_fixtures(self, league_id: str, date_from: str, date_to: str) -> list[dict]:
-        url = self.csv_urls[league_id]
+        spec = self.csv_urls[league_id]
+        if spec.startswith("AUTO:"):
+            return self._fetch_auto(league_id, spec.split(":", 1)[1], date_from, date_to)
+        return self._fetch_url(league_id, spec, date_from, date_to)
+
+    def _fetch_auto(self, league_id: str, code: str, date_from: str, date_to: str) -> list[dict]:
+        urls = []
+        # Current/upcoming fixtures for the supported European divisions.
+        if date_to >= datetime.utcnow().strftime("%Y-%m-%d"):
+            urls.append(("https://www.football-data.co.uk/matches/resources/fixtures.csv", "fixtures"))
+        # Historical season files: mmz4281/<YYZZ>/<DIV>.csv
+        start_year = int(date_from[:4]); end_year = int(date_to[:4])
+        for year in range(start_year - 1, end_year + 1):
+            season_start = year
+            season_end = year + 1
+            # Cross-year season code, e.g. 2026/27 -> 2627.
+            season_code = f"{season_start % 100:02d}{season_end % 100:02d}"
+            urls.append((f"https://www.football-data.co.uk/mmz4281/{season_code}/{code}.csv", f"{season_start}/{season_end}"))
+        output, seen = [], set()
+        for url, season_hint in urls:
+            try:
+                rows = self._fetch_url(league_id, url, date_from, date_to, expected_div=code, season_hint=season_hint)
+                for row in rows:
+                    key = (row.get("date"), row.get("home"), row.get("away"))
+                    if key not in seen:
+                        seen.add(key); output.append(row)
+                self.last_requests.append({"url": url, "rows": len(rows), "error": ""})
+            except Exception as exc:
+                self.last_requests.append({"url": url, "rows": 0, "error": str(exc)[:200]})
+        if not output and self.last_requests and all(item["error"] for item in self.last_requests[-len(urls):]):
+            raise RuntimeError("all Football-Data requests failed")
+        return output
+
+    def _fetch_url(self, league_id: str, url: str, date_from: str, date_to: str, expected_div: str | None = None, season_hint: str = "") -> list[dict]:
         response = requests.get(url, timeout=self.timeout, headers={"User-Agent": "TersKose/7.0", "Accept": "text/csv"})
         response.raise_for_status()
         output = []
         for raw in csv.DictReader(io.StringIO(response.content.decode("utf-8-sig", "replace"))):
+            if expected_div and raw.get("Div") not in (None, "", expected_div):
+                continue
             match_date = _date(raw.get("Date"))
             if not match_date or not date_from <= match_date <= date_to:
                 continue
             completed = raw.get("FTHG") not in (None, "") and raw.get("FTAG") not in (None, "")
+            season = season_hint if season_hint and season_hint != "fixtures" else _season_for_date(match_date)
             output.append({
                 "event_id": f"FD|{league_id}|{match_date}|{raw.get('HomeTeam')}|{raw.get('AwayTeam')}",
-                "date": match_date, "kickoff": f"{match_date}T{raw.get('Time')}:00" if raw.get("Time") else match_date,
-                "league_id": league_id, "home": raw.get("HomeTeam") or "", "away": raw.get("AwayTeam") or "",
-                "completed": completed, "ft_home": raw.get("FTHG"), "ft_away": raw.get("FTAG"),
-                "ht_home": raw.get("HTHG"), "ht_away": raw.get("HTAG"), "week": raw.get("MW") or 0,
-                "source": "Football-Data CSV", "source_url": url,
+                "date": match_date,
+                "kickoff": f"{match_date}T{raw.get('Time')}:00" if raw.get("Time") else match_date,
+                "league_id": league_id,
+                "home": raw.get("HomeTeam") or "",
+                "away": raw.get("AwayTeam") or "",
+                "completed": completed,
+                "ft_home": raw.get("FTHG") if completed else None,
+                "ft_away": raw.get("FTAG") if completed else None,
+                "ht_home": raw.get("HTHG") if completed else None,
+                "ht_away": raw.get("HTAG") if completed else None,
+                "week": raw.get("MW") or None,
+                "season": season,
+                "source": "Football-Data CSV",
+                "source_url": url,
             })
         return output
 
@@ -165,3 +211,9 @@ def _period_score(competitor: dict, period: int) -> int | None:
         if int(line.get("period") or 0) == period and str(line.get("value") or "") != "":
             return int(float(line["value"]))
     return None
+
+
+def _season_for_date(value: str) -> str:
+    year = int(value[:4]); month = int(value[5:7])
+    start = year if month >= 7 else year - 1
+    return f"{start}/{start + 1}"
