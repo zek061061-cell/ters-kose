@@ -119,6 +119,7 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:#303030;backdro
 <div id="importAnalysisReport" class="card hidden" style="margin-top:12px"></div>
 </div>
 <h2>10 Yıllık Veri Deposu</h2><div class="card" id="warehouseStatus"><div class="tiny">Depo durumu kontrol ediliyor...</div></div>
+<h2>İleri Fikstür Kapsamı</h2><div class="card" id="futureCoverage"><div class="tiny">35 lig ileri fikstür kapsamı kontrol ediliyor...</div></div>
 <h2>Lig / Sezon Kapsamı</h2><div class="card" id="coverageMatrix"><div class="tiny">Kapsam haritası hazırlanıyor...</div></div>
 <h2>Veri kalite kontrolü</h2><div class="card" id="qualityReport"></div>
 <h2>Model Sağlık Kontrolü</h2><div class="card" id="healthReport"></div>
@@ -240,6 +241,19 @@ async function apiFetch(path,opts){
 }
 async function retryHistoryGaps(){var b=el("retryGapsBtn"),st=el("retryGapsStatus");if(!b)return;b.disabled=true;if(st)st.textContent="Eksik tamamlanmış sezonlar yeniden deneniyor...";try{var r=await apiFetch("/history/retry-gaps",{method:"POST",cache:"no-store"});var j=await r.json();if(!r.ok||!j.ok)throw new Error(j.error||j.detail||("HTTP "+r.status));if(st)st.innerHTML='<b>'+j.attempted+' sezon denendi.</b> Kurtarılan: '+(j.recovered||[]).length+' • Kalan: '+(j.remaining||0);await refreshWarehouseStatus();if((j.recovered||[]).length){await loadWarehouseHistory()}}catch(e){if(st)st.textContent="Yeniden deneme başarısız: "+(e.message||e)}b.disabled=false}
 async function refreshWarehouseStatus(){var box=el("warehouseStatus");if(!box)return;try{var r=await apiFetch("/history/status",{cache:"no-store"});if(!r.ok)throw new Error("HTTP "+r.status);var j=await r.json();renderCoverageMatrix(j);if(!j.built){renderCoverageMatrix(null);box.innerHTML='<span class="pill red">Henüz oluşturulmadı</span><div class="tiny" style="margin-top:8px">10 yıllık tarihsel depo sunucuda bulunamadı.</div>';return}var q=j.quality||{},verified=!!j.verified,fail=+j.critical_failures||0,score=Number(q.quality_score||0),missing=(j.missing_completed||[]).length,thin=(j.thin_completed||[]).length,htCov=Number(j.ht_coverage||0),oddsCov=Number(j.odds_coverage||0);box.innerHTML='<div class="row"><span class="pill '+(verified?"green":"blue")+'">'+(verified?"Bütünlük doğrulandı":"Kalite kontrolünde")+'</span><span class="pill">'+(+j.matches||0)+' maç</span><span class="pill">'+(+j.leagues||0)+' lig</span><span class="pill '+(score>=.9?"green":score>=.75?"blue":"red")+'">Veri kalite '+pct(score)+'%</span><span class="pill '+(htCov>=.95?"green":htCov>=.6?"blue":"red")+'">İY kapsama '+pct(htCov)+'%</span><span class="pill '+(oddsCov>=.95?"green":oddsCov>=.75?"blue":"red")+'">Oran kapsama '+pct(oddsCov)+'%</span><span class="pill '+(fail===0?"green":"red")+'">Kaynak hatası '+fail+'</span><span class="pill '+(missing===0?"green":"red")+'">Eksik tamamlanmış sezon '+missing+'</span><span class="pill '+(thin===0?"green":"blue")+'">İnce sezon '+thin+'</span></div><div class="tiny" style="margin-top:9px">Hatalı takım: '+(q.bad_team||0)+' • Hatalı skor: '+(q.bad_score||0)+' • Yinelenen: '+(q.duplicate_keys||0)+' • Eksik İY: '+(q.missing_ht||0)+' • İnce sezon grubu: '+(q.thin_groups||0)+(j.current_season?' • Güncel sezon: '+esc(j.current_season)+' (kısmi olabilir)':'')+'</div><div class="tiny" style="margin-top:6px">Son üretim: '+esc(j.generated_at||"-")+(j.promoted===false?' • Yeni veri kalite kapısından geçmediyse önceki sağlam depo korunur.':'')+'</div>';}catch(e){box.innerHTML='<span class="pill red">Depo durumu alınamadı</span><div class="tiny" style="margin-top:8px">'+esc(e.message||e)+'</div>'}}
+async function refreshFutureCoverage(){
+ var box=el("futureCoverage");if(!box)return;
+ try{
+   var r=await fetch("./data/future_fixtures.json",{cache:"no-store"});if(!r.ok)throw new Error("İleri fikstür dosyası alınamadı");
+   var j=await r.json(),counts=j.league_counts||{},target=Number(j.target_leagues||35),covered=Number(j.coverage_leagues||0);
+   var known=HISTORY_SHARD_INDEX&&HISTORY_SHARD_INDEX.files?Object.keys(HISTORY_SHARD_INDEX.files):Object.keys(counts);
+   var missing=known.filter(function(l){return !Number(counts[l]||0)}).sort();
+   var pctCov=target?Math.round(covered/target*100):0;
+   box.innerHTML='<div class="row"><span class="pill '+(covered===target?"green":covered>=25?"blue":"gold")+'">'+covered+'/'+target+' lig</span><span class="pill">'+(j.count||0)+' ileri maç</span><span class="pill">'+pctCov+'% kapsam</span></div>'+
+    '<div class="tiny" style="margin-top:10px">Son üretim: '+esc(j.generated_at||"-")+' • Kaynak: '+esc(j.source||"-")+'</div>'+
+    (missing.length?'<div class="tiny" style="margin-top:10px"><b>Henüz ileri fikstürü boş görünen ligler:</b> '+missing.map(esc).join(" • ")+'</div>':'<div class="notice ok" style="margin-top:10px">35 ligin tamamında ileri fikstür bulundu.</div>');
+ }catch(e){box.innerHTML='<span class="pill red">Kontrol alınamadı</span><div class="tiny" style="margin-top:8px">'+esc(e.message||e)+'</div>'}
+}
 async function loadWarehouseHistory(){
  var ds=el("dataSummary");if(ds)ds.innerHTML='<b>Hızlı veri modu hazırlanıyor...</b><br>Telefon için yalnız gerekli ligler yüklenecek.';
  try{
@@ -250,7 +264,7 @@ async function loadWarehouseHistory(){
    HISTORY_SHARD_INDEX=await ir.json();
    await ensureLeagueHistory("Türkiye Süper Lig",false);
    sourceName="Ters Köşe • "+(HISTORY_SHARD_INDEX.leagues||0)+" lig • hızlı mobil mod";
-   renderAll();refreshWarehouseStatus();
+   renderAll();refreshWarehouseStatus();refreshFutureCoverage();
    if(ds)ds.innerHTML='<b>'+esc(sourceName)+'</b><br>'+(HISTORY_SHARD_INDEX.matches||0)+' maç sunucuda hazır • telefona yalnız kullanılan ligler indirilir.';
    return true
  }catch(e){
@@ -987,7 +1001,7 @@ function runSelfTest(){
 async function hydrateLeagueCatalog(){try{var r=await apiFetch("/leagues",{cache:"no-store"});if(!r.ok)return;var j=await r.json();leagueCatalog=(j.leagues||[]).map(function(x){return x.name}).filter(Boolean);syncMatchFilters();syncRadarFilters();if(el("bulletinLeague")){var cur=el("bulletinLeague").value;el("bulletinLeague").innerHTML='<option value="">Tüm Ligler</option>'+leagueCatalog.map(function(x){return'<option value="'+esc(x)+'">'+esc(x)+'</option>'}).join("");if(cur&&leagueCatalog.includes(cur))el("bulletinLeague").value=cur}}catch(e){}}
 async function hydrateTeamAssets(){try{var r=await apiFetch("/teams",{cache:"no-store"});if(!r.ok)return;var j=await r.json();(j.teams||[]).forEach(function(t){var full=String(t.name||"").trim();if(!full)return;[t.name,t.short,t.abbreviation,t.slug].filter(Boolean).forEach(function(v){teamNameBook[teamKey(v)]=full});if(t.logo){[t.name,t.short,t.abbreviation,t.slug].filter(Boolean).forEach(function(v){logoBook[teamKey(v)]=t.logo});logoBook[teamKey(full)]=t.logo}});try{localStorage.setItem("terskose_team_name_book",JSON.stringify(teamNameBook));localStorage.setItem("terskose_logo_book",JSON.stringify(logoBook))}catch(e){}matches=dedupe(normalizeStoredMatches(matches));save();renderAll();if(bulletinRows.length)renderBulletin()}catch(e){}}
 function fillSource(){if(el("bulletinDate")&&!el("bulletinDate").value)el("bulletinDate").value=todayISO();if(el("bulletinLeague"))el("bulletinLeague").onchange=renderBulletin}
-updateConnectionState();var mv=el("modelVersionBadge");if(mv)mv.textContent="Model v"+MODEL_VERSION;matches=dedupe(normalizeStoredMatches(matches));save();fillSource();renderAll();refreshWarehouseStatus();setTimeout(function(){try{runSelfTest()}catch(e){}},300);setTimeout(async function(){if(navigator.onLine){await loadWarehouseHistory();hydrateLeagueCatalog();hydrateTeamAssets();loadBulletin(true)}},500);
+updateConnectionState();var mv=el("modelVersionBadge");if(mv)mv.textContent="Model v"+MODEL_VERSION;matches=dedupe(normalizeStoredMatches(matches));save();fillSource();renderAll();refreshWarehouseStatus();refreshFutureCoverage();setTimeout(function(){try{runSelfTest()}catch(e){}},300);setTimeout(async function(){if(navigator.onLine){await loadWarehouseHistory();hydrateLeagueCatalog();hydrateTeamAssets();loadBulletin(true)}},500);
 if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("./sw.js?v=20260908j").catch(function(){})})}
 </script>
 </body></html>
