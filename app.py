@@ -164,6 +164,7 @@ def health():
         "history_built": os.path.exists(HISTORY_FILE),
         "history_matches": meta.get("matches", 0),
         "history_failures": meta.get("critical_failures", 0),
+        "fixture_sources": STORE.health(),
     })
 
 
