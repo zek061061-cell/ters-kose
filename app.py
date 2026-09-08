@@ -166,6 +166,8 @@ def mobile_diagnostics():
             "shards": len(files),
             "sample_shard": sample_file,
             "sample_shard_exists": bool(sample_path and os.path.isfile(sample_path)),
+            "future_fixture_file": os.path.isfile(os.path.join(DATA_DIR, "future_fixtures.json")),
+            "radar_worker": os.path.isfile(os.path.join(os.path.dirname(__file__), "radar-worker.js")),
         })
     except Exception as exc:
         return jsonify({"ok": False, "error": str(exc)}), 500
