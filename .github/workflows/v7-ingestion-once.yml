@@ -1,0 +1,54 @@
+name: v7 one-shot validation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/v7-ingestion-once.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: v7-one-shot-validation
+  cancel-in-progress: true
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - run: pip install -r requirements.txt
+      - name: Historical backfill
+        run: |
+          START=$(date -u -d '10 years ago' +%F)
+          END=$(date -u +%F)
+          python ingest_v7.py --mode history --from "$START" --to "$END"
+      - name: Current fixtures
+        run: |
+          START=$(date -u -d '2 days ago' +%F)
+          END=$(date -u -d '7 days' +%F)
+          python ingest_v7.py --mode current --from "$START" --to "$END"
+      - name: Future fixtures
+        run: |
+          START=$(date -u +%F)
+          END=$(date -u -d '370 days' +%F)
+          python ingest_v7.py --mode future --from "$START" --to "$END"
+      - name: Rebuild catalogs and coverage
+        run: |
+          python build_team_catalog.py
+          python build_coverage_report.py
+          python -m unittest discover -s tests -v
+      - name: Commit validated generated data
+        run: |
+          git config user.name 'ters-kose-ingestion[bot]'
+          git config user.email 'ters-kose-ingestion[bot]@users.noreply.github.com'
+          git add data/v7_shards data/v7_ingested_fixtures.json data/source_audit.json data/team_catalog.json data/coverage_report.json || true
+          git diff --cached --quiet || git commit -m "data: validate Football-Data v7 ingestion"
+          git push origin HEAD:main
