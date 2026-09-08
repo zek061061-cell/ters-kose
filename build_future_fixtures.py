@@ -66,6 +66,46 @@ ESPN_35={
 }
 WAREHOUSE_35=set(ESPN_35.values())
 
+FOOTBALL_DATA_CODES={
+ "T1":"Türkiye Süper Lig","E0":"İngiltere Premier League","E1":"İngiltere EFL Championship","E2":"İngiltere EFL League One","E3":"İngiltere EFL League Two",
+ "SC0":"İskoçya Premiership","SC1":"İskoçya Championship","D1":"Almanya Bundesliga","D2":"Almanya 2. Bundesliga",
+ "SP1":"İspanya La Liga","SP2":"İspanya LaLiga 2","I1":"İtalya Serie A","I2":"İtalya Serie B","F1":"Fransa Ligue 1","F2":"Fransa Ligue 2",
+ "N1":"Hollanda Eredivisie","B1":"Belçika Pro League","P1":"Portekiz Primeira Liga","G1":"Yunanistan Super League"
+}
+
+def fetch_football_data_fixtures():
+    """Current/future domestic fixtures for the 19 Football-Data leagues."""
+    import csv, io
+    url="https://www.football-data.co.uk/matches/resources/fixtures.csv"
+    try:
+        r=requests.get(url,headers={"User-Agent":HEADERS["User-Agent"],"Accept":"text/csv,*/*"},timeout=30)
+        if not r.ok:return [],{"_error":f"HTTP {r.status_code}"}
+        text=r.content.decode("utf-8-sig","replace")
+        rows=[];counts={k:0 for k in FOOTBALL_DATA_CODES.values()}
+        for rec in csv.DictReader(io.StringIO(text)):
+            code=str(rec.get("Div") or "").strip()
+            league=FOOTBALL_DATA_CODES.get(code)
+            if not league:continue
+            ds=str(rec.get("Date") or "").strip()
+            try:d=datetime.strptime(ds,"%d/%m/%Y").strftime("%Y-%m-%d")
+            except Exception:
+                try:d=datetime.strptime(ds,"%d/%m/%y").strftime("%Y-%m-%d")
+                except Exception:continue
+            if d < now.date().isoformat():continue
+            home=str(rec.get("HomeTeam") or "").strip();away=str(rec.get("AwayTeam") or "").strip()
+            if not home or not away:continue
+            hm=str(rec.get("Time") or "").strip()
+            kickoff=d+(("T"+hm+":00+03:00") if re.match(r"^\d{1,2}:\d{2}$",hm) else "")
+            rows.append({
+              "event_id":"FD|"+code+"|"+"|".join([d,home,away]),"date":d,"kickoff":kickoff,
+              "league":league,"league_code":code,"home":resolve_slug_team(slugify(home)),"away":resolve_slug_team(slugify(away)),
+              "home_logo":"","away_logo":"","status":"Planlandı","completed":False,"state":"pre","referee":"",
+              "source":"Football-Data güncel fikstür","source_url":url
+            });counts[league]=counts.get(league,0)+1
+        return rows,counts
+    except Exception as e:
+        return [],{"_error":repr(e)}
+
 def fetch_espn_35():
     """Fetch season/range fixtures for the same 35 leagues as the model warehouse.
     ESPN accepts a date range on scoreboard endpoints for many competitions.
@@ -205,9 +245,11 @@ def fetch_tff_super_lig():
 
 rows=[]
 diag={}
+fd_rows,fd_counts=fetch_football_data_fixtures()
+rows.extend(fd_rows)
 espn_rows,espn_counts,espn_errors=fetch_espn_35()
 rows.extend(espn_rows)
-for _lg in WAREHOUSE_35: diag[_lg]=espn_counts.get(_lg,0)
+for _lg in WAREHOUSE_35: diag[_lg]=int(fd_counts.get(_lg,0) or 0)+int(espn_counts.get(_lg,0) or 0)
 for league,url in LEAGUES.items():
     try:
         html=fetch(url)
@@ -308,7 +350,7 @@ def source_rank(x):
     if "tff" in s:return 40
     if "sahadan lig" in s:return 35
     if s.startswith("sahadan"):return 30
-    if "espn" in s:return 20
+    if "football-data" in s:return 28\n    if "espn" in s:return 20
     return 10
 
 best={}
@@ -320,7 +362,7 @@ for x in rows:
 clean=list(best.values())
 clean.sort(key=lambda x:(x.get("date") or "",x.get("kickoff") or "",x.get("league") or "",x.get("home") or ""))
 
-payload={"ok":True,"generated_at":datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),"source":"Sahadan + TFF + ESPN 35 lig fikstürleri + İddaa Programı","count":len(clean),"league_counts":diag,"espn_errors":espn_errors,"coverage_leagues":sum(1 for l in WAREHOUSE_35 if int(diag.get(l,0) or 0)>0),"target_leagues":35,"matches":clean}
+payload={"ok":True,"generated_at":datetime.now(timezone.utc).isoformat().replace("+00:00","Z"),"source":"Sahadan + TFF + ESPN 35 lig fikstürleri + İddaa Programı","count":len(clean),"league_counts":diag,"football_data":fd_counts,"espn_errors":espn_errors,"coverage_leagues":sum(1 for l in WAREHOUSE_35 if int(diag.get(l,0) or 0)>0),"target_leagues":35,"matches":clean}
 with open(OUT,"w",encoding="utf-8") as f:json.dump(payload,f,ensure_ascii=False,separators=(",",":"))
 print("future fixtures:",len(clean))
 print("league counts:",json.dumps(diag,ensure_ascii=False))
