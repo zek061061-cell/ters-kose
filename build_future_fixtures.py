@@ -32,6 +32,8 @@ LEAGUES={
  "İsviçre Super League":"https://www.sahadan.com/lig/super-league/e0lck99w8meo9qoalfrxgo33o/fikstur",
  "Brezilya Série A":"https://www.sahadan.com/lig/serie-a/scf9p4y91yjvqvg5jndxzhxj/fikstur",
  "Meksika Liga MX":"https://www.sahadan.com/lig/liga-mx/2hsidwomhjsaaytdy9u5niyi4/fikstur",
+ "Çin Süper Ligi":"https://www.sahadan.com/lig/super-lig/82jkgccg7phfjpd0mltdl3pat/fikstur",
+ "Rusya Premier League":"https://www.sahadan.com/en/league/premier-league/3ab1uwtoyjopdj1y1fynyy9jg/fixtures",
  "Fransa Ligue 1":"https://www.sahadan.com/lig/ligue-1/dm5ka0os1e3dxcp3vh05kmp33/fikstur",
  "Hollanda Eredivisie":"https://www.sahadan.com/lig/eredivisie/akmkihra9ruad09ljapsm84b3/fikstur",
  "ABD MLS":"https://www.sahadan.com/lig/mls/287tckirbfj9nb8ar2k9r60vn/fikstur",
@@ -45,6 +47,8 @@ LEAGUES={
  "İsveç Allsvenskan":"https://www.sahadan.com/lig/allsvenskan/b60nisd3qn427jm0hrg9kvmab/fikstur",
 }
 TR_MONTHS={"Ocak":1,"Şubat":2,"Mart":3,"Nisan":4,"Mayıs":5,"Haziran":6,"Temmuz":7,"Ağustos":8,"Eylül":9,"Ekim":10,"Kasım":11,"Aralık":12}
+EN_MONTHS={"January":1,"February":2,"March":3,"April":4,"May":5,"June":6,"July":7,"August":8,"September":9,"October":10,"November":11,"December":12}
+ALL_MONTHS={**TR_MONTHS,**EN_MONTHS}
 now=datetime.now(ZoneInfo("Europe/Istanbul"))
 
 # Exact 35-league catalogue used by the historical warehouse. ESPN is a
@@ -197,7 +201,7 @@ def parse_date(text,year_hint):
     m=re.search(r"(\d{1,2})\s+(Ocak|Şubat|Mart|Nisan|Mayıs|Haziran|Temmuz|Ağustos|Eylül|Ekim|Kasım|Aralık)(?:\s+(20\d{2}))?",text)
     if not m:return ""
     d,mon,y=m.groups(); y=int(y or year_hint)
-    month=TR_MONTHS[mon]
+    month=ALL_MONTHS[mon]
     # season pages cross New Year: dates Jan-Jun after an Aug-Dec current date are next year.
     if not m.group(3) and month < 7 and now.month >= 7:y=year_hint+1
     return f"{y:04d}-{month:02d}-{int(d):02d}"
@@ -311,7 +315,7 @@ for league,url in LEAGUES.items():
                 start=mdate.end(); endpos=parts[idx+1].start() if idx+1<len(parts) else len(flat)
                 section=flat[start:endpos]
                 dd,mon,yy=mdate.groups()
-                d=f"{int(yy):04d}-{TR_MONTHS[mon]:02d}-{int(dd):02d}"
+                d=f"{int(yy):04d}-{ALL_MONTHS[mon]:02d}-{int(dd):02d}"
                 for mm in re.finditer(r"(?<!\d)([0-2]?\d:[0-5]\d)\s+([^\n]+?)\s+-\s+([^\n]+?)(?=(?:\d{1,2}:\d{2})|MS|$)",section):
                     hm,home,away=mm.groups()
                     # remove ranking/stat fragments that sometimes trail team names
