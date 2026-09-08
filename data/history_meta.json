@@ -1,42 +1,42 @@
 {
   "ok": true,
-  "generated_at": "2026-09-07T17:51:43.444838Z",
-  "matches": 115036,
+  "generated_at": "2026-09-08T03:31:48.284408Z",
+  "matches": 115211,
   "leagues": 35,
   "league_counts": {
-    "Türkiye Süper Lig": 3421,
-    "İngiltere Premier League": 3820,
-    "İngiltere EFL Championship": 5568,
-    "İngiltere EFL League One": 5415,
-    "İngiltere EFL League Two": 5456,
-    "İskoçya Premiership": 2256,
-    "İskoçya Championship": 1732,
-    "Almanya Bundesliga": 3069,
-    "Almanya 2. Bundesliga": 3087,
-    "İspanya La Liga": 3831,
-    "İspanya LaLiga 2": 4653,
-    "İtalya Serie A": 3820,
-    "İtalya Serie B": 3946,
-    "Fransa Ligue 1": 3496,
-    "Fransa Ligue 2": 3586,
-    "Hollanda Eredivisie": 3019,
-    "Belçika Pro League": 2841,
-    "Portekiz Primeira Liga": 3093,
-    "Yunanistan Super League": 2401,
+    "Türkiye Süper Lig": 3430,
+    "İngiltere Premier League": 3830,
+    "İngiltere EFL Championship": 5580,
+    "İngiltere EFL League One": 5427,
+    "İngiltere EFL League Two": 5468,
+    "İskoçya Premiership": 2262,
+    "İskoçya Championship": 1737,
+    "Almanya Bundesliga": 3078,
+    "Almanya 2. Bundesliga": 3096,
+    "İspanya La Liga": 3841,
+    "İspanya LaLiga 2": 4664,
+    "İtalya Serie A": 3830,
+    "İtalya Serie B": 3956,
+    "Fransa Ligue 1": 3504,
+    "Fransa Ligue 2": 3595,
+    "Hollanda Eredivisie": 3027,
+    "Belçika Pro League": 2850,
+    "Portekiz Primeira Liga": 3102,
+    "Yunanistan Super League": 2408,
     "Arjantin Primera División": 4918,
     "Avusturya Bundesliga": 1948,
-    "Çin Süper Ligi": 2525,
     "Brezilya Série A": 4045,
-    "Finlandiya Veikkausliiga": 1882,
+    "Çin Süper Ligi": 2525,
     "Danimarka Superliga": 2196,
+    "Finlandiya Veikkausliiga": 1882,
     "İrlanda Premier Division": 1917,
+    "Japonya J1 League": 3346,
     "Meksika Liga MX": 3373,
     "Norveç Eliteserien": 2558,
-    "Rusya Premier League": 2440,
     "Polonya Ekstraklasa": 3003,
-    "İsveç Allsvenskan": 2567,
-    "Japonya J1 League": 3346,
     "Romanya Liga I": 3046,
+    "Rusya Premier League": 2440,
+    "İsveç Allsvenskan": 2567,
     "İsviçre Super League": 1988,
     "ABD MLS": 4774
   },
@@ -120,7 +120,7 @@
     {
       "league": "Almanya 2. Bundesliga",
       "season": "2026/27",
-      "rows": 27,
+      "rows": 36,
       "ok": true,
       "source": "live",
       "expected_partial": true
@@ -198,7 +198,7 @@
     {
       "league": "Almanya Bundesliga",
       "season": "2026/27",
-      "rows": 9,
+      "rows": 18,
       "ok": true,
       "source": "live",
       "expected_partial": true
@@ -288,7 +288,7 @@
     {
       "league": "Belçika Pro League",
       "season": "2026/27",
-      "rows": 36,
+      "rows": 45,
       "ok": true,
       "source": "live",
       "expected_partial": true
@@ -384,7 +384,7 @@
     {
       "league": "Fransa Ligue 1",
       "season": "2026/27",
-      "rows": 19,
+      "rows": 27,
       "ok": true,
       "source": "live",
       "expected_partial": true
@@ -462,7 +462,7 @@
     {
       "league": "Fransa Ligue 2",
       "season": "2026/27",
-      "rows": 36,
+      "rows": 45,
       "ok": true,
       "source": "live",
       "expected_partial": true
@@ -540,7 +540,7 @@
     {
       "league": "Hollanda Eredivisie",
       "season": "2026/27",
-      "rows": 33,
+      "rows": 41,
       "ok": true,
       "source": "live",
       "expected_partial": true
@@ -642,7 +642,7 @@
     {
       "league": "Portekiz Primeira Liga",
       "season": "2026/27",
-      "rows": 33,
+      "rows": 42,
       "ok": true,
       "source": "live",
       "expected_partial": true
@@ -732,7 +732,7 @@
     {
       "league": "Türkiye Süper Lig",
       "season": "2026/27",
-      "rows": 27,
+      "rows": 36,
       "ok": true,
       "source": "live",
       "expected_partial": true
@@ -810,7 +810,7 @@
     {
       "league": "Yunanistan Super League",
       "season": "2026/27",
-      "rows": 13,
+      "rows": 20,
       "ok": true,
       "source": "live",
       "expected_partial": true
@@ -894,7 +894,7 @@
     {
       "league": "İngiltere EFL Championship",
       "season": "2026/27",
-      "rows": 48,
+      "rows": 60,
       "ok": true,
       "source": "live",
       "expected_partial": true
@@ -972,7 +972,7 @@
     {
       "league": "İngiltere EFL League One",
       "season": "2026/27",
-      "rows": 47,
+      "rows": 59,
       "ok": true,
       "source": "live",
       "expected_partial": true
@@ -1050,7 +1050,7 @@
     {
       "league": "İngiltere EFL League Two",
       "season": "2026/27",
-      "rows": 48,
+      "rows": 60,
       "ok": true,
       "source": "live",
       "expected_partial": true
@@ -1128,7 +1128,7 @@
     {
       "league": "İngiltere Premier League",
       "season": "2026/27",
-      "rows": 20,
+      "rows": 30,
       "ok": true,
       "source": "live",
       "expected_partial": true
@@ -1212,7 +1212,7 @@
     {
       "league": "İskoçya Championship",
       "season": "2026/27",
-      "rows": 20,
+      "rows": 25,
       "ok": true,
       "source": "live",
       "expected_partial": true
@@ -1290,90 +1290,90 @@
     {
       "league": "İskoçya Premiership",
       "season": "2026/27",
-      "rows": 25,
-      "ok": true,
-      "source": "live",
-      "expected_partial": true
-    },
-    {
-      "league": "İspanya La Liga",
-      "season": "2016/17",
-      "rows": 380,
-      "ok": true,
-      "source": "live"
-    },
-    {
-      "league": "İspanya La Liga",
-      "season": "2017/18",
-      "rows": 380,
-      "ok": true,
-      "source": "live"
-    },
-    {
-      "league": "İspanya La Liga",
-      "season": "2018/19",
-      "rows": 380,
-      "ok": true,
-      "source": "live"
-    },
-    {
-      "league": "İspanya La Liga",
-      "season": "2019/20",
-      "rows": 380,
-      "ok": true,
-      "source": "live"
-    },
-    {
-      "league": "İspanya La Liga",
-      "season": "2020/21",
-      "rows": 380,
-      "ok": true,
-      "source": "live"
-    },
-    {
-      "league": "İspanya La Liga",
-      "season": "2021/22",
-      "rows": 380,
-      "ok": true,
-      "source": "live"
-    },
-    {
-      "league": "İspanya La Liga",
-      "season": "2022/23",
-      "rows": 380,
-      "ok": true,
-      "source": "live"
-    },
-    {
-      "league": "İspanya La Liga",
-      "season": "2023/24",
-      "rows": 380,
-      "ok": true,
-      "source": "live"
-    },
-    {
-      "league": "İspanya La Liga",
-      "season": "2024/25",
-      "rows": 380,
-      "ok": true,
-      "source": "live"
-    },
-    {
-      "league": "İspanya La Liga",
-      "season": "2025/26",
-      "rows": 380,
-      "ok": true,
-      "source": "live"
-    },
-    {
-      "league": "İspanya La Liga",
-      "season": "2026/27",
       "rows": 31,
       "ok": true,
       "source": "live",
       "expected_partial": true
     },
     {
+      "league": "İspanya La Liga",
+      "season": "2016/17",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya La Liga",
+      "season": "2017/18",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya La Liga",
+      "season": "2018/19",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya La Liga",
+      "season": "2019/20",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya La Liga",
+      "season": "2020/21",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya La Liga",
+      "season": "2021/22",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya La Liga",
+      "season": "2022/23",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya La Liga",
+      "season": "2023/24",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya La Liga",
+      "season": "2024/25",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya La Liga",
+      "season": "2025/26",
+      "rows": 380,
+      "ok": true,
+      "source": "live"
+    },
+    {
+      "league": "İspanya La Liga",
+      "season": "2026/27",
+      "rows": 41,
+      "ok": true,
+      "source": "live",
+      "expected_partial": true
+    },
+    {
       "league": "İspanya LaLiga 2",
       "season": "2016/17",
       "rows": 462,
@@ -1446,7 +1446,7 @@
     {
       "league": "İspanya LaLiga 2",
       "season": "2026/27",
-      "rows": 33,
+      "rows": 44,
       "ok": true,
       "source": "live",
       "expected_partial": true
@@ -1536,7 +1536,7 @@
     {
       "league": "İtalya Serie A",
       "season": "2026/27",
-      "rows": 20,
+      "rows": 30,
       "ok": true,
       "source": "live",
       "expected_partial": true
@@ -1614,13 +1614,13 @@
     {
       "league": "İtalya Serie B",
       "season": "2026/27",
-      "rows": 20,
+      "rows": 30,
       "ok": true,
       "source": "live",
       "expected_partial": true
     }
   ],
-  "ht_coverage": 0.595,
+  "ht_coverage": 0.5956,
   "odds_coverage": 0.9692,
   "critical_failures": 0,
   "current_partial_failures": 0,
@@ -1638,7 +1638,7 @@
   ],
   "current_season": "2026/27",
   "quality": {
-    "rows": 115036,
+    "rows": 115211,
     "bad_team": 0,
     "bad_score": 0,
     "missing_date": 0,
@@ -1842,7 +1842,7 @@
       {
         "league": "Almanya 2. Bundesliga",
         "season": "2026/27",
-        "rows": 27,
+        "rows": 36,
         "teams": 18,
         "ht_coverage": 1.0,
         "week_coverage": 1.0,
@@ -1941,7 +1941,7 @@
       {
         "league": "Almanya Bundesliga",
         "season": "2026/27",
-        "rows": 9,
+        "rows": 18,
         "teams": 18,
         "ht_coverage": 1.0,
         "week_coverage": 1.0,
@@ -2238,7 +2238,7 @@
       {
         "league": "Belçika Pro League",
         "season": "2026/27",
-        "rows": 36,
+        "rows": 45,
         "teams": 18,
         "ht_coverage": 1.0,
         "week_coverage": 1.0,
@@ -2634,7 +2634,7 @@
       {
         "league": "Fransa Ligue 1",
         "season": "2026/27",
-        "rows": 19,
+        "rows": 27,
         "teams": 18,
         "ht_coverage": 1.0,
         "week_coverage": 1.0,
@@ -2733,7 +2733,7 @@
       {
         "league": "Fransa Ligue 2",
         "season": "2026/27",
-        "rows": 36,
+        "rows": 45,
         "teams": 18,
         "ht_coverage": 1.0,
         "week_coverage": 1.0,
@@ -2832,7 +2832,7 @@
       {
         "league": "Hollanda Eredivisie",
         "season": "2026/27",
-        "rows": 33,
+        "rows": 41,
         "teams": 18,
         "ht_coverage": 1.0,
         "week_coverage": 1.0,
@@ -3327,7 +3327,7 @@
       {
         "league": "Portekiz Primeira Liga",
         "season": "2026/27",
-        "rows": 33,
+        "rows": 42,
         "teams": 18,
         "ht_coverage": 1.0,
         "week_coverage": 1.0,
@@ -3624,7 +3624,7 @@
       {
         "league": "Türkiye Süper Lig",
         "season": "2026/27",
-        "rows": 27,
+        "rows": 36,
         "teams": 18,
         "ht_coverage": 1.0,
         "week_coverage": 1.0,
@@ -3723,7 +3723,7 @@
       {
         "league": "Yunanistan Super League",
         "season": "2026/27",
-        "rows": 13,
+        "rows": 20,
         "teams": 14,
         "ht_coverage": 1.0,
         "week_coverage": 1.0,
@@ -3921,7 +3921,7 @@
       {
         "league": "İngiltere EFL Championship",
         "season": "2026/27",
-        "rows": 48,
+        "rows": 60,
         "teams": 24,
         "ht_coverage": 1.0,
         "week_coverage": 1.0,
@@ -4020,7 +4020,7 @@
       {
         "league": "İngiltere EFL League One",
         "season": "2026/27",
-        "rows": 47,
+        "rows": 59,
         "teams": 24,
         "ht_coverage": 1.0,
         "week_coverage": 1.0,
@@ -4119,7 +4119,7 @@
       {
         "league": "İngiltere EFL League Two",
         "season": "2026/27",
-        "rows": 48,
+        "rows": 60,
         "teams": 24,
         "ht_coverage": 1.0,
         "week_coverage": 1.0,
@@ -4218,7 +4218,7 @@
       {
         "league": "İngiltere Premier League",
         "season": "2026/27",
-        "rows": 20,
+        "rows": 30,
         "teams": 20,
         "ht_coverage": 1.0,
         "week_coverage": 1.0,
@@ -4416,7 +4416,7 @@
       {
         "league": "İskoçya Championship",
         "season": "2026/27",
-        "rows": 20,
+        "rows": 25,
         "teams": 10,
         "ht_coverage": 1.0,
         "week_coverage": 1.0,
@@ -4515,7 +4515,7 @@
       {
         "league": "İskoçya Premiership",
         "season": "2026/27",
-        "rows": 25,
+        "rows": 31,
         "teams": 12,
         "ht_coverage": 1.0,
         "week_coverage": 1.0,
@@ -4614,7 +4614,7 @@
       {
         "league": "İspanya La Liga",
         "season": "2026/27",
-        "rows": 31,
+        "rows": 41,
         "teams": 20,
         "ht_coverage": 1.0,
         "week_coverage": 1.0,
@@ -4713,7 +4713,7 @@
       {
         "league": "İspanya LaLiga 2",
         "season": "2026/27",
-        "rows": 33,
+        "rows": 44,
         "teams": 22,
         "ht_coverage": 1.0,
         "week_coverage": 1.0,
@@ -5010,7 +5010,7 @@
       {
         "league": "İtalya Serie A",
         "season": "2026/27",
-        "rows": 20,
+        "rows": 30,
         "teams": 20,
         "ht_coverage": 1.0,
         "week_coverage": 1.0,
@@ -5109,7 +5109,7 @@
       {
         "league": "İtalya Serie B",
         "season": "2026/27",
-        "rows": 20,
+        "rows": 30,
         "teams": 20,
         "ht_coverage": 1.0,
         "week_coverage": 1.0,
