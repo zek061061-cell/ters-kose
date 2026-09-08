@@ -4,11 +4,13 @@ from __future__ import annotations
 
 import gzip
 import json
+import lzma
 from datetime import date
 from pathlib import Path
 from threading import Lock
 
 from league_catalog import load_league_catalog
+from riskbudur_data_import import convert
 from source_adapters import AdapterRegistry, SourceAdapter, canonical_key, fixture_identity, normalize_fixture
 from team_catalog import Team, TeamCatalog
 
@@ -57,6 +59,22 @@ class GzipJsonFixtureAdapter(JsonFixtureAdapter):
             return self._cached_rows
 
 
+class RiskbudurSourceAdapter(JsonFixtureAdapter):
+    """Read the compact xz-compressed 21-column Riskbudur DATA export."""
+
+    def _load(self) -> list[dict]:
+        mtime = self.path.stat().st_mtime_ns
+        with self._cache_lock:
+            if self._cached_mtime != mtime:
+                with lzma.open(self.path, "rt", encoding="utf-8") as handle:
+                    source_rows = json.load(handle)
+                payload = convert(source_rows)
+                self._cached_rows = payload.get("matches", [])
+                self._cached_mtime = mtime
+                self.health.covered_leagues = int(payload.get("mapped_leagues") or 0)
+            return self._cached_rows
+
+
 class FixtureStore:
     def __init__(self, data_dir: Path | str = DATA_DIR) -> None:
         root = Path(data_dir)
@@ -70,7 +88,9 @@ class FixtureStore:
         ]
         if (root / "v7_ingested_fixtures.json").exists():
             adapters.insert(0, JsonFixtureAdapter("v7-ingested", root / "v7_ingested_fixtures.json", 5))
-        if (root / "riskbudur_57_master.json.gz").exists():
+        if (root / "riskbudur_57_source.json.xz").exists():
+            adapters.append(RiskbudurSourceAdapter("riskbudur-57-source", root / "riskbudur_57_source.json.xz", 34))
+        elif (root / "riskbudur_57_master.json.gz").exists():
             adapters.append(GzipJsonFixtureAdapter("riskbudur-57-master", root / "riskbudur_57_master.json.gz", 35))
         elif (root / "riskbudur_57_history.json").exists():
             adapters.append(JsonFixtureAdapter("riskbudur-57-history", root / "riskbudur_57_history.json", 40))
