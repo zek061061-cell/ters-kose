@@ -1,0 +1,94 @@
+name: v7 production ingestion
+
+on:
+  workflow_dispatch:
+    inputs:
+      mode:
+        type: choice
+        options: [current, future, history]
+        default: current
+  schedule:
+    - cron: "17 */6 * * *"   # current fixtures
+    - cron: "41 2 * * *"     # future fixtures
+    - cron: "23 3 * * 1"     # historical backfill
+
+permissions:
+  contents: write
+
+concurrency:
+  group: v7-production-ingestion
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # Use the ref selected in the Actions UI (main for scheduled runs).
+          # Pinning the already-merged PR branch checked out stale/missing files.
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Verify v7 runtime files
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          required = (
+              "ingest_v7.py",
+              "build_team_catalog.py",
+              "build_coverage_report.py",
+              "league_catalog.py",
+              "network_adapters.py",
+              "source_adapters.py",
+              "shard_store.py",
+              "team_catalog.py",
+              "coverage.py",
+              "data/league_catalog.json",
+              "tests/test_v7_data.py",
+              "tests/test_iphone_performance.py",
+          )
+          missing = [name for name in required if not Path(name).is_file()]
+          if missing:
+              raise SystemExit("Missing required v7 files: " + ", ".join(missing))
+          print(f"Verified {len(required)} required v7 files in {Path.cwd()}")
+          PY
+      - run: pip install -r requirements.txt
+      - name: Select ingestion window
+        id: window
+        env:
+          EVENT: ${{ github.event_name }}
+          REQUESTED: ${{ inputs.mode }}
+          SCHEDULE: ${{ github.event.schedule }}
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import datetime as d, os
+          mode = os.environ.get("REQUESTED") or ({"17 */6 * * *":"current", "41 2 * * *":"future", "23 3 * * 1":"history"}.get(os.environ.get("SCHEDULE"), "current"))
+          today=d.date.today()
+          windows={"current":(today-d.timedelta(days=2),today+d.timedelta(days=7)),"future":(today,today+d.timedelta(days=370)),"history":(today-d.timedelta(days=3650),today)}
+          start,end=windows[mode]
+          print(f"mode={mode}"); print(f"start={start}"); print(f"end={end}")
+          PY
+      - name: Ingest with provider fallbacks
+        continue-on-error: true
+        env:
+          V7_TFF_PAGES: ${{ secrets.V7_TFF_PAGES }}
+          V7_SAHADAN_URLS: ${{ secrets.V7_SAHADAN_URLS }}
+          V7_FOOTBALL_DATA_URLS: ${{ secrets.V7_FOOTBALL_DATA_URLS }}
+        run: python "$GITHUB_WORKSPACE/ingest_v7.py" --mode '${{ steps.window.outputs.mode }}' --from '${{ steps.window.outputs.start }}' --to '${{ steps.window.outputs.end }}'
+      - name: Rebuild catalogs and coverage
+        run: |
+          python "$GITHUB_WORKSPACE/build_team_catalog.py"
+          python "$GITHUB_WORKSPACE/build_coverage_report.py"
+          python -m unittest discover -s "$GITHUB_WORKSPACE/tests" -v
+      - name: Commit only validated generated data
+        env:
+          TARGET_BRANCH: ${{ github.ref_name }}
+        run: |
+          git config user.name 'ters-kose-ingestion[bot]'
+          git config user.email 'ters-kose-ingestion[bot]@users.noreply.github.com'
+          git add data/v7_shards data/v7_ingested_fixtures.json data/source_audit.json data/team_catalog.json data/coverage_report.json || true
+          git diff --cached --quiet || git commit -m "data: refresh v7 ${{ steps.window.outputs.mode }} shards"
+          git push origin "HEAD:${TARGET_BRANCH}"

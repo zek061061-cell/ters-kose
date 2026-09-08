@@ -1,0 +1,3244 @@
+{
+  "ok": true,
+  "summary": {
+    "countries": 74,
+    "leagues": 154,
+    "teams": 1032,
+    "historical_matches": 115211,
+    "future_matches": 372,
+    "ok_leagues": 8
+  },
+  "leagues": [
+    {
+      "league_id": "abd-kanada.major-league-soccer",
+      "country": "ABD/Kanada",
+      "league": "Major League Soccer",
+      "team_count": 30,
+      "future_team_count": 0,
+      "historical_matches": 4774,
+      "future_matches": 0,
+      "ht_coverage": 0.0,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "future_fixtures_missing",
+        "ht_coverage_low"
+      ],
+      "first_date": "2016-03-06",
+      "last_date": "2026-08-31",
+      "sources": [
+        "espn"
+      ],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "abd-kanada.usl-championship",
+      "country": "ABD/Kanada",
+      "league": "USL Championship",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "abd-kanada.usl-league-one",
+      "country": "ABD/Kanada",
+      "league": "USL League One",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "almanya.bundesliga",
+      "country": "Almanya",
+      "league": "Bundesliga",
+      "team_count": 37,
+      "future_team_count": 18,
+      "historical_matches": 3078,
+      "future_matches": 11,
+      "ht_coverage": 0.9997,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [],
+      "first_date": "2016-08-26",
+      "last_date": "2026-09-13",
+      "sources": [
+        "espn",
+        "football-data"
+      ],
+      "status": "OK"
+    },
+    {
+      "league_id": "almanya.2-bundesliga",
+      "country": "Almanya",
+      "league": "2. Bundesliga",
+      "team_count": 45,
+      "future_team_count": 18,
+      "historical_matches": 3096,
+      "future_matches": 11,
+      "ht_coverage": 1.0,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [],
+      "first_date": "2016-08-05",
+      "last_date": "2026-09-13",
+      "sources": [
+        "espn",
+        "football-data"
+      ],
+      "status": "OK"
+    },
+    {
+      "league_id": "almanya.3-liga",
+      "country": "Almanya",
+      "league": "3. Liga",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "arjantin.primera-division",
+      "country": "Arjantin",
+      "league": "Primera División",
+      "team_count": 42,
+      "future_team_count": 0,
+      "historical_matches": 4918,
+      "future_matches": 0,
+      "ht_coverage": 0.0,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "future_fixtures_missing",
+        "ht_coverage_low"
+      ],
+      "first_date": "2016-02-05",
+      "last_date": "2026-09-01",
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "arjantin.primera-nacional",
+      "country": "Arjantin",
+      "league": "Primera Nacional",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "avustralya.a-league-men",
+      "country": "Avustralya",
+      "league": "A-League Men",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "avustralya.national-premier-leagues",
+      "country": "Avustralya",
+      "league": "National Premier Leagues",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "avusturya.bundesliga",
+      "country": "Avusturya",
+      "league": "Bundesliga",
+      "team_count": 24,
+      "future_team_count": 12,
+      "historical_matches": 1948,
+      "future_matches": 8,
+      "ht_coverage": 0.0,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "ht_coverage_low"
+      ],
+      "first_date": "2016-07-23",
+      "last_date": "2026-09-13",
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "avusturya.2-liga",
+      "country": "Avusturya",
+      "league": "2. Liga",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "azerbaycan.premier-league",
+      "country": "Azerbaycan",
+      "league": "Premier League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "bae.pro-league",
+      "country": "BAE",
+      "league": "Pro League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "bae.first-division-league",
+      "country": "BAE",
+      "league": "First Division League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "belcika.pro-league",
+      "country": "Belçika",
+      "league": "Pro League",
+      "team_count": 27,
+      "future_team_count": 0,
+      "historical_matches": 2850,
+      "future_matches": 0,
+      "ht_coverage": 0.9982,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "future_fixtures_missing"
+      ],
+      "first_date": "2016-07-29",
+      "last_date": "2026-09-06",
+      "sources": [
+        "espn",
+        "football-data"
+      ],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "belcika.challenger-pro-league",
+      "country": "Belçika",
+      "league": "Challenger Pro League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "bolivya.division-profesional",
+      "country": "Bolivya",
+      "league": "División Profesional",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "bosna-hersek.premier-league",
+      "country": "Bosna Hersek",
+      "league": "Premier League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "brezilya.serie-a",
+      "country": "Brezilya",
+      "league": "Série A",
+      "team_count": 35,
+      "future_team_count": 0,
+      "historical_matches": 4045,
+      "future_matches": 0,
+      "ht_coverage": 0.0,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "future_fixtures_missing",
+        "ht_coverage_low"
+      ],
+      "first_date": "2016-05-14",
+      "last_date": "2026-09-02",
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "brezilya.serie-b",
+      "country": "Brezilya",
+      "league": "Série B",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [
+        "espn"
+      ],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "brezilya.serie-c",
+      "country": "Brezilya",
+      "league": "Série C",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "bulgaristan.first-league",
+      "country": "Bulgaristan",
+      "league": "First League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "bulgaristan.second-league",
+      "country": "Bulgaristan",
+      "league": "Second League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "cezayir.ligue-1",
+      "country": "Cezayir",
+      "league": "Ligue 1",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "cezayir.ligue-2",
+      "country": "Cezayir",
+      "league": "Ligue 2",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "danimarka.superliga",
+      "country": "Danimarka",
+      "league": "Superliga",
+      "team_count": 20,
+      "future_team_count": 0,
+      "historical_matches": 2196,
+      "future_matches": 0,
+      "ht_coverage": 0.0,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "future_fixtures_missing",
+        "ht_coverage_low"
+      ],
+      "first_date": "2016-07-15",
+      "last_date": "2026-09-03",
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "danimarka.1st-division",
+      "country": "Danimarka",
+      "league": "1st Division",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "danimarka.2nd-division",
+      "country": "Danimarka",
+      "league": "2nd Division",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "ekvador.ligapro-serie-a",
+      "country": "Ekvador",
+      "league": "LigaPro Serie A",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "ekvador.ligapro-serie-b",
+      "country": "Ekvador",
+      "league": "LigaPro Serie B",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "el-salvador.primera-division",
+      "country": "El Salvador",
+      "league": "Primera División",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "endonezya.liga-1",
+      "country": "Endonezya",
+      "league": "Liga 1",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "endonezya.liga-2",
+      "country": "Endonezya",
+      "league": "Liga 2",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "ermenistan.premier-league",
+      "country": "Ermenistan",
+      "league": "Premier League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "faroe-adalar.premier-league",
+      "country": "Faroe Adaları",
+      "league": "Premier League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "faroe-adalar.1-deild",
+      "country": "Faroe Adaları",
+      "league": "1. deild",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "fas.botola-pro",
+      "country": "Fas",
+      "league": "Botola Pro",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "fas.botola-2",
+      "country": "Fas",
+      "league": "Botola 2",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "finlandiya.veikkausliiga",
+      "country": "Finlandiya",
+      "league": "Veikkausliiga",
+      "team_count": 22,
+      "future_team_count": 4,
+      "historical_matches": 1882,
+      "future_matches": 2,
+      "ht_coverage": 0.0,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "ht_coverage_low",
+        "future_team_coverage_thin"
+      ],
+      "first_date": "2016-04-02",
+      "last_date": "2026-09-08",
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "finlandiya.ykkosliiga",
+      "country": "Finlandiya",
+      "league": "Ykkösliiga",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "fransa.ligue-1",
+      "country": "Fransa",
+      "league": "Ligue 1",
+      "team_count": 36,
+      "future_team_count": 18,
+      "historical_matches": 3504,
+      "future_matches": 11,
+      "ht_coverage": 0.9997,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [],
+      "first_date": "2016-08-12",
+      "last_date": "2026-09-13",
+      "sources": [
+        "espn",
+        "football-data"
+      ],
+      "status": "OK"
+    },
+    {
+      "league_id": "fransa.ligue-2",
+      "country": "Fransa",
+      "league": "Ligue 2",
+      "team_count": 47,
+      "future_team_count": 0,
+      "historical_matches": 3595,
+      "future_matches": 0,
+      "ht_coverage": 0.9992,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "future_fixtures_missing"
+      ],
+      "first_date": "2016-07-29",
+      "last_date": "2026-09-07",
+      "sources": [
+        "espn",
+        "football-data"
+      ],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "fransa.national",
+      "country": "Fransa",
+      "league": "National",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "guatemala.liga-nacional",
+      "country": "Guatemala",
+      "league": "Liga Nacional",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "guney-afrika.premiership",
+      "country": "Güney Afrika",
+      "league": "Premiership",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "guney-afrika.first-division",
+      "country": "Güney Afrika",
+      "league": "First Division",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "guney-kore.k-league-1",
+      "country": "Güney Kore",
+      "league": "K League 1",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [
+        "espn"
+      ],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "guney-kore.k-league-2",
+      "country": "Güney Kore",
+      "league": "K League 2",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "gurcistan.erovnuli-liga",
+      "country": "Gürcistan",
+      "league": "Erovnuli Liga",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "hindistan.indian-super-league",
+      "country": "Hindistan",
+      "league": "Indian Super League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "hindistan.i-league",
+      "country": "Hindistan",
+      "league": "I-League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "hollanda.eredivisie",
+      "country": "Hollanda",
+      "league": "Eredivisie",
+      "team_count": 29,
+      "future_team_count": 7,
+      "historical_matches": 3027,
+      "future_matches": 6,
+      "ht_coverage": 1.0,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "future_team_coverage_thin"
+      ],
+      "first_date": "2016-08-05",
+      "last_date": "2026-09-15",
+      "sources": [
+        "espn",
+        "football-data"
+      ],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "hollanda.eerste-divisie",
+      "country": "Hollanda",
+      "league": "Eerste Divisie",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "honduras.liga-nacional",
+      "country": "Honduras",
+      "league": "Liga Nacional",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "h-rvatistan.hnl",
+      "country": "Hırvatistan",
+      "league": "HNL",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "h-rvatistan.first-football-league",
+      "country": "Hırvatistan",
+      "league": "First Football League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "japonya.j1-league",
+      "country": "Japonya",
+      "league": "J1 League",
+      "team_count": 34,
+      "future_team_count": 0,
+      "historical_matches": 3346,
+      "future_matches": 0,
+      "ht_coverage": 0.0,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "future_fixtures_missing",
+        "ht_coverage_low"
+      ],
+      "first_date": "2016-02-27",
+      "last_date": "2026-09-02",
+      "sources": [
+        "espn"
+      ],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "japonya.j2-league",
+      "country": "Japonya",
+      "league": "J2 League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [
+        "espn"
+      ],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "japonya.j3-league",
+      "country": "Japonya",
+      "league": "J3 League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "kanada.canadian-premier-league",
+      "country": "Kanada",
+      "league": "Canadian Premier League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "katar.stars-league",
+      "country": "Katar",
+      "league": "Stars League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "katar.second-division",
+      "country": "Katar",
+      "league": "Second Division",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "kazakistan.premier-league",
+      "country": "Kazakistan",
+      "league": "Premier League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "kolombiya.categoria-primera-a",
+      "country": "Kolombiya",
+      "league": "Categoría Primera A",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "kolombiya.categoria-primera-b",
+      "country": "Kolombiya",
+      "league": "Categoría Primera B",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "kosta-rika.primera-division",
+      "country": "Kosta Rika",
+      "league": "Primera División",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "kosta-rika.liga-de-ascenso",
+      "country": "Kosta Rika",
+      "league": "Liga de Ascenso",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "kuzey-irlanda.nifl-premiership",
+      "country": "Kuzey İrlanda",
+      "league": "NIFL Premiership",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "kuzey-irlanda.nifl-championship",
+      "country": "Kuzey İrlanda",
+      "league": "NIFL Championship",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "k-br-s-cumhuriyeti.first-division",
+      "country": "Kıbrıs Cumhuriyeti",
+      "league": "First Division",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "k-br-s-cumhuriyeti.second-division",
+      "country": "Kıbrıs Cumhuriyeti",
+      "league": "Second Division",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "macaristan.nb-i",
+      "country": "Macaristan",
+      "league": "NB I",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "macaristan.nb-ii",
+      "country": "Macaristan",
+      "league": "NB II",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "malezya.super-league",
+      "country": "Malezya",
+      "league": "Super League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "meksika.liga-mx",
+      "country": "Meksika",
+      "league": "Liga MX",
+      "team_count": 23,
+      "future_team_count": 0,
+      "historical_matches": 3373,
+      "future_matches": 0,
+      "ht_coverage": 0.0,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "future_fixtures_missing",
+        "ht_coverage_low"
+      ],
+      "first_date": "2016-07-16",
+      "last_date": "2026-08-31",
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "meksika.liga-de-expansion-mx",
+      "country": "Meksika",
+      "league": "Liga de Expansión MX",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "m-s-r.premier-league",
+      "country": "Mısır",
+      "league": "Premier League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "m-s-r.second-division-a",
+      "country": "Mısır",
+      "league": "Second Division A",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "norvec.eliteserien",
+      "country": "Norveç",
+      "league": "Eliteserien",
+      "team_count": 30,
+      "future_team_count": 16,
+      "historical_matches": 2558,
+      "future_matches": 9,
+      "ht_coverage": 0.0,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "ht_coverage_low"
+      ],
+      "first_date": "2016-03-11",
+      "last_date": "2026-10-25",
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "norvec.1-division",
+      "country": "Norveç",
+      "league": "1. Division",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "norvec.2-division",
+      "country": "Norveç",
+      "league": "2. Division",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "paraguay.primera-division",
+      "country": "Paraguay",
+      "league": "Primera División",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "paraguay.division-intermedia",
+      "country": "Paraguay",
+      "league": "División Intermedia",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "peru.liga-1",
+      "country": "Peru",
+      "league": "Liga 1",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "peru.liga-2",
+      "country": "Peru",
+      "league": "Liga 2",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "polonya.ekstraklasa",
+      "country": "Polonya",
+      "league": "Ekstraklasa",
+      "team_count": 33,
+      "future_team_count": 0,
+      "historical_matches": 3003,
+      "future_matches": 0,
+      "ht_coverage": 0.0,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "future_fixtures_missing",
+        "ht_coverage_low"
+      ],
+      "first_date": "2016-07-15",
+      "last_date": "2026-09-03",
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "polonya.i-liga",
+      "country": "Polonya",
+      "league": "I Liga",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "polonya.ii-liga",
+      "country": "Polonya",
+      "league": "II Liga",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "portekiz.primeira-liga",
+      "country": "Portekiz",
+      "league": "Primeira Liga",
+      "team_count": 30,
+      "future_team_count": 0,
+      "historical_matches": 3102,
+      "future_matches": 0,
+      "ht_coverage": 1.0,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "future_fixtures_missing"
+      ],
+      "first_date": "2016-08-12",
+      "last_date": "2026-09-07",
+      "sources": [
+        "espn",
+        "football-data"
+      ],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "portekiz.liga-portugal-2",
+      "country": "Portekiz",
+      "league": "Liga Portugal 2",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "portekiz.liga-3",
+      "country": "Portekiz",
+      "league": "Liga 3",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "romanya.superliga",
+      "country": "Romanya",
+      "league": "SuperLiga",
+      "team_count": 36,
+      "future_team_count": 0,
+      "historical_matches": 3046,
+      "future_matches": 0,
+      "ht_coverage": 0.0,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "future_fixtures_missing",
+        "ht_coverage_low"
+      ],
+      "first_date": "2016-07-22",
+      "last_date": "2026-08-31",
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "romanya.liga-ii",
+      "country": "Romanya",
+      "league": "Liga II",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "rusya.premier-league",
+      "country": "Rusya",
+      "league": "Premier League",
+      "team_count": 31,
+      "future_team_count": 0,
+      "historical_matches": 2440,
+      "future_matches": 0,
+      "ht_coverage": 0.0,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "future_fixtures_missing",
+        "ht_coverage_low"
+      ],
+      "first_date": "2016-07-30",
+      "last_date": "2026-08-02",
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "rusya.first-league",
+      "country": "Rusya",
+      "league": "First League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "singapur.premier-league",
+      "country": "Singapur",
+      "league": "Premier League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "slovakya.nike-liga",
+      "country": "Slovakya",
+      "league": "Niké Liga",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "slovakya.2-liga",
+      "country": "Slovakya",
+      "league": "2. Liga",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "slovenya.prvaliga",
+      "country": "Slovenya",
+      "league": "PrvaLiga",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "slovenya.2-snl",
+      "country": "Slovenya",
+      "league": "2. SNL",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "suudi-arabistan.saudi-pro-league",
+      "country": "Suudi Arabistan",
+      "league": "Saudi Pro League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "suudi-arabistan.first-division-league",
+      "country": "Suudi Arabistan",
+      "league": "First Division League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "s-rbistan.superliga",
+      "country": "Sırbistan",
+      "league": "SuperLiga",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "s-rbistan.first-league",
+      "country": "Sırbistan",
+      "league": "First League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "tayland.thai-league-1",
+      "country": "Tayland",
+      "league": "Thai League 1",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "tayland.thai-league-2",
+      "country": "Tayland",
+      "league": "Thai League 2",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "tunus.ligue-professionnelle-1",
+      "country": "Tunus",
+      "league": "Ligue Professionnelle 1",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "tunus.ligue-professionnelle-2",
+      "country": "Tunus",
+      "league": "Ligue Professionnelle 2",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "turkiye.super-lig",
+      "country": "Türkiye",
+      "league": "Süper Lig",
+      "team_count": 44,
+      "future_team_count": 18,
+      "historical_matches": 3430,
+      "future_matches": 270,
+      "ht_coverage": 0.991,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [],
+      "first_date": "2016-08-19",
+      "last_date": "2027-05-23",
+      "sources": [
+        "espn",
+        "football-data"
+      ],
+      "status": "OK"
+    },
+    {
+      "league_id": "turkiye.1-lig",
+      "country": "Türkiye",
+      "league": "1. Lig",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "turkiye.2-lig",
+      "country": "Türkiye",
+      "league": "2. Lig",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "turkiye.3-lig",
+      "country": "Türkiye",
+      "league": "3. Lig",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "ukrayna.premier-league",
+      "country": "Ukrayna",
+      "league": "Premier League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "ukrayna.first-league",
+      "country": "Ukrayna",
+      "league": "First League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "uruguay.primera-division",
+      "country": "Uruguay",
+      "league": "Primera División",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "uruguay.segunda-division",
+      "country": "Uruguay",
+      "league": "Segunda División",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "venezuela.primera-division",
+      "country": "Venezuela",
+      "league": "Primera División",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "vietnam.v-league-1",
+      "country": "Vietnam",
+      "league": "V.League 1",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "yunanistan.super-league",
+      "country": "Yunanistan",
+      "league": "Super League",
+      "team_count": 26,
+      "future_team_count": 2,
+      "historical_matches": 2408,
+      "future_matches": 1,
+      "ht_coverage": 0.9988,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "future_team_coverage_thin"
+      ],
+      "first_date": "2016-09-10",
+      "last_date": "2026-09-08",
+      "sources": [
+        "espn",
+        "football-data"
+      ],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "yunanistan.super-league-2",
+      "country": "Yunanistan",
+      "league": "Super League 2",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "cekya.first-league",
+      "country": "Çekya",
+      "league": "First League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "cekya.national-football-league",
+      "country": "Çekya",
+      "league": "National Football League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "cin.chinese-super-league",
+      "country": "Çin",
+      "league": "Chinese Super League",
+      "team_count": 43,
+      "future_team_count": 0,
+      "historical_matches": 2525,
+      "future_matches": 0,
+      "ht_coverage": 0.0,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "future_fixtures_missing",
+        "ht_coverage_low"
+      ],
+      "first_date": "2016-03-04",
+      "last_date": "2026-08-29",
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "cin.china-league-one",
+      "country": "Çin",
+      "league": "China League One",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "cin.china-league-two",
+      "country": "Çin",
+      "league": "China League Two",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "ingiltere.premier-league",
+      "country": "İngiltere",
+      "league": "Premier League",
+      "team_count": 39,
+      "future_team_count": 20,
+      "historical_matches": 3830,
+      "future_matches": 12,
+      "ht_coverage": 1.0,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [],
+      "first_date": "2016-08-13",
+      "last_date": "2026-09-14",
+      "sources": [
+        "espn",
+        "football-data"
+      ],
+      "status": "OK"
+    },
+    {
+      "league_id": "ingiltere.championship",
+      "country": "İngiltere",
+      "league": "Championship",
+      "team_count": 57,
+      "future_team_count": 24,
+      "historical_matches": 5580,
+      "future_matches": 15,
+      "ht_coverage": 0.9998,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [],
+      "first_date": "2016-08-05",
+      "last_date": "2026-10-20",
+      "sources": [
+        "espn",
+        "football-data"
+      ],
+      "status": "OK"
+    },
+    {
+      "league_id": "ingiltere.league-one",
+      "country": "İngiltere",
+      "league": "League One",
+      "team_count": 63,
+      "future_team_count": 4,
+      "historical_matches": 5427,
+      "future_matches": 2,
+      "ht_coverage": 1.0,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "future_team_coverage_thin"
+      ],
+      "first_date": "2016-08-06",
+      "last_date": "2026-09-08",
+      "sources": [
+        "espn",
+        "football-data"
+      ],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "ingiltere.league-two",
+      "country": "İngiltere",
+      "league": "League Two",
+      "team_count": 56,
+      "future_team_count": 0,
+      "historical_matches": 5468,
+      "future_matches": 0,
+      "ht_coverage": 1.0,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "future_fixtures_missing"
+      ],
+      "first_date": "2016-08-06",
+      "last_date": "2026-09-05",
+      "sources": [
+        "espn",
+        "football-data"
+      ],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "ingiltere.national-league",
+      "country": "İngiltere",
+      "league": "National League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "irlanda.premier-division",
+      "country": "İrlanda",
+      "league": "Premier Division",
+      "team_count": 20,
+      "future_team_count": 0,
+      "historical_matches": 1917,
+      "future_matches": 0,
+      "ht_coverage": 0.0,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "future_fixtures_missing",
+        "ht_coverage_low"
+      ],
+      "first_date": "2016-03-04",
+      "last_date": "2026-08-30",
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "irlanda.first-division",
+      "country": "İrlanda",
+      "league": "First Division",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "iskocya.premiership",
+      "country": "İskoçya",
+      "league": "Premiership",
+      "team_count": 17,
+      "future_team_count": 10,
+      "historical_matches": 2262,
+      "future_matches": 6,
+      "ht_coverage": 1.0,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [],
+      "first_date": "2016-08-06",
+      "last_date": "2026-09-15",
+      "sources": [
+        "espn",
+        "football-data"
+      ],
+      "status": "OK"
+    },
+    {
+      "league_id": "iskocya.championship",
+      "country": "İskoçya",
+      "league": "Championship",
+      "team_count": 32,
+      "future_team_count": 12,
+      "historical_matches": 1737,
+      "future_matches": 8,
+      "ht_coverage": 1.0,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [],
+      "first_date": "2016-08-06",
+      "last_date": "2026-09-15",
+      "sources": [
+        "espn",
+        "football-data"
+      ],
+      "status": "OK"
+    },
+    {
+      "league_id": "iskocya.league-one",
+      "country": "İskoçya",
+      "league": "League One",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "iskocya.league-two",
+      "country": "İskoçya",
+      "league": "League Two",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "ispanya.la-liga",
+      "country": "İspanya",
+      "league": "La Liga",
+      "team_count": 32,
+      "future_team_count": 0,
+      "historical_matches": 3841,
+      "future_matches": 0,
+      "ht_coverage": 1.0,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "future_fixtures_missing"
+      ],
+      "first_date": "2016-08-19",
+      "last_date": "2026-09-07",
+      "sources": [
+        "espn",
+        "football-data"
+      ],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "ispanya.laliga-2",
+      "country": "İspanya",
+      "league": "LaLiga 2",
+      "team_count": 56,
+      "future_team_count": 0,
+      "historical_matches": 4664,
+      "future_matches": 0,
+      "ht_coverage": 0.9955,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "future_fixtures_missing"
+      ],
+      "first_date": "2016-08-19",
+      "last_date": "2026-09-07",
+      "sources": [
+        "espn",
+        "football-data"
+      ],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "ispanya.primera-federacion",
+      "country": "İspanya",
+      "league": "Primera Federación",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "israil.premier-league",
+      "country": "İsrail",
+      "league": "Premier League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "israil.liga-leumit",
+      "country": "İsrail",
+      "league": "Liga Leumit",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "isvec.allsvenskan",
+      "country": "İsveç",
+      "league": "Allsvenskan",
+      "team_count": 32,
+      "future_team_count": 0,
+      "historical_matches": 2567,
+      "future_matches": 0,
+      "ht_coverage": 0.0,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "future_fixtures_missing",
+        "ht_coverage_low"
+      ],
+      "first_date": "2016-04-02",
+      "last_date": "2026-09-03",
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "isvec.superettan",
+      "country": "İsveç",
+      "league": "Superettan",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [
+        "espn"
+      ],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "isvec.ettan",
+      "country": "İsveç",
+      "league": "Ettan",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "isvicre.super-league",
+      "country": "İsviçre",
+      "league": "Super League",
+      "team_count": 18,
+      "future_team_count": 0,
+      "historical_matches": 1988,
+      "future_matches": 0,
+      "ht_coverage": 0.0,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "future_fixtures_missing",
+        "ht_coverage_low"
+      ],
+      "first_date": "2016-07-23",
+      "last_date": "2026-09-03",
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "isvicre.challenge-league",
+      "country": "İsviçre",
+      "league": "Challenge League",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "italya.serie-a",
+      "country": "İtalya",
+      "league": "Serie A",
+      "team_count": 34,
+      "future_team_count": 0,
+      "historical_matches": 3830,
+      "future_matches": 0,
+      "ht_coverage": 0.9997,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "future_fixtures_missing"
+      ],
+      "first_date": "2016-08-20",
+      "last_date": "2026-09-07",
+      "sources": [
+        "espn",
+        "football-data"
+      ],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "italya.serie-b",
+      "country": "İtalya",
+      "league": "Serie B",
+      "team_count": 54,
+      "future_team_count": 0,
+      "historical_matches": 3956,
+      "future_matches": 0,
+      "ht_coverage": 0.9995,
+      "ft_coverage": 1.0,
+      "week_coverage": 1.0,
+      "missing_reasons": [
+        "future_fixtures_missing"
+      ],
+      "first_date": "2016-08-26",
+      "last_date": "2026-09-07",
+      "sources": [
+        "espn",
+        "football-data"
+      ],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "italya.serie-c",
+      "country": "İtalya",
+      "league": "Serie C",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "izlanda.besta-deild-karla",
+      "country": "İzlanda",
+      "league": "Besta deild karla",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "izlanda.1-deild-karla",
+      "country": "İzlanda",
+      "league": "1. deild karla",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "sili.primera-division",
+      "country": "Şili",
+      "league": "Primera División",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    },
+    {
+      "league_id": "sili.primera-b",
+      "country": "Şili",
+      "league": "Primera B",
+      "team_count": 0,
+      "future_team_count": 0,
+      "historical_matches": 0,
+      "future_matches": 0,
+      "ht_coverage": 0,
+      "ft_coverage": 0,
+      "week_coverage": 0,
+      "missing_reasons": [
+        "teams_missing",
+        "history_missing_or_thin",
+        "future_fixtures_missing"
+      ],
+      "first_date": null,
+      "last_date": null,
+      "sources": [],
+      "status": "Eksik"
+    }
+  ]
+}

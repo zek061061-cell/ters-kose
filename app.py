@@ -6,11 +6,15 @@ import csv
 import io
 import json
 import re
-from datetime import datetime
+from datetime import date, datetime
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import threading
 import gzip
 from urllib.parse import urlparse
+
+from coverage import load_coverage_report
+from fixture_store import STORE
+from league_catalog import catalog_summary, load_league_catalog
 
 app = Flask(__name__)
 
@@ -711,6 +715,48 @@ def leagues():
     rows = [{"code": code, "name": name} for code, name in ESPN_LEAGUES.items()]
     rows.sort(key=lambda x: x["name"])
     return jsonify({"ok": True, "leagues": rows, "count": len(rows)})
+
+
+@app.get("/league-catalog")
+def league_catalog_api():
+    """Return the extensible v7 catalogue without loading match shards."""
+    rows = load_league_catalog()
+    return jsonify({"ok": True, "summary": catalog_summary(rows), "leagues": rows})
+
+
+@app.get("/data-coverage")
+def data_coverage_api():
+    """Report honest catalogue coverage; only fully populated leagues are OK."""
+    return jsonify({"ok": True, **load_coverage_report()})
+
+
+@app.get("/v7/fixtures")
+def central_fixtures_api():
+    selected_date = request.args.get("date", date.today().isoformat())
+    rows = STORE.query(
+        selected_date, request.args.get("date_to") or selected_date,
+        request.args.get("league_id", "").strip(), request.args.get("country", "").strip(),
+    )
+    return jsonify({"ok": True, "count": len(rows), "matches": rows})
+
+
+@app.get("/v7/teams")
+def central_teams_api():
+    selected_date = request.args.get("date", "")
+    if selected_date:
+        rows = STORE.query(selected_date, request.args.get("date_to") or selected_date)
+        teams = STORE.teams_for(rows)
+    else:
+        with open(os.path.join(HISTORY_DIR, "team_catalog.json"), encoding="utf-8") as handle:
+            teams = json.load(handle).get("teams", [])
+        league_id, country = request.args.get("league_id", ""), request.args.get("country", "")
+        teams = [team for team in teams if (not league_id or league_id in team["league_ids"]) and (not country or team["country"] == country)]
+    return jsonify({"ok": True, "count": len(teams), "teams": teams})
+
+
+@app.get("/v7/source-health")
+def source_health_api():
+    return jsonify({"ok": True, "sources": STORE.health()})
 
 @app.get("/teams")
 def teams():
