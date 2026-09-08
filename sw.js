@@ -1,4 +1,4 @@
-const CACHE="ters-kose-v2-shell-8";
+const CACHE="ters-kose-v2-shell-9";
 const CORE=["./","./manifest.json","./icon.svg"];
 
 self.addEventListener("install",e=>{
