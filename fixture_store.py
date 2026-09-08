@@ -16,6 +16,7 @@ from team_catalog import Team, TeamCatalog
 
 
 DATA_DIR = Path(__file__).with_name("data")
+PRIVATE_FIXTURE_PATH = __import__("os").environ.get("TERS_KOSE_PRIVATE_FIXTURE_PATH", "").strip()
 
 
 class JsonFixtureAdapter(SourceAdapter):
@@ -88,7 +89,15 @@ class FixtureStore:
         ]
         if (root / "v7_ingested_fixtures.json").exists():
             adapters.insert(0, JsonFixtureAdapter("v7-ingested", root / "v7_ingested_fixtures.json", 5))
-        if (root / "riskbudur_57_source.json.xz").exists():
+        private_path = Path(PRIVATE_FIXTURE_PATH).expanduser() if PRIVATE_FIXTURE_PATH else None
+        if private_path and private_path.exists():
+            if private_path.suffix == ".xz":
+                adapters.append(RiskbudurSourceAdapter("private-runtime-source", private_path, 4))
+            elif private_path.suffix == ".gz":
+                adapters.append(GzipJsonFixtureAdapter("private-runtime-master", private_path, 4))
+            else:
+                adapters.append(JsonFixtureAdapter("private-runtime-json", private_path, 4))
+        elif (root / "riskbudur_57_source.json.xz").exists():
             adapters.append(RiskbudurSourceAdapter("riskbudur-57-source", root / "riskbudur_57_source.json.xz", 34))
         elif (root / "riskbudur_57_master.json.gz").exists():
             adapters.append(GzipJsonFixtureAdapter("riskbudur-57-master", root / "riskbudur_57_master.json.gz", 35))
