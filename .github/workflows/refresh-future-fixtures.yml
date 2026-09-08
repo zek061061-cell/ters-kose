@@ -7,11 +7,15 @@ on:
       - 'build_future_fixtures.py'
       - '.github/workflows/refresh-future-fixtures.yml'
   schedule:
-    - cron: '37 2 * * *'
+    - cron: '37 */6 * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
+
+concurrency:
+  group: ters-kose-future-fixtures
+  cancel-in-progress: true
 
 jobs:
   refresh:
