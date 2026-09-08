@@ -4,9 +4,11 @@ from __future__ import annotations
 
 import gzip
 import json
+import lzma
 from pathlib import Path
 
 from fixture_store import DATA_DIR, FixtureStore
+from riskbudur_data_import import convert
 from source_adapters import canonical_key
 from team_catalog import canonical_team_key
 
@@ -18,14 +20,19 @@ def build_team_catalog(data_dir: Path | str = DATA_DIR) -> dict:
     root = Path(data_dir)
     store = FixtureStore(root)
     groups: dict[tuple[str, str], dict] = {}
-    sources = [(root / filename, False) for filename in INPUTS]
-    sources.append((root / "riskbudur_57_master.json.gz", True))
-    for path, compressed in sources:
+    sources = [(root / filename, "json") for filename in INPUTS]
+    sources.append((root / "riskbudur_57_master.json.gz", "gzip"))
+    sources.append((root / "riskbudur_57_source.json.xz", "xz"))
+    for path, source_type in sources:
         if not path.exists():
             continue
-        opener = gzip.open if compressed else open
-        with opener(path, "rt", encoding="utf-8") as handle:
-            payload = json.load(handle)
+        if source_type == "xz":
+            with lzma.open(path, "rt", encoding="utf-8") as handle:
+                payload = convert(json.load(handle))
+        else:
+            opener = gzip.open if source_type == "gzip" else open
+            with opener(path, "rt", encoding="utf-8") as handle:
+                payload = json.load(handle)
         rows = payload if isinstance(payload, list) else payload.get("matches", [])
         for match in rows:
             league = store._league_by_name.get(canonical_key(match.get("league")))
