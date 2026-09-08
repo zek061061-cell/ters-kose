@@ -1,7 +1,7 @@
 {
   "ok": true,
-  "generated_at": "2026-09-08T08:51:06.071423Z",
-  "matches": 115211,
+  "generated_at": "2026-09-08T10:24:51.529210Z",
+  "matches": 115319,
   "leagues": 35,
   "league_counts": {
     "Türkiye Süper Lig": 3430,
@@ -23,28 +23,28 @@
     "Belçika Pro League": 2850,
     "Portekiz Primeira Liga": 3102,
     "Yunanistan Super League": 2408,
-    "Arjantin Primera División": 4918,
+    "Arjantin Primera División": 4933,
     "Avusturya Bundesliga": 1948,
-    "Brezilya Série A": 4045,
-    "Çin Süper Ligi": 2525,
-    "Danimarka Superliga": 2196,
-    "İrlanda Premier Division": 1917,
+    "Brezilya Série A": 4055,
+    "Çin Süper Ligi": 2533,
     "Finlandiya Veikkausliiga": 1882,
-    "Meksika Liga MX": 3373,
-    "Japonya J1 League": 3346,
-    "Norveç Eliteserien": 2558,
+    "Danimarka Superliga": 2202,
+    "İrlanda Premier Division": 1918,
+    "Norveç Eliteserien": 2566,
     "Rusya Premier League": 2440,
-    "İsveç Allsvenskan": 2567,
-    "Polonya Ekstraklasa": 3003,
-    "Romanya Liga I": 3046,
-    "İsviçre Super League": 1988,
-    "ABD MLS": 4774
+    "İsveç Allsvenskan": 2575,
+    "Japonya J1 League": 3356,
+    "Polonya Ekstraklasa": 3012,
+    "Meksika Liga MX": 3378,
+    "Romanya Liga I": 3054,
+    "İsviçre Super League": 1994,
+    "ABD MLS": 4788
   },
   "audit": [
     {
       "league": "ABD MLS",
       "season": "2016-2026",
-      "rows": 4774,
+      "rows": 4788,
       "ok": true
     },
     {
@@ -206,7 +206,7 @@
     {
       "league": "Arjantin Primera División",
       "season": "2016-2026",
-      "rows": 4918,
+      "rows": 4933,
       "ok": true
     },
     {
@@ -296,13 +296,13 @@
     {
       "league": "Brezilya Série A",
       "season": "2016-2026",
-      "rows": 4045,
+      "rows": 4055,
       "ok": true
     },
     {
       "league": "Danimarka Superliga",
       "season": "2016-2026",
-      "rows": 2196,
+      "rows": 2202,
       "ok": true
     },
     {
@@ -548,25 +548,25 @@
     {
       "league": "Japonya J1 League",
       "season": "2016-2026",
-      "rows": 3346,
+      "rows": 3356,
       "ok": true
     },
     {
       "league": "Meksika Liga MX",
       "season": "2016-2026",
-      "rows": 3373,
+      "rows": 3378,
       "ok": true
     },
     {
       "league": "Norveç Eliteserien",
       "season": "2016-2026",
-      "rows": 2558,
+      "rows": 2566,
       "ok": true
     },
     {
       "league": "Polonya Ekstraklasa",
       "season": "2016-2026",
-      "rows": 3003,
+      "rows": 3012,
       "ok": true
     },
     {
@@ -650,7 +650,7 @@
     {
       "league": "Romanya Liga I",
       "season": "2016-2026",
-      "rows": 3046,
+      "rows": 3054,
       "ok": true
     },
     {
@@ -818,7 +818,7 @@
     {
       "league": "Çin Süper Ligi",
       "season": "2016-2026",
-      "rows": 2525,
+      "rows": 2533,
       "ok": true
     },
     {
@@ -1136,7 +1136,7 @@
     {
       "league": "İrlanda Premier Division",
       "season": "2016-2026",
-      "rows": 1917,
+      "rows": 1918,
       "ok": true
     },
     {
@@ -1454,13 +1454,13 @@
     {
       "league": "İsveç Allsvenskan",
       "season": "2016-2026",
-      "rows": 2567,
+      "rows": 2575,
       "ok": true
     },
     {
       "league": "İsviçre Super League",
       "season": "2016-2026",
-      "rows": 1988,
+      "rows": 1994,
       "ok": true
     },
     {
@@ -1620,8 +1620,8 @@
       "expected_partial": true
     }
   ],
-  "ht_coverage": 0.5956,
-  "odds_coverage": 0.9692,
+  "ht_coverage": 0.595,
+  "odds_coverage": 0.9683,
   "critical_failures": 0,
   "current_partial_failures": 0,
   "missing_completed": [],
@@ -1629,7 +1629,7 @@
     {
       "league": "Japonya J1 League",
       "season": "2026",
-      "rows": 50,
+      "rows": 60,
       "teams": 20,
       "ht_coverage": 0.0,
       "week_coverage": 1.0,
@@ -1638,13 +1638,13 @@
   ],
   "current_season": "2026/27",
   "quality": {
-    "rows": 115211,
+    "rows": 115319,
     "bad_team": 0,
     "bad_score": 0,
     "missing_date": 0,
     "missing_week": 0,
-    "missing_ht": 46595,
-    "missing_odds": 3548,
+    "missing_ht": 46703,
+    "missing_odds": 3656,
     "duplicate_keys": 0,
     "groups": 385,
     "thin_groups": 27,
@@ -1743,7 +1743,7 @@
       {
         "league": "ABD MLS",
         "season": "2026",
-        "rows": 329,
+        "rows": 343,
         "teams": 30,
         "ht_coverage": 0.0,
         "week_coverage": 1.0,
@@ -2040,7 +2040,7 @@
       {
         "league": "Arjantin Primera División",
         "season": "2026",
-        "rows": 359,
+        "rows": 374,
         "teams": 30,
         "ht_coverage": 0.0,
         "week_coverage": 1.0,
@@ -2337,7 +2337,7 @@
       {
         "league": "Brezilya Série A",
         "season": "2026",
-        "rows": 246,
+        "rows": 256,
         "teams": 20,
         "ht_coverage": 0.0,
         "week_coverage": 1.0,
@@ -2436,7 +2436,7 @@
       {
         "league": "Danimarka Superliga",
         "season": "2026/27",
-        "rows": 36,
+        "rows": 42,
         "teams": 12,
         "ht_coverage": 0.0,
         "week_coverage": 1.0,
@@ -2931,7 +2931,7 @@
       {
         "league": "Japonya J1 League",
         "season": "2026",
-        "rows": 50,
+        "rows": 60,
         "teams": 20,
         "ht_coverage": 0.0,
         "week_coverage": 1.0,
@@ -3030,7 +3030,7 @@
       {
         "league": "Meksika Liga MX",
         "season": "2026/27",
-        "rows": 54,
+        "rows": 59,
         "teams": 18,
         "ht_coverage": 0.0,
         "week_coverage": 1.0,
@@ -3129,7 +3129,7 @@
       {
         "league": "Norveç Eliteserien",
         "season": "2026",
-        "rows": 144,
+        "rows": 152,
         "teams": 16,
         "ht_coverage": 0.0,
         "week_coverage": 1.0,
@@ -3228,7 +3228,7 @@
       {
         "league": "Polonya Ekstraklasa",
         "season": "2026/27",
-        "rows": 49,
+        "rows": 58,
         "teams": 18,
         "ht_coverage": 0.0,
         "week_coverage": 1.0,
@@ -3426,7 +3426,7 @@
       {
         "league": "Romanya Liga I",
         "season": "2026/27",
-        "rows": 55,
+        "rows": 63,
         "teams": 16,
         "ht_coverage": 0.0,
         "week_coverage": 1.0,
@@ -3822,7 +3822,7 @@
       {
         "league": "Çin Süper Ligi",
         "season": "2026",
-        "rows": 197,
+        "rows": 205,
         "teams": 16,
         "ht_coverage": 0.0,
         "week_coverage": 1.0,
@@ -4317,7 +4317,7 @@
       {
         "league": "İrlanda Premier Division",
         "season": "2026",
-        "rows": 143,
+        "rows": 144,
         "teams": 10,
         "ht_coverage": 0.0,
         "week_coverage": 1.0,
@@ -4812,7 +4812,7 @@
       {
         "league": "İsveç Allsvenskan",
         "season": "2026",
-        "rows": 151,
+        "rows": 159,
         "teams": 16,
         "ht_coverage": 0.0,
         "week_coverage": 1.0,
@@ -4911,7 +4911,7 @@
       {
         "league": "İsviçre Super League",
         "season": "2026/27",
-        "rows": 33,
+        "rows": 39,
         "teams": 12,
         "ht_coverage": 0.0,
         "week_coverage": 1.0,
