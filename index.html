@@ -134,7 +134,7 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:#303030;backdro
 </div>
 <script>
 const SOURCES={"Türkiye Süper Lig":"T1","İngiltere Premier League":"E0","İngiltere EFL Championship":"E1","İngiltere EFL League One":"E2","İngiltere EFL League Two":"E3","İskoçya Premiership":"SC0","İskoçya Championship":"SC1","Almanya Bundesliga":"D1","Almanya 2. Bundesliga":"D2","İspanya La Liga":"SP1","İspanya LaLiga 2":"SP2","İtalya Serie A":"I1","İtalya Serie B":"I2","Fransa Ligue 1":"F1","Fransa Ligue 2":"F2","Hollanda Eredivisie":"N1","Belçika Pro League":"B1","Portekiz Primeira Liga":"P1","Yunanistan Super League":"G1"};
-const CURRENT_START=26,MODEL_VERSION="6.5";let lastRuntimeError="";
+const CURRENT_START=26,MODEL_VERSION="6.6";let lastRuntimeError="";
 let matches=[], sourceName="Henüz veri yüklenmedi", importedRows=[], importedAnalysis=[], currentReport=null, currentRadar=[], radarStrongOnly=false, bulletinRows=[], logoBook={},teamNameBook={},leagueCatalog=[];try{logoBook=JSON.parse(localStorage.getItem("terskose_logo_book")||"{}")||{}}catch(e){logoBook={}}try{teamNameBook=JSON.parse(localStorage.getItem("terskose_team_name_book")||"{}")||{}}catch(e){teamNameBook={}}
 try{matches=JSON.parse(localStorage.getItem("terskose_v2_matches")||localStorage.getItem("terskose_matches_final")||"[]")||[]}catch(e){matches=[]}
 sourceName=localStorage.getItem("terskose_v2_source")||localStorage.getItem("terskose_source")||sourceName;
@@ -372,10 +372,12 @@ async function fetchEspnBulletin(date){
  });
  return out
 }
-async function fetchBulletinDate(date){var j=null,source="";
+async function fetchBulletinDate(date){var j=null,source="",today=todayISO(),isPastOrToday=String(date)<=today,isToday=String(date)===today;
  try{var fr=await fetch("./data/future_fixtures.json",{cache:"no-store"});if(fr.ok){var future=await fr.json(),fm=(future.matches||[]).filter(function(x){return String(x.date||"")===String(date)});if(fm.length){j={matches:fm};source="sezon fikstürü"}}}catch(e){}
- if(!j||!(j.matches||[]).length){try{var ar=await fetch("./data/bulletin_1y.json",{cache:"no-store"});if(ar.ok){var archive=await ar.json(),am=(archive.matches||[]).filter(function(x){return String(x.date||"")===String(date)});if(am.length){j={matches:am};source="1 yıllık arşiv"}}}catch(e){}}
- if(!j||!(j.matches||[]).length){try{var r0=await fetch("./data/current_fixtures.json",{cache:"no-store"});if(r0.ok){var all=await r0.json(),sm=(all.matches||[]).filter(function(x){return String(x.date||"")===String(date)});if(sm.length){j={matches:sm};source=all.source||"Sahadan"}}}catch(e){}}
+ // The one-year archive is several MB. Do not download it while browsing future dates on iPhone.
+ if((!j||!(j.matches||[]).length)&&isPastOrToday){try{var ar=await fetch("./data/bulletin_1y.json",{cache:"no-store"});if(ar.ok){var archive=await ar.json(),am=(archive.matches||[]).filter(function(x){return String(x.date||"")===String(date)});if(am.length){j={matches:am};source="1 yıllık arşiv"}}}catch(e){}}
+ // current_fixtures is a rolling daily snapshot; only consult it for today.
+ if((!j||!(j.matches||[]).length)&&isToday){try{var r0=await fetch("./data/current_fixtures.json",{cache:"no-store"});if(r0.ok){var all=await r0.json(),sm=(all.matches||[]).filter(function(x){return String(x.date||"")===String(date)});if(sm.length){j={matches:sm};source=all.source||"Sahadan"}}}catch(e){}}
  if(!j||!(j.matches||[]).length){try{var r=await apiFetch("/fixtures?date="+encodeURIComponent(date),{cache:"no-store"});if(r.ok){j=await r.json();source="yedek servis"}}catch(e){}}
  if(!j||!(j.matches||[]).length){try{j={matches:await fetchEspnBulletin(date)};source="ESPN yedek"}catch(e){}}
  if(!j)throw new Error("Bülten alınamadı");
@@ -986,6 +988,6 @@ async function hydrateLeagueCatalog(){try{var r=await apiFetch("/leagues",{cache
 async function hydrateTeamAssets(){try{var r=await apiFetch("/teams",{cache:"no-store"});if(!r.ok)return;var j=await r.json();(j.teams||[]).forEach(function(t){var full=String(t.name||"").trim();if(!full)return;[t.name,t.short,t.abbreviation,t.slug].filter(Boolean).forEach(function(v){teamNameBook[teamKey(v)]=full});if(t.logo){[t.name,t.short,t.abbreviation,t.slug].filter(Boolean).forEach(function(v){logoBook[teamKey(v)]=t.logo});logoBook[teamKey(full)]=t.logo}});try{localStorage.setItem("terskose_team_name_book",JSON.stringify(teamNameBook));localStorage.setItem("terskose_logo_book",JSON.stringify(logoBook))}catch(e){}matches=dedupe(normalizeStoredMatches(matches));save();renderAll();if(bulletinRows.length)renderBulletin()}catch(e){}}
 function fillSource(){if(el("bulletinDate")&&!el("bulletinDate").value)el("bulletinDate").value=todayISO();if(el("bulletinLeague"))el("bulletinLeague").onchange=renderBulletin}
 updateConnectionState();var mv=el("modelVersionBadge");if(mv)mv.textContent="Model v"+MODEL_VERSION;matches=dedupe(normalizeStoredMatches(matches));save();fillSource();renderAll();refreshWarehouseStatus();setTimeout(function(){try{runSelfTest()}catch(e){}},300);setTimeout(async function(){if(navigator.onLine){await loadWarehouseHistory();hydrateLeagueCatalog();hydrateTeamAssets();loadBulletin(true)}},500);
-if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("./sw.js?v=20260907i").catch(function(){})})}
+if("serviceWorker" in navigator){window.addEventListener("load",function(){navigator.serviceWorker.register("./sw.js?v=20260908j").catch(function(){})})}
 </script>
 </body></html>
