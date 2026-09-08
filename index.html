@@ -84,7 +84,8 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:#303030;backdro
 <section id="tab-bulletin" class="hidden">
 <h2>Maç Bülteni</h2>
 <div class="card">
-<div class="twocol"><div><label>Tarih</label><input id="bulletinDate" type="date"/></div><div><label>Lig</label><select id="bulletinLeague"><option value="">Tüm ligler</option></select></div></div>
+<div class="twocol"><div><label>Tarih</label><input id="bulletinDate" type="date"/></div><div><label>Ülke</label><select id="bulletinCountry"><option value="">Tüm ülkeler</option></select></div></div>
+<div><label>Lig</label><select id="bulletinLeague"><option value="">Tüm ligler</option></select></div>
 <div class="row" style="margin-top:12px"><button id="bulletinBtn" onclick="loadBulletin()">Maçları getir</button><button class="secondary" onclick="bulletinToday()">Bugün</button><button class="secondary" onclick="nextBulletinDay()">Sonraki maç günü</button></div>
 <div id="bulletinStatus" class="tiny" style="margin-top:10px">Tarih seçip bülteni getir.</div>
 </div>
@@ -105,7 +106,7 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:#303030;backdro
 
 <section id="tab-data" class="hidden">
 <h2>Veri Merkezi</h2>
-<div class="card"><div class="notice ok">Geçmiş sonuçlar ve analiz verileri otomatik olarak hazırlanır. Güncel oynanacak maçlar Bülten sekmesinde tarihe göre gösterilir.</div><div class="twocol" style="margin-top:10px"><div><label>Kapsam</label><div class="pill green">Tüm 35 lig</div></div><div><label>Kaç sezon?</label><select id="seasonCount"><option value="3">Son 3 sezon</option><option value="5" selected>Son 5 sezon</option><option value="7">Son 7 sezon</option><option value="10">Son 10 sezon</option></select></div></div><div class="row" style="margin-top:12px"><button id="autoBtn" onclick="loadAutomatic()">Otomatik veriyi getir</button><button class="secondary" onclick="clearData()">Veriyi temizle</button></div><p id="autoStatus" class="tiny"></p><div id="dataSummary" class="tiny"></div></div>
+<div class="card"><div class="notice ok">Geçmiş sonuçlar ve analiz verileri otomatik olarak hazırlanır. Güncel oynanacak maçlar Bülten sekmesinde tarihe göre gösterilir.</div><div class="twocol" style="margin-top:10px"><div><label>Kapsam</label><div class="pill green" id="catalogScope">Genişletilebilir lig kataloğu</div></div><div><label>Kaç sezon?</label><select id="seasonCount"><option value="3">Son 3 sezon</option><option value="5" selected>Son 5 sezon</option><option value="7">Son 7 sezon</option><option value="10">Son 10 sezon</option></select></div></div><div class="row" style="margin-top:12px"><button id="autoBtn" onclick="loadAutomatic()">Otomatik veriyi getir</button><button class="secondary" onclick="clearData()">Veriyi temizle</button></div><p id="autoStatus" class="tiny"></p><div id="dataSummary" class="tiny"></div></div>
 <h2>Excel / CSV ile analiz</h2>
 <div class="card">
 <div class="filebox"><b>Excel veya CSV dosyanı yükle</b><div class="tiny" style="margin:7px 0 10px">.xlsx, .xls ve .csv desteklenir. Türkçe/İngilizce başlıklar otomatik tanınır. Sonucu boş olan satırlar fikstür olarak tutulur ve analiz edilebilir.</div><input id="dataFile" type="file" accept=".xlsx,.xls,.csv,text/csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel"/></div>
@@ -119,7 +120,7 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:#303030;backdro
 <div id="importAnalysisReport" class="card hidden" style="margin-top:12px"></div>
 </div>
 <h2>10 Yıllık Veri Deposu</h2><div class="card" id="warehouseStatus"><div class="tiny">Depo durumu kontrol ediliyor...</div></div>
-<h2>İleri Fikstür Kapsamı</h2><div class="card" id="futureCoverage"><div class="tiny">35 lig ileri fikstür kapsamı kontrol ediliyor...</div></div>
+<h2>İleri Fikstür Kapsamı</h2><div class="card" id="futureCoverage"><div class="tiny">Merkezi katalog kapsamı kontrol ediliyor...</div></div>
 <h2>Lig / Sezon Kapsamı</h2><div class="card" id="coverageMatrix"><div class="tiny">Kapsam haritası hazırlanıyor...</div></div>
 <h2>Veri kalite kontrolü</h2><div class="card" id="qualityReport"></div>
 <h2>Model Sağlık Kontrolü</h2><div class="card" id="healthReport"></div>
@@ -136,7 +137,7 @@ nav{position:fixed;bottom:0;left:0;right:0;z-index:10;background:#303030;backdro
 <script>
 const SOURCES={"Türkiye Süper Lig":"T1","İngiltere Premier League":"E0","İngiltere EFL Championship":"E1","İngiltere EFL League One":"E2","İngiltere EFL League Two":"E3","İskoçya Premiership":"SC0","İskoçya Championship":"SC1","Almanya Bundesliga":"D1","Almanya 2. Bundesliga":"D2","İspanya La Liga":"SP1","İspanya LaLiga 2":"SP2","İtalya Serie A":"I1","İtalya Serie B":"I2","Fransa Ligue 1":"F1","Fransa Ligue 2":"F2","Hollanda Eredivisie":"N1","Belçika Pro League":"B1","Portekiz Primeira Liga":"P1","Yunanistan Super League":"G1"};
 const CURRENT_START=26,MODEL_VERSION="6.8";let lastRuntimeError="";
-let matches=[], sourceName="Henüz veri yüklenmedi", importedRows=[], importedAnalysis=[], currentReport=null, currentRadar=[], radarStrongOnly=false, bulletinRows=[], logoBook={},teamNameBook={},leagueCatalog=[]; let BULLETIN_ANALYSIS_CACHE=new Map(),RADAR_BUSY=false;try{logoBook=JSON.parse(localStorage.getItem("terskose_logo_book")||"{}")||{}}catch(e){logoBook={}}try{teamNameBook=JSON.parse(localStorage.getItem("terskose_team_name_book")||"{}")||{}}catch(e){teamNameBook={}}
+let matches=[], sourceName="Henüz veri yüklenmedi", importedRows=[], importedAnalysis=[], currentReport=null, currentRadar=[], radarStrongOnly=false, bulletinRows=[], logoBook={},teamNameBook={},leagueCatalog=[],leagueCatalogRows=[]; let BULLETIN_ANALYSIS_CACHE=new Map(),RADAR_BUSY=false;try{logoBook=JSON.parse(localStorage.getItem("terskose_logo_book")||"{}")||{}}catch(e){logoBook={}}try{teamNameBook=JSON.parse(localStorage.getItem("terskose_team_name_book")||"{}")||{}}catch(e){teamNameBook={}}
 try{
  var rawLocal=localStorage.getItem("terskose_v2_matches")||localStorage.getItem("terskose_matches_final")||"[]";
  // Old builds sometimes stored thousands of historical rows in localStorage.
@@ -156,6 +157,9 @@ function el(id){return document.getElementById(id)}
 function updateConnectionState(){var on=navigator.onLine,d=el("connectionDot"),t=el("connectionText");if(d)d.style.background=on?"var(--green)":"#ff6b74";if(t)t.textContent=on?"çevrimiçi":"çevrimdışı • kayıtlı veriler kullanılabilir"}
 window.addEventListener("online",updateConnectionState);window.addEventListener("offline",updateConnectionState);window.addEventListener("error",function(e){lastRuntimeError=(e&&e.message)||"Bilinmeyen çalışma zamanı hatası"});window.addEventListener("unhandledrejection",function(e){lastRuntimeError=String(e&&e.reason||"İşlenmeyen işlem hatası")});
 function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
+function fixtureDb(){return new Promise(function(resolve,reject){if(!window.indexedDB)return resolve(null);var q=indexedDB.open("terskose-v7",1);q.onupgradeneeded=function(){if(!q.result.objectStoreNames.contains("fixture-days"))q.result.createObjectStore("fixture-days")};q.onsuccess=function(){resolve(q.result)};q.onerror=function(){reject(q.error)}})}
+async function fixtureCacheGet(key){try{var db=await fixtureDb();if(!db)return null;return await new Promise(function(resolve){var q=db.transaction("fixture-days").objectStore("fixture-days").get(key);q.onsuccess=function(){var v=q.result;resolve(v&&Date.now()-v.savedAt<21600000?v.rows:null)};q.onerror=function(){resolve(null)}})}catch(e){return null}}
+async function fixtureCachePut(key,rows){try{var db=await fixtureDb();if(!db)return;var tx=db.transaction("fixture-days","readwrite");tx.objectStore("fixture-days").put({savedAt:Date.now(),rows:rows},key)}catch(e){}}
 function clamp(x,a,b){return Math.max(a,Math.min(b,x))}
 function pct(x){return Math.round(clamp(x,0,1)*100)}
 function num(x){if(x===null||x===undefined||x==="")return NaN;var n=Number(x);return Number.isFinite(n)?n:NaN}
@@ -266,14 +270,10 @@ async function refreshWarehouseStatus(){var box=el("warehouseStatus");if(!box)re
 async function refreshFutureCoverage(){
  var box=el("futureCoverage");if(!box)return;
  try{
-   var r=await fetch("./data/future_fixtures.json",{cache:"no-store"});if(!r.ok)throw new Error("İleri fikstür dosyası alınamadı");
-   var j=await r.json(),counts=j.league_counts||{},target=Number(j.target_leagues||35),covered=Number(j.coverage_leagues||0);
-   var known=HISTORY_SHARD_INDEX&&HISTORY_SHARD_INDEX.files?Object.keys(HISTORY_SHARD_INDEX.files):Object.keys(counts);
-   var missing=known.filter(function(l){return !Number(counts[l]||0)}).sort();
-   var pctCov=target?Math.round(covered/target*100):0;
-   box.innerHTML='<div class="row"><span class="pill '+(covered===target?"green":covered>=25?"blue":"gold")+'">'+covered+'/'+target+' lig</span><span class="pill">'+(j.count||0)+' ileri maç</span><span class="pill">'+pctCov+'% kapsam</span></div>'+
-    '<div class="tiny" style="margin-top:10px">Son üretim: '+esc(j.generated_at||"-")+' • Kaynak: '+esc(j.source||"-")+'</div>'+
-    (missing.length?'<div class="tiny" style="margin-top:10px"><b>Henüz ileri fikstürü boş görünen ligler:</b> '+missing.map(esc).join(" • ")+'</div>':'<div class="notice ok" style="margin-top:10px">35 ligin tamamında ileri fikstür bulundu.</div>');
+   var r=await apiFetch("/data-coverage",{cache:"no-store"});if(!r.ok)throw new Error("Kapsam raporu alınamadı");
+   var j=await r.json(),s=j.summary||{},target=Number(s.leagues||0),covered=Number(s.ok_leagues||0),pctCov=target?Math.round(covered/target*100):0;
+   box.innerHTML='<div class="row"><span class="pill '+(covered===target?"green":"blue")+'">'+covered+'/'+target+' tam lig</span><span class="pill">'+(s.future_matches||0)+' ileri maç</span><span class="pill">'+pctCov+'% tam kapsam</span></div>'+
+    '<div class="tiny" style="margin-top:10px">'+(s.countries||0)+' ülke/pazar • '+(s.teams||0)+' takım adı • '+(s.historical_matches||0)+' geçmiş maç • Eksik lig: '+Math.max(0,target-covered)+'</div>';
  }catch(e){box.innerHTML='<span class="pill red">Kontrol alınamadı</span><div class="tiny" style="margin-top:8px">'+esc(e.message||e)+'</div>'}
 }
 async function loadWarehouseHistory(){
@@ -380,7 +380,7 @@ function teamLine(m){return '<div class="teamrow"><div>'+teamLogo(m.home,m.home_
 function addDaysISO(x,n){var d=new Date(String(x||todayISO())+"T12:00:00");d.setDate(d.getDate()+n);return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0")}
 function bulletinToday(){el("bulletinDate").value=todayISO();loadBulletin()}
 async function nextBulletinDay(){var start=el("bulletinDate").value||todayISO();for(var i=1;i<=7;i++){var d=addDaysISO(start,i),rows=await fetchBulletinDate(d);if(rows.length){el("bulletinDate").value=d;bulletinRows=rows;fillBulletinLeague();renderBulletin();el("bulletinStatus").innerHTML='<b>'+rows.length+' oynanacak maç bulundu.</b> En yakın maç günü: '+esc(d);return}}el("bulletinStatus").textContent="Önümüzdeki 7 günde desteklenen liglerde maç bulunamadı."}
-function fillBulletinLeague(){var current=el("bulletinLeague").value,ls=[...new Set(leagueCatalog.concat(bulletinRows.map(function(x){return x.league})).filter(Boolean))].sort();el("bulletinLeague").innerHTML='<option value="">Tüm Ligler</option>'+ls.map(function(x){return '<option value="'+esc(x)+'">'+esc(x)+'</option>'}).join("");if(current===""||ls.includes(current))el("bulletinLeague").value=current}
+function fillBulletinLeague(){var current=el("bulletinLeague").value,country=el("bulletinCountry")?el("bulletinCountry").value:"",catalogNames=leagueCatalogRows.filter(function(x){return !country||x.country===country}).map(function(x){return x.country+" "+x.canonical_name}),ls=[...new Set(catalogNames.concat(bulletinRows.map(function(x){return x.league})).filter(Boolean))].sort();el("bulletinLeague").innerHTML='<option value="">Tüm Ligler</option>'+ls.map(function(x){return '<option value="'+esc(x)+'">'+esc(x)+'</option>'}).join("");if(current===""||ls.includes(current))el("bulletinLeague").value=current}
 
 function bulletinQuickCard(m){
  return '<div class="bulletinmatch">'+teamLine(m)+'<div class="tiny">'+esc(m.league)+' • '+esc(fmtTime(m.kickoff))+(m.status?' • '+esc(m.status):'')+'</div><div class="row" style="margin-top:8px"><span class="pill blue">Hızlı görünüm</span><button class="ghost" onclick="openBulletinMatchByKey('+JSON.stringify(matchIdentity(m))+')">Tam analiz</button></div></div>'
@@ -435,8 +435,10 @@ async function fetchEspnBulletin(date){
  });
  return out
 }
-async function fetchBulletinDate(date){var j=null,source="",today=todayISO(),isPastOrToday=String(date)<=today,isToday=String(date)===today;
- try{var fr=await fetch("./data/future_fixtures.json",{cache:"no-store"});if(fr.ok){var future=await fr.json(),fm=(future.matches||[]).filter(function(x){return String(x.date||"")===String(date)});if(fm.length){j={matches:fm};source="sezon fikstürü"}}}catch(e){}
+async function fetchBulletinDate(date){var j=null,source="",today=todayISO(),isPastOrToday=String(date)<=today,isToday=String(date)===today,country=el("bulletinCountry")?el("bulletinCountry").value:"",cacheKey=[date,country].join("|");
+ var cached=await fixtureCacheGet(cacheKey);if(cached&&cached.length){j={matches:cached};source="merkezi IndexedDB önbelleği"}
+ if(!j){try{var central=await apiFetch("/v7/fixtures?date="+encodeURIComponent(date)+(country?"&country="+encodeURIComponent(country):""),{cache:"no-store"});if(central.ok){j=await central.json();source="merkezi fixture store";if((j.matches||[]).length)fixtureCachePut(cacheKey,j.matches)}}catch(e){}}
+ if(!j||!(j.matches||[]).length){try{var fr=await fetch("./data/future_fixtures.json",{cache:"no-store"});if(fr.ok){var future=await fr.json(),fm=(future.matches||[]).filter(function(x){return String(x.date||"")===String(date)});if(fm.length){j={matches:fm};source="sezon fikstürü"}}}catch(e){}}
  // The one-year archive is several MB. Do not download it while browsing future dates on iPhone.
  if((!j||!(j.matches||[]).length)&&isPastOrToday){try{var ar=await fetch("./data/bulletin_1y.json",{cache:"no-store"});if(ar.ok){var archive=await ar.json(),am=(archive.matches||[]).filter(function(x){return String(x.date||"")===String(date)});if(am.length){j={matches:am};source="1 yıllık arşiv"}}}catch(e){}}
  // current_fixtures is a rolling daily snapshot; only consult it for today.
@@ -947,10 +949,16 @@ function adjustedProbability(p,league){
 
 function radarTier(x){var q=analysisGrade(x.a,x.m),top=topOpportunities(x.a)[0],lvl=recommendationLevel(top[1],x.a,x.m),sample=(x.a.hs.n||0)+(x.a.as.n||0),ch=calibrationHealth(),lp=leagueRadarProfile(x.m.league),lc=leagueCalibrationQuality(x.m.league),sg=leagueStrongGate(x.m.league);x.leagueProfile=lp;x.leagueCal=lc;x.leagueStrongGate=sg;if(sample<8||x.a.reliability<lp.minReliability)return"Zayıf veri";if(matches.filter(played).length>=120&&!ch.fresh)return"İzlenebilir";if(Math.max(x.a.patterns.p12,x.a.patterns.p21)>=.55&&htCoverageFor(x.m)<.65)return"İzlenebilir";var calibratedGate=lc.has?lc.quality>=.40:ch.quality>=.52,strongQ=Math.min(.86,lp.strongQuality*sg.factor),strongO=Math.min(.84,lp.strongOverall*sg.factor),drift=calibrationDrift();if(drift.status!=="Bozulma var"&&q>=strongQ&&x.overall>=strongO&&lvl==="Güçlü"&&calibratedGate)return"Güçlü aday";if(q>=Math.max(.58,strongQ-.14)&&x.overall>=Math.max(.54,strongO-.12))return"İzlenebilir";return"Zayıf veri"}
 function toggleRadarStrong(){radarStrongOnly=!radarStrongOnly;var b=el("radarStrongBtn");if(b)b.textContent=radarStrongOnly?"Tüm adayları göster":"Sadece güçlü adaylar";runWeeklyRadar()}
+function rankRadarInWorker(features){return new Promise(function(resolve){if(!window.Worker)return resolve(null);var worker=new Worker("./radar-worker.js");var done=false,timer=setTimeout(function(){if(!done){done=true;worker.terminate();resolve(null)}},10000);worker.onmessage=function(e){if(done)return;done=true;clearTimeout(timer);worker.terminate();resolve(e.data.scores||null)};worker.onerror=function(){if(done)return;done=true;clearTimeout(timer);worker.terminate();resolve(null)};worker.postMessage({items:features})})}
 
 async function runWeeklyRadar(){
  if(RADAR_BUSY)return;
  var l=el("radarLeague").value,sn=el("radarSeason").value,w=+el("radarWeek").value,rows=[];
+ if(!bulletinRows.length){
+   var radarDate=el("bulletinDate").value||todayISO();
+   try{bulletinRows=await fetchBulletinDate(radarDate)}catch(e){bulletinRows=[]}
+   if(bulletinRows.length){matches=dedupe(matches.concat(bulletinRows));FILTER_INDEX.ref=null;MATCH_INDEX.ref=null}
+ }
  if(bulletinRows&&bulletinRows.length){
    rows=bulletinRows.filter(function(x){return !l||canonicalLeague(x.league)===l});
    if(!rows.length&&l){el("radarList").innerHTML='<div class="tiny">Seçili lig için bültende maç yok. Başka lig seç veya Tüm Ligler kullan.</div>';return}
@@ -969,6 +977,8 @@ async function runWeeklyRadar(){
      item.tier=radarTier(item);out.push(item);
      if(ri%2===1){el("radarList").innerHTML='<div class="tiny">Radar analiz ediyor… '+(ri+1)+'/'+rows.length+'</div>';await new Promise(function(r){setTimeout(r,0)})}
    }
+   var workerScores=await rankRadarInWorker(out.map(function(x){var a=x.a,p=a.patterns||{};return{p1:a.p1,px:a.px,p2:a.p2,btts:a.btts,o25:a.o25,p12:p.p12,p21:p.p21,p6:p.p6,engineStrength:p.engineStrength||0,homeSample:a.hs.n||0,awaySample:a.as.n||0,consensusCount:x.cons.top.count||0,consensusAverage:x.cons.top.avg||0,reliability:a.reliability,confidence:a.confidence,completeness:x.complete,trust:leagueTrustScore(x.m.league).score}}));
+   if(workerScores)out.forEach(function(x,i){x.overall=workerScores[i]});
    var sort=el("radarSort").value;
    if(sort==="surprise")out.sort(function(a,b){return b.surprise-a.surprise});
    else if(sort==="btts")out.sort(function(a,b){return b.btts-a.btts});
@@ -1077,7 +1087,7 @@ function runSelfTest(){
  var ok=checks.filter(function(x){return x.ok}).length;
  el("selfTestReport").innerHTML='<div class="row"><span class="pill '+(ok===checks.length?"green":"red")+'">'+ok+'/'+checks.length+' test geçti</span>'+(ok===checks.length?'<span class="pill green">Sürüm kontrolü temiz</span>':'')+'</div><div style="margin-top:10px">'+checks.map(function(x){return '<div class="scoreline"><b>'+(x.ok?"✓ ":"✗ ")+esc(x.name)+'</b><span style="color:'+(x.ok?"#9af0ce":"#ffb9bf")+'">'+esc(x.detail)+'</span></div>'}).join("")+'</div>'
 }
-async function hydrateLeagueCatalog(){try{var r=await apiFetch("/leagues",{cache:"no-store"});if(!r.ok)return;var j=await r.json();leagueCatalog=(j.leagues||[]).map(function(x){return x.name}).filter(Boolean);syncMatchFilters();syncRadarFilters();if(el("bulletinLeague")){var cur=el("bulletinLeague").value;el("bulletinLeague").innerHTML='<option value="">Tüm Ligler</option>'+leagueCatalog.map(function(x){return'<option value="'+esc(x)+'">'+esc(x)+'</option>'}).join("");if(cur&&leagueCatalog.includes(cur))el("bulletinLeague").value=cur}}catch(e){}}
+async function hydrateLeagueCatalog(){try{var r=await apiFetch("/league-catalog",{cache:"no-store"});if(!r.ok)return;var j=await r.json();leagueCatalogRows=j.leagues||[];leagueCatalog=leagueCatalogRows.map(function(x){return x.country+" "+x.canonical_name}).filter(Boolean);var scope=el("catalogScope");if(scope)scope.textContent=(j.summary&&j.summary.countries||0)+" ülke • "+(j.summary&&j.summary.leagues||0)+" lig";syncMatchFilters();syncRadarFilters();var country=el("bulletinCountry");if(country){country.innerHTML='<option value="">Tüm ülkeler</option>'+[...new Set(leagueCatalogRows.map(function(x){return x.country}))].sort().map(function(x){return'<option value="'+esc(x)+'">'+esc(x)+'</option>'}).join("");country.onchange=function(){el("bulletinLeague").value="";loadBulletin(false)}}fillBulletinLeague()}catch(e){}}
 async function hydrateTeamAssets(){try{var r=await apiFetch("/teams",{cache:"no-store"});if(!r.ok)return;var j=await r.json();(j.teams||[]).forEach(function(t){var full=String(t.name||"").trim();if(!full)return;[t.name,t.short,t.abbreviation,t.slug].filter(Boolean).forEach(function(v){teamNameBook[teamKey(v)]=full});if(t.logo){[t.name,t.short,t.abbreviation,t.slug].filter(Boolean).forEach(function(v){logoBook[teamKey(v)]=t.logo});logoBook[teamKey(full)]=t.logo}});try{localStorage.setItem("terskose_team_name_book",JSON.stringify(teamNameBook));localStorage.setItem("terskose_logo_book",JSON.stringify(logoBook))}catch(e){}matches=dedupe(normalizeStoredMatches(matches));save();renderAll();if(bulletinRows.length)renderBulletin()}catch(e){}}
 function fillSource(){if(el("bulletinDate")&&!el("bulletinDate").value)el("bulletinDate").value=todayISO();if(el("bulletinLeague"))el("bulletinLeague").onchange=renderBulletin}
 updateConnectionState();

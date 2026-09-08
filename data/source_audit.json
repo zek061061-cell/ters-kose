@@ -1,0 +1,202 @@
+{
+  "mode": "current",
+  "leagues": [
+    {
+      "league_id": "almanya.3-liga",
+      "rows": 0,
+      "status": "source_error",
+      "attempts": [
+        {
+          "source_id": "espn",
+          "healthy": false,
+          "last_success_at": null,
+          "error_count": 1,
+          "covered_leagues": 0,
+          "last_error": "HTTPSConnectionPool(host='site.api.espn.com', port=443): Max retries exceeded with url: /apis/site/v2/sports/soccer/ger.3/scoreboard?dates=20260908-20260915&limit=1000 (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel conn",
+          "status": "error"
+        }
+      ]
+    },
+    {
+      "league_id": "isvec.superettan",
+      "rows": 0,
+      "status": "source_error",
+      "attempts": [
+        {
+          "source_id": "espn",
+          "healthy": false,
+          "last_success_at": null,
+          "error_count": 1,
+          "covered_leagues": 0,
+          "last_error": "HTTPSConnectionPool(host='site.api.espn.com', port=443): Max retries exceeded with url: /apis/site/v2/sports/soccer/swe.2/scoreboard?dates=20260908-20260915&limit=1000 (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel conn",
+          "status": "error"
+        }
+      ]
+    },
+    {
+      "league_id": "japonya.j1-league",
+      "rows": 0,
+      "status": "source_error",
+      "attempts": [
+        {
+          "source_id": "espn",
+          "healthy": false,
+          "last_success_at": null,
+          "error_count": 1,
+          "covered_leagues": 0,
+          "last_error": "HTTPSConnectionPool(host='site.api.espn.com', port=443): Max retries exceeded with url: /apis/site/v2/sports/soccer/jpn.1/scoreboard?dates=20260908-20260915&limit=1000 (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel conn",
+          "status": "error"
+        }
+      ]
+    },
+    {
+      "league_id": "japonya.j2-league",
+      "rows": 0,
+      "status": "source_error",
+      "attempts": [
+        {
+          "source_id": "espn",
+          "healthy": false,
+          "last_success_at": null,
+          "error_count": 1,
+          "covered_leagues": 0,
+          "last_error": "HTTPSConnectionPool(host='site.api.espn.com', port=443): Max retries exceeded with url: /apis/site/v2/sports/soccer/jpn.2/scoreboard?dates=20260908-20260915&limit=1000 (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel conn",
+          "status": "error"
+        }
+      ]
+    },
+    {
+      "league_id": "japonya.j3-league",
+      "rows": 0,
+      "status": "source_error",
+      "attempts": [
+        {
+          "source_id": "espn",
+          "healthy": false,
+          "last_success_at": null,
+          "error_count": 1,
+          "covered_leagues": 0,
+          "last_error": "HTTPSConnectionPool(host='site.api.espn.com', port=443): Max retries exceeded with url: /apis/site/v2/sports/soccer/jpn.3/scoreboard?dates=20260908-20260915&limit=1000 (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel conn",
+          "status": "error"
+        }
+      ]
+    },
+    {
+      "league_id": "guney-kore.k-league-1",
+      "rows": 0,
+      "status": "source_error",
+      "attempts": [
+        {
+          "source_id": "espn",
+          "healthy": false,
+          "last_success_at": null,
+          "error_count": 1,
+          "covered_leagues": 0,
+          "last_error": "HTTPSConnectionPool(host='site.api.espn.com', port=443): Max retries exceeded with url: /apis/site/v2/sports/soccer/kor.1/scoreboard?dates=20260908-20260915&limit=1000 (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel conn",
+          "status": "error"
+        }
+      ]
+    },
+    {
+      "league_id": "guney-kore.k-league-2",
+      "rows": 0,
+      "status": "source_error",
+      "attempts": [
+        {
+          "source_id": "espn",
+          "healthy": false,
+          "last_success_at": null,
+          "error_count": 1,
+          "covered_leagues": 0,
+          "last_error": "HTTPSConnectionPool(host='site.api.espn.com', port=443): Max retries exceeded with url: /apis/site/v2/sports/soccer/kor.2/scoreboard?dates=20260908-20260915&limit=1000 (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel conn",
+          "status": "error"
+        }
+      ]
+    },
+    {
+      "league_id": "cin.chinese-super-league",
+      "rows": 0,
+      "status": "source_error",
+      "attempts": [
+        {
+          "source_id": "espn",
+          "healthy": false,
+          "last_success_at": null,
+          "error_count": 1,
+          "covered_leagues": 0,
+          "last_error": "HTTPSConnectionPool(host='site.api.espn.com', port=443): Max retries exceeded with url: /apis/site/v2/sports/soccer/chn.1/scoreboard?dates=20260908-20260915&limit=1000 (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel conn",
+          "status": "error"
+        }
+      ]
+    },
+    {
+      "league_id": "cin.china-league-one",
+      "rows": 0,
+      "status": "source_error",
+      "attempts": [
+        {
+          "source_id": "espn",
+          "healthy": false,
+          "last_success_at": null,
+          "error_count": 1,
+          "covered_leagues": 0,
+          "last_error": "HTTPSConnectionPool(host='site.api.espn.com', port=443): Max retries exceeded with url: /apis/site/v2/sports/soccer/chn.2/scoreboard?dates=20260908-20260915&limit=1000 (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel conn",
+          "status": "error"
+        }
+      ]
+    },
+    {
+      "league_id": "hollanda.eerste-divisie",
+      "rows": 0,
+      "status": "source_error",
+      "attempts": [
+        {
+          "source_id": "espn",
+          "healthy": false,
+          "last_success_at": null,
+          "error_count": 1,
+          "covered_leagues": 0,
+          "last_error": "HTTPSConnectionPool(host='site.api.espn.com', port=443): Max retries exceeded with url: /apis/site/v2/sports/soccer/ned.2/scoreboard?dates=20260908-20260915&limit=1000 (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel conn",
+          "status": "error"
+        }
+      ]
+    },
+    {
+      "league_id": "portekiz.liga-portugal-2",
+      "rows": 0,
+      "status": "source_error",
+      "attempts": [
+        {
+          "source_id": "espn",
+          "healthy": false,
+          "last_success_at": null,
+          "error_count": 1,
+          "covered_leagues": 0,
+          "last_error": "HTTPSConnectionPool(host='site.api.espn.com', port=443): Max retries exceeded with url: /apis/site/v2/sports/soccer/por.2/scoreboard?dates=20260908-20260915&limit=1000 (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel conn",
+          "status": "error"
+        }
+      ]
+    },
+    {
+      "league_id": "fransa.national",
+      "rows": 0,
+      "status": "source_error",
+      "attempts": [
+        {
+          "source_id": "espn",
+          "healthy": false,
+          "last_success_at": null,
+          "error_count": 1,
+          "covered_leagues": 0,
+          "last_error": "HTTPSConnectionPool(host='site.api.espn.com', port=443): Max retries exceeded with url: /apis/site/v2/sports/soccer/fra.3/scoreboard?dates=20260908-20260915&limit=1000 (Caused by ProxyError('Unable to connect to proxy', OSError('Tunnel conn",
+          "status": "error"
+        }
+      ]
+    }
+  ],
+  "shards": {
+    "shards": 0,
+    "matches": 0,
+    "retained": 0
+  }
+}

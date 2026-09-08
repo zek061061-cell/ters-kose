@@ -1,0 +1,3168 @@
+{
+  "schema_version": 1,
+  "catalog_policy": "Extensible discovery catalog; this count is not a product limit.",
+  "generated_at": "2026-09-08T00:00:00Z",
+  "league_count": 154,
+  "country_count": 74,
+  "leagues": [
+    {
+      "league_id": "abd-kanada.major-league-soccer",
+      "canonical_name": "Major League Soccer",
+      "country": "ABD/Kanada",
+      "tier": 1,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Major League Soccer",
+        "MLS"
+      ],
+      "source_support": [
+        {
+          "source": "espn",
+          "competition_id": "usa.1",
+          "status": "configured"
+        },
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "abd-kanada.usl-championship",
+      "canonical_name": "USL Championship",
+      "country": "ABD/Kanada",
+      "tier": 2,
+      "season_format": "calendar_year",
+      "aliases": [
+        "USL Championship"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "abd-kanada.usl-league-one",
+      "canonical_name": "USL League One",
+      "country": "ABD/Kanada",
+      "tier": 3,
+      "season_format": "calendar_year",
+      "aliases": [
+        "USL League One"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "almanya.bundesliga",
+      "canonical_name": "Bundesliga",
+      "country": "Almanya",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Bundesliga"
+      ],
+      "source_support": [
+        {
+          "source": "espn",
+          "competition_id": "ger.1",
+          "status": "configured"
+        },
+        {
+          "source": "football-data",
+          "competition_id": "D1",
+          "status": "configured"
+        },
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "almanya.2-bundesliga",
+      "canonical_name": "2. Bundesliga",
+      "country": "Almanya",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "2. Bundesliga"
+      ],
+      "source_support": [
+        {
+          "source": "espn",
+          "competition_id": "ger.2",
+          "status": "configured"
+        },
+        {
+          "source": "football-data",
+          "competition_id": "D2",
+          "status": "configured"
+        },
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "almanya.3-liga",
+      "canonical_name": "3. Liga",
+      "country": "Almanya",
+      "tier": 3,
+      "season_format": "cross_year",
+      "aliases": [
+        "3. Liga"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "arjantin.primera-division",
+      "canonical_name": "Primera División",
+      "country": "Arjantin",
+      "tier": 1,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Primera División"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "arjantin.primera-nacional",
+      "canonical_name": "Primera Nacional",
+      "country": "Arjantin",
+      "tier": 2,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Primera Nacional"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "avustralya.a-league-men",
+      "canonical_name": "A-League Men",
+      "country": "Avustralya",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "A-League Men"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "avustralya.national-premier-leagues",
+      "canonical_name": "National Premier Leagues",
+      "country": "Avustralya",
+      "tier": 2,
+      "season_format": "calendar_year",
+      "aliases": [
+        "National Premier Leagues"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "avusturya.bundesliga",
+      "canonical_name": "Bundesliga",
+      "country": "Avusturya",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Bundesliga"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "avusturya.2-liga",
+      "canonical_name": "2. Liga",
+      "country": "Avusturya",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "2. Liga"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "azerbaycan.premier-league",
+      "canonical_name": "Premier League",
+      "country": "Azerbaycan",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Premier League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "bae.pro-league",
+      "canonical_name": "Pro League",
+      "country": "BAE",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Pro League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "bae.first-division-league",
+      "canonical_name": "First Division League",
+      "country": "BAE",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "First Division League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "belcika.pro-league",
+      "canonical_name": "Pro League",
+      "country": "Belçika",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Pro League"
+      ],
+      "source_support": [
+        {
+          "source": "espn",
+          "competition_id": "bel.1",
+          "status": "configured"
+        },
+        {
+          "source": "football-data",
+          "competition_id": "B1",
+          "status": "configured"
+        },
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "belcika.challenger-pro-league",
+      "canonical_name": "Challenger Pro League",
+      "country": "Belçika",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "Challenger Pro League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "bolivya.division-profesional",
+      "canonical_name": "División Profesional",
+      "country": "Bolivya",
+      "tier": 1,
+      "season_format": "calendar_year",
+      "aliases": [
+        "División Profesional"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "bosna-hersek.premier-league",
+      "canonical_name": "Premier League",
+      "country": "Bosna Hersek",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Premier League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "brezilya.serie-a",
+      "canonical_name": "Série A",
+      "country": "Brezilya",
+      "tier": 1,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Série A"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "brezilya.serie-b",
+      "canonical_name": "Série B",
+      "country": "Brezilya",
+      "tier": 2,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Série B"
+      ],
+      "source_support": [
+        {
+          "source": "espn",
+          "competition_id": "bra.2",
+          "status": "configured"
+        },
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "brezilya.serie-c",
+      "canonical_name": "Série C",
+      "country": "Brezilya",
+      "tier": 3,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Série C"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "bulgaristan.first-league",
+      "canonical_name": "First League",
+      "country": "Bulgaristan",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "First League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "bulgaristan.second-league",
+      "canonical_name": "Second League",
+      "country": "Bulgaristan",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "Second League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "cezayir.ligue-1",
+      "canonical_name": "Ligue 1",
+      "country": "Cezayir",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Ligue 1"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "cezayir.ligue-2",
+      "canonical_name": "Ligue 2",
+      "country": "Cezayir",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "Ligue 2"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "danimarka.superliga",
+      "canonical_name": "Superliga",
+      "country": "Danimarka",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Superliga"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "danimarka.1st-division",
+      "canonical_name": "1st Division",
+      "country": "Danimarka",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "1st Division"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "danimarka.2nd-division",
+      "canonical_name": "2nd Division",
+      "country": "Danimarka",
+      "tier": 3,
+      "season_format": "cross_year",
+      "aliases": [
+        "2nd Division"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "ekvador.ligapro-serie-a",
+      "canonical_name": "LigaPro Serie A",
+      "country": "Ekvador",
+      "tier": 1,
+      "season_format": "calendar_year",
+      "aliases": [
+        "LigaPro Serie A"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "ekvador.ligapro-serie-b",
+      "canonical_name": "LigaPro Serie B",
+      "country": "Ekvador",
+      "tier": 2,
+      "season_format": "calendar_year",
+      "aliases": [
+        "LigaPro Serie B"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "el-salvador.primera-division",
+      "canonical_name": "Primera División",
+      "country": "El Salvador",
+      "tier": 1,
+      "season_format": "split_year",
+      "aliases": [
+        "Primera División"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "endonezya.liga-1",
+      "canonical_name": "Liga 1",
+      "country": "Endonezya",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Liga 1"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "endonezya.liga-2",
+      "canonical_name": "Liga 2",
+      "country": "Endonezya",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "Liga 2"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "ermenistan.premier-league",
+      "canonical_name": "Premier League",
+      "country": "Ermenistan",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Premier League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "faroe-adalar.premier-league",
+      "canonical_name": "Premier League",
+      "country": "Faroe Adaları",
+      "tier": 1,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Premier League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "faroe-adalar.1-deild",
+      "canonical_name": "1. deild",
+      "country": "Faroe Adaları",
+      "tier": 2,
+      "season_format": "calendar_year",
+      "aliases": [
+        "1. deild"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "fas.botola-pro",
+      "canonical_name": "Botola Pro",
+      "country": "Fas",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Botola Pro"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "fas.botola-2",
+      "canonical_name": "Botola 2",
+      "country": "Fas",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "Botola 2"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "finlandiya.veikkausliiga",
+      "canonical_name": "Veikkausliiga",
+      "country": "Finlandiya",
+      "tier": 1,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Veikkausliiga"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "finlandiya.ykkosliiga",
+      "canonical_name": "Ykkösliiga",
+      "country": "Finlandiya",
+      "tier": 2,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Ykkösliiga",
+        "Ykkosliiga"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "fransa.ligue-1",
+      "canonical_name": "Ligue 1",
+      "country": "Fransa",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Ligue 1"
+      ],
+      "source_support": [
+        {
+          "source": "espn",
+          "competition_id": "fra.1",
+          "status": "configured"
+        },
+        {
+          "source": "football-data",
+          "competition_id": "F1",
+          "status": "configured"
+        },
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "fransa.ligue-2",
+      "canonical_name": "Ligue 2",
+      "country": "Fransa",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "Ligue 2"
+      ],
+      "source_support": [
+        {
+          "source": "espn",
+          "competition_id": "fra.2",
+          "status": "configured"
+        },
+        {
+          "source": "football-data",
+          "competition_id": "F2",
+          "status": "configured"
+        },
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "fransa.national",
+      "canonical_name": "National",
+      "country": "Fransa",
+      "tier": 3,
+      "season_format": "cross_year",
+      "aliases": [
+        "National"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "guatemala.liga-nacional",
+      "canonical_name": "Liga Nacional",
+      "country": "Guatemala",
+      "tier": 1,
+      "season_format": "split_year",
+      "aliases": [
+        "Liga Nacional"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "guney-afrika.premiership",
+      "canonical_name": "Premiership",
+      "country": "Güney Afrika",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Premiership"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "guney-afrika.first-division",
+      "canonical_name": "First Division",
+      "country": "Güney Afrika",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "First Division"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "guney-kore.k-league-1",
+      "canonical_name": "K League 1",
+      "country": "Güney Kore",
+      "tier": 1,
+      "season_format": "calendar_year",
+      "aliases": [
+        "K League 1",
+        "K-League 1"
+      ],
+      "source_support": [
+        {
+          "source": "espn",
+          "competition_id": "kor.1",
+          "status": "configured"
+        },
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "guney-kore.k-league-2",
+      "canonical_name": "K League 2",
+      "country": "Güney Kore",
+      "tier": 2,
+      "season_format": "calendar_year",
+      "aliases": [
+        "K League 2",
+        "K-League 2"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "gurcistan.erovnuli-liga",
+      "canonical_name": "Erovnuli Liga",
+      "country": "Gürcistan",
+      "tier": 1,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Erovnuli Liga"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "hindistan.indian-super-league",
+      "canonical_name": "Indian Super League",
+      "country": "Hindistan",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Indian Super League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "hindistan.i-league",
+      "canonical_name": "I-League",
+      "country": "Hindistan",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "I-League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "hollanda.eredivisie",
+      "canonical_name": "Eredivisie",
+      "country": "Hollanda",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Eredivisie"
+      ],
+      "source_support": [
+        {
+          "source": "espn",
+          "competition_id": "ned.1",
+          "status": "configured"
+        },
+        {
+          "source": "football-data",
+          "competition_id": "N1",
+          "status": "configured"
+        },
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "hollanda.eerste-divisie",
+      "canonical_name": "Eerste Divisie",
+      "country": "Hollanda",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "Eerste Divisie"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "honduras.liga-nacional",
+      "canonical_name": "Liga Nacional",
+      "country": "Honduras",
+      "tier": 1,
+      "season_format": "split_year",
+      "aliases": [
+        "Liga Nacional"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "h-rvatistan.hnl",
+      "canonical_name": "HNL",
+      "country": "Hırvatistan",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "HNL"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "h-rvatistan.first-football-league",
+      "canonical_name": "First Football League",
+      "country": "Hırvatistan",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "First Football League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "japonya.j1-league",
+      "canonical_name": "J1 League",
+      "country": "Japonya",
+      "tier": 1,
+      "season_format": "calendar_year",
+      "aliases": [
+        "J1 League"
+      ],
+      "source_support": [
+        {
+          "source": "espn",
+          "competition_id": "jpn.1",
+          "status": "configured"
+        },
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "japonya.j2-league",
+      "canonical_name": "J2 League",
+      "country": "Japonya",
+      "tier": 2,
+      "season_format": "calendar_year",
+      "aliases": [
+        "J2 League"
+      ],
+      "source_support": [
+        {
+          "source": "espn",
+          "competition_id": "jpn.2",
+          "status": "configured"
+        },
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "japonya.j3-league",
+      "canonical_name": "J3 League",
+      "country": "Japonya",
+      "tier": 3,
+      "season_format": "calendar_year",
+      "aliases": [
+        "J3 League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "kanada.canadian-premier-league",
+      "canonical_name": "Canadian Premier League",
+      "country": "Kanada",
+      "tier": 1,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Canadian Premier League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "katar.stars-league",
+      "canonical_name": "Stars League",
+      "country": "Katar",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Stars League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "katar.second-division",
+      "canonical_name": "Second Division",
+      "country": "Katar",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "Second Division"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "kazakistan.premier-league",
+      "canonical_name": "Premier League",
+      "country": "Kazakistan",
+      "tier": 1,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Premier League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "kolombiya.categoria-primera-a",
+      "canonical_name": "Categoría Primera A",
+      "country": "Kolombiya",
+      "tier": 1,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Categoría Primera A"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "kolombiya.categoria-primera-b",
+      "canonical_name": "Categoría Primera B",
+      "country": "Kolombiya",
+      "tier": 2,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Categoría Primera B"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "kosta-rika.primera-division",
+      "canonical_name": "Primera División",
+      "country": "Kosta Rika",
+      "tier": 1,
+      "season_format": "split_year",
+      "aliases": [
+        "Primera División"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "kosta-rika.liga-de-ascenso",
+      "canonical_name": "Liga de Ascenso",
+      "country": "Kosta Rika",
+      "tier": 2,
+      "season_format": "split_year",
+      "aliases": [
+        "Liga de Ascenso"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "kuzey-irlanda.nifl-premiership",
+      "canonical_name": "NIFL Premiership",
+      "country": "Kuzey İrlanda",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "NIFL Premiership"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "kuzey-irlanda.nifl-championship",
+      "canonical_name": "NIFL Championship",
+      "country": "Kuzey İrlanda",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "NIFL Championship"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "k-br-s-cumhuriyeti.first-division",
+      "canonical_name": "First Division",
+      "country": "Kıbrıs Cumhuriyeti",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "First Division"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "k-br-s-cumhuriyeti.second-division",
+      "canonical_name": "Second Division",
+      "country": "Kıbrıs Cumhuriyeti",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "Second Division"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "macaristan.nb-i",
+      "canonical_name": "NB I",
+      "country": "Macaristan",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "NB I"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "macaristan.nb-ii",
+      "canonical_name": "NB II",
+      "country": "Macaristan",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "NB II"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "malezya.super-league",
+      "canonical_name": "Super League",
+      "country": "Malezya",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Super League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "meksika.liga-mx",
+      "canonical_name": "Liga MX",
+      "country": "Meksika",
+      "tier": 1,
+      "season_format": "split_year",
+      "aliases": [
+        "Liga MX"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "meksika.liga-de-expansion-mx",
+      "canonical_name": "Liga de Expansión MX",
+      "country": "Meksika",
+      "tier": 2,
+      "season_format": "split_year",
+      "aliases": [
+        "Liga de Expansión MX",
+        "Liga de Expansion"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "m-s-r.premier-league",
+      "canonical_name": "Premier League",
+      "country": "Mısır",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Premier League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "m-s-r.second-division-a",
+      "canonical_name": "Second Division A",
+      "country": "Mısır",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "Second Division A"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "norvec.eliteserien",
+      "canonical_name": "Eliteserien",
+      "country": "Norveç",
+      "tier": 1,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Eliteserien"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "norvec.1-division",
+      "canonical_name": "1. Division",
+      "country": "Norveç",
+      "tier": 2,
+      "season_format": "calendar_year",
+      "aliases": [
+        "1. Division",
+        "OBOS-ligaen"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "norvec.2-division",
+      "canonical_name": "2. Division",
+      "country": "Norveç",
+      "tier": 3,
+      "season_format": "calendar_year",
+      "aliases": [
+        "2. Division"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "paraguay.primera-division",
+      "canonical_name": "Primera División",
+      "country": "Paraguay",
+      "tier": 1,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Primera División"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "paraguay.division-intermedia",
+      "canonical_name": "División Intermedia",
+      "country": "Paraguay",
+      "tier": 2,
+      "season_format": "calendar_year",
+      "aliases": [
+        "División Intermedia"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "peru.liga-1",
+      "canonical_name": "Liga 1",
+      "country": "Peru",
+      "tier": 1,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Liga 1"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "peru.liga-2",
+      "canonical_name": "Liga 2",
+      "country": "Peru",
+      "tier": 2,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Liga 2"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "polonya.ekstraklasa",
+      "canonical_name": "Ekstraklasa",
+      "country": "Polonya",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Ekstraklasa"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "polonya.i-liga",
+      "canonical_name": "I Liga",
+      "country": "Polonya",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "I Liga"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "polonya.ii-liga",
+      "canonical_name": "II Liga",
+      "country": "Polonya",
+      "tier": 3,
+      "season_format": "cross_year",
+      "aliases": [
+        "II Liga"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "portekiz.primeira-liga",
+      "canonical_name": "Primeira Liga",
+      "country": "Portekiz",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Primeira Liga"
+      ],
+      "source_support": [
+        {
+          "source": "espn",
+          "competition_id": "por.1",
+          "status": "configured"
+        },
+        {
+          "source": "football-data",
+          "competition_id": "P1",
+          "status": "configured"
+        },
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "portekiz.liga-portugal-2",
+      "canonical_name": "Liga Portugal 2",
+      "country": "Portekiz",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "Liga Portugal 2"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "portekiz.liga-3",
+      "canonical_name": "Liga 3",
+      "country": "Portekiz",
+      "tier": 3,
+      "season_format": "cross_year",
+      "aliases": [
+        "Liga 3"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "romanya.superliga",
+      "canonical_name": "SuperLiga",
+      "country": "Romanya",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "SuperLiga"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "romanya.liga-ii",
+      "canonical_name": "Liga II",
+      "country": "Romanya",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "Liga II"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "rusya.premier-league",
+      "canonical_name": "Premier League",
+      "country": "Rusya",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Premier League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "rusya.first-league",
+      "canonical_name": "First League",
+      "country": "Rusya",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "First League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "singapur.premier-league",
+      "canonical_name": "Premier League",
+      "country": "Singapur",
+      "tier": 1,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Premier League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "slovakya.nike-liga",
+      "canonical_name": "Niké Liga",
+      "country": "Slovakya",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Niké Liga"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "slovakya.2-liga",
+      "canonical_name": "2. Liga",
+      "country": "Slovakya",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "2. Liga"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "slovenya.prvaliga",
+      "canonical_name": "PrvaLiga",
+      "country": "Slovenya",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "PrvaLiga"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "slovenya.2-snl",
+      "canonical_name": "2. SNL",
+      "country": "Slovenya",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "2. SNL"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "suudi-arabistan.saudi-pro-league",
+      "canonical_name": "Saudi Pro League",
+      "country": "Suudi Arabistan",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Saudi Pro League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "suudi-arabistan.first-division-league",
+      "canonical_name": "First Division League",
+      "country": "Suudi Arabistan",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "First Division League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "s-rbistan.superliga",
+      "canonical_name": "SuperLiga",
+      "country": "Sırbistan",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "SuperLiga"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "s-rbistan.first-league",
+      "canonical_name": "First League",
+      "country": "Sırbistan",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "First League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "tayland.thai-league-1",
+      "canonical_name": "Thai League 1",
+      "country": "Tayland",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Thai League 1"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "tayland.thai-league-2",
+      "canonical_name": "Thai League 2",
+      "country": "Tayland",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "Thai League 2"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "tunus.ligue-professionnelle-1",
+      "canonical_name": "Ligue Professionnelle 1",
+      "country": "Tunus",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Ligue Professionnelle 1"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "tunus.ligue-professionnelle-2",
+      "canonical_name": "Ligue Professionnelle 2",
+      "country": "Tunus",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "Ligue Professionnelle 2"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "turkiye.super-lig",
+      "canonical_name": "Süper Lig",
+      "country": "Türkiye",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Süper Lig",
+        "Trendyol Süper Lig"
+      ],
+      "source_support": [
+        {
+          "source": "espn",
+          "competition_id": "tur.1",
+          "status": "configured"
+        },
+        {
+          "source": "football-data",
+          "competition_id": "T1",
+          "status": "configured"
+        },
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "turkiye.1-lig",
+      "canonical_name": "1. Lig",
+      "country": "Türkiye",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "1. Lig",
+        "TFF 1. Lig",
+        "Trendyol 1. Lig"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "turkiye.2-lig",
+      "canonical_name": "2. Lig",
+      "country": "Türkiye",
+      "tier": 3,
+      "season_format": "cross_year",
+      "aliases": [
+        "2. Lig",
+        "TFF 2. Lig"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "turkiye.3-lig",
+      "canonical_name": "3. Lig",
+      "country": "Türkiye",
+      "tier": 4,
+      "season_format": "cross_year",
+      "aliases": [
+        "3. Lig",
+        "TFF 3. Lig"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "ukrayna.premier-league",
+      "canonical_name": "Premier League",
+      "country": "Ukrayna",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Premier League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "ukrayna.first-league",
+      "canonical_name": "First League",
+      "country": "Ukrayna",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "First League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "uruguay.primera-division",
+      "canonical_name": "Primera División",
+      "country": "Uruguay",
+      "tier": 1,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Primera División"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "uruguay.segunda-division",
+      "canonical_name": "Segunda División",
+      "country": "Uruguay",
+      "tier": 2,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Segunda División"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "venezuela.primera-division",
+      "canonical_name": "Primera División",
+      "country": "Venezuela",
+      "tier": 1,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Primera División"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "vietnam.v-league-1",
+      "canonical_name": "V.League 1",
+      "country": "Vietnam",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "V.League 1"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "yunanistan.super-league",
+      "canonical_name": "Super League",
+      "country": "Yunanistan",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Super League"
+      ],
+      "source_support": [
+        {
+          "source": "espn",
+          "competition_id": "gre.1",
+          "status": "configured"
+        },
+        {
+          "source": "football-data",
+          "competition_id": "G1",
+          "status": "configured"
+        },
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "yunanistan.super-league-2",
+      "canonical_name": "Super League 2",
+      "country": "Yunanistan",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "Super League 2"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "cekya.first-league",
+      "canonical_name": "First League",
+      "country": "Çekya",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "First League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "cekya.national-football-league",
+      "canonical_name": "National Football League",
+      "country": "Çekya",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "National Football League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "cin.chinese-super-league",
+      "canonical_name": "Chinese Super League",
+      "country": "Çin",
+      "tier": 1,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Chinese Super League",
+        "CSL"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "cin.china-league-one",
+      "canonical_name": "China League One",
+      "country": "Çin",
+      "tier": 2,
+      "season_format": "calendar_year",
+      "aliases": [
+        "China League One"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "cin.china-league-two",
+      "canonical_name": "China League Two",
+      "country": "Çin",
+      "tier": 3,
+      "season_format": "calendar_year",
+      "aliases": [
+        "China League Two"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "ingiltere.premier-league",
+      "canonical_name": "Premier League",
+      "country": "İngiltere",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Premier League"
+      ],
+      "source_support": [
+        {
+          "source": "espn",
+          "competition_id": "eng.1",
+          "status": "configured"
+        },
+        {
+          "source": "football-data",
+          "competition_id": "E0",
+          "status": "configured"
+        },
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "ingiltere.championship",
+      "canonical_name": "Championship",
+      "country": "İngiltere",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "Championship",
+        "EFL Championship"
+      ],
+      "source_support": [
+        {
+          "source": "espn",
+          "competition_id": "eng.2",
+          "status": "configured"
+        },
+        {
+          "source": "football-data",
+          "competition_id": "E1",
+          "status": "configured"
+        },
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "ingiltere.league-one",
+      "canonical_name": "League One",
+      "country": "İngiltere",
+      "tier": 3,
+      "season_format": "cross_year",
+      "aliases": [
+        "League One"
+      ],
+      "source_support": [
+        {
+          "source": "espn",
+          "competition_id": "eng.3",
+          "status": "configured"
+        },
+        {
+          "source": "football-data",
+          "competition_id": "E2",
+          "status": "configured"
+        },
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "ingiltere.league-two",
+      "canonical_name": "League Two",
+      "country": "İngiltere",
+      "tier": 4,
+      "season_format": "cross_year",
+      "aliases": [
+        "League Two"
+      ],
+      "source_support": [
+        {
+          "source": "espn",
+          "competition_id": "eng.4",
+          "status": "configured"
+        },
+        {
+          "source": "football-data",
+          "competition_id": "E3",
+          "status": "configured"
+        },
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "ingiltere.national-league",
+      "canonical_name": "National League",
+      "country": "İngiltere",
+      "tier": 5,
+      "season_format": "cross_year",
+      "aliases": [
+        "National League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "irlanda.premier-division",
+      "canonical_name": "Premier Division",
+      "country": "İrlanda",
+      "tier": 1,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Premier Division"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "irlanda.first-division",
+      "canonical_name": "First Division",
+      "country": "İrlanda",
+      "tier": 2,
+      "season_format": "calendar_year",
+      "aliases": [
+        "First Division"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "iskocya.premiership",
+      "canonical_name": "Premiership",
+      "country": "İskoçya",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Premiership"
+      ],
+      "source_support": [
+        {
+          "source": "espn",
+          "competition_id": "sco.1",
+          "status": "configured"
+        },
+        {
+          "source": "football-data",
+          "competition_id": "SC0",
+          "status": "configured"
+        },
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "iskocya.championship",
+      "canonical_name": "Championship",
+      "country": "İskoçya",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "Championship"
+      ],
+      "source_support": [
+        {
+          "source": "espn",
+          "competition_id": "sco.2",
+          "status": "configured"
+        },
+        {
+          "source": "football-data",
+          "competition_id": "SC1",
+          "status": "configured"
+        },
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "iskocya.league-one",
+      "canonical_name": "League One",
+      "country": "İskoçya",
+      "tier": 3,
+      "season_format": "cross_year",
+      "aliases": [
+        "League One"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "iskocya.league-two",
+      "canonical_name": "League Two",
+      "country": "İskoçya",
+      "tier": 4,
+      "season_format": "cross_year",
+      "aliases": [
+        "League Two"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "ispanya.la-liga",
+      "canonical_name": "La Liga",
+      "country": "İspanya",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "La Liga"
+      ],
+      "source_support": [
+        {
+          "source": "espn",
+          "competition_id": "esp.1",
+          "status": "configured"
+        },
+        {
+          "source": "football-data",
+          "competition_id": "SP1",
+          "status": "configured"
+        },
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "ispanya.laliga-2",
+      "canonical_name": "LaLiga 2",
+      "country": "İspanya",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "LaLiga 2"
+      ],
+      "source_support": [
+        {
+          "source": "espn",
+          "competition_id": "esp.2",
+          "status": "configured"
+        },
+        {
+          "source": "football-data",
+          "competition_id": "SP2",
+          "status": "configured"
+        },
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "ispanya.primera-federacion",
+      "canonical_name": "Primera Federación",
+      "country": "İspanya",
+      "tier": 3,
+      "season_format": "cross_year",
+      "aliases": [
+        "Primera Federación"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "israil.premier-league",
+      "canonical_name": "Premier League",
+      "country": "İsrail",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Premier League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "israil.liga-leumit",
+      "canonical_name": "Liga Leumit",
+      "country": "İsrail",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "Liga Leumit"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "isvec.allsvenskan",
+      "canonical_name": "Allsvenskan",
+      "country": "İsveç",
+      "tier": 1,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Allsvenskan"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "isvec.superettan",
+      "canonical_name": "Superettan",
+      "country": "İsveç",
+      "tier": 2,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Superettan"
+      ],
+      "source_support": [
+        {
+          "source": "espn",
+          "competition_id": "swe.2",
+          "status": "configured"
+        },
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "isvec.ettan",
+      "canonical_name": "Ettan",
+      "country": "İsveç",
+      "tier": 3,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Ettan"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "isvicre.super-league",
+      "canonical_name": "Super League",
+      "country": "İsviçre",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Super League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "isvicre.challenge-league",
+      "canonical_name": "Challenge League",
+      "country": "İsviçre",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "Challenge League"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "italya.serie-a",
+      "canonical_name": "Serie A",
+      "country": "İtalya",
+      "tier": 1,
+      "season_format": "cross_year",
+      "aliases": [
+        "Serie A"
+      ],
+      "source_support": [
+        {
+          "source": "espn",
+          "competition_id": "ita.1",
+          "status": "configured"
+        },
+        {
+          "source": "football-data",
+          "competition_id": "I1",
+          "status": "configured"
+        },
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "italya.serie-b",
+      "canonical_name": "Serie B",
+      "country": "İtalya",
+      "tier": 2,
+      "season_format": "cross_year",
+      "aliases": [
+        "Serie B"
+      ],
+      "source_support": [
+        {
+          "source": "espn",
+          "competition_id": "ita.2",
+          "status": "configured"
+        },
+        {
+          "source": "football-data",
+          "competition_id": "I2",
+          "status": "configured"
+        },
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "italya.serie-c",
+      "canonical_name": "Serie C",
+      "country": "İtalya",
+      "tier": 3,
+      "season_format": "cross_year",
+      "aliases": [
+        "Serie C"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "izlanda.besta-deild-karla",
+      "canonical_name": "Besta deild karla",
+      "country": "İzlanda",
+      "tier": 1,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Besta deild karla"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "izlanda.1-deild-karla",
+      "canonical_name": "1. deild karla",
+      "country": "İzlanda",
+      "tier": 2,
+      "season_format": "calendar_year",
+      "aliases": [
+        "1. deild karla"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "sili.primera-division",
+      "canonical_name": "Primera División",
+      "country": "Şili",
+      "tier": 1,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Primera División"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    },
+    {
+      "league_id": "sili.primera-b",
+      "canonical_name": "Primera B",
+      "country": "Şili",
+      "tier": 2,
+      "season_format": "calendar_year",
+      "aliases": [
+        "Primera B"
+      ],
+      "source_support": [
+        {
+          "source": "catalog-reference",
+          "competition_id": null,
+          "status": "discovery_candidate"
+        }
+      ],
+      "active": true,
+      "men_professional": true
+    }
+  ]
+}
