@@ -1,6 +1,6 @@
 {
   "ok": true,
-  "generated_at": "2026-09-08T12:47:23.307045Z",
+  "generated_at": "2026-09-08T13:06:57.259941Z",
   "matches": 115319,
   "leagues": 35,
   "league_counts": {
@@ -27,17 +27,17 @@
     "Avusturya Bundesliga": 1948,
     "Brezilya Série A": 4055,
     "Çin Süper Ligi": 2533,
-    "Danimarka Superliga": 2202,
     "Finlandiya Veikkausliiga": 1882,
+    "Danimarka Superliga": 2202,
     "İrlanda Premier Division": 1918,
-    "İsveç Allsvenskan": 2575,
-    "Rusya Premier League": 2440,
-    "Polonya Ekstraklasa": 3012,
+    "Japonya J1 League": 3356,
     "Norveç Eliteserien": 2566,
-    "İsviçre Super League": 1994,
+    "Rusya Premier League": 2440,
+    "İsveç Allsvenskan": 2575,
+    "Polonya Ekstraklasa": 3012,
     "Romanya Liga I": 3054,
     "Meksika Liga MX": 3378,
-    "Japonya J1 League": 3356,
+    "İsviçre Super League": 1994,
     "ABD MLS": 4788
   },
   "audit": [
