@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "profile": "riskbudur-57",
+  "source_rows": 99417,
+  "mapped_source_rows": 83988,
+  "deduplicated_matches": 83985,
+  "historical_matches": 74941,
+  "future_fixtures": 9044,
+  "mapped_leagues": 39,
+  "date_from": "2016-08-19",
+  "date_to": "2027-06-06",
+  "outside_core57_rows": 15429,
+  "duplicates_removed": 3,
+  "source_filename": "riskbudur_DATA_99417.json",
+  "required_runtime_file": "data/riskbudur_57_source.json.xz"
+}
