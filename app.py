@@ -137,6 +137,30 @@ def data_file(filename):
     """Serve generated mobile history shards and metadata from the repository data directory."""
     return send_from_directory(str(DATA_DIR), filename)
 
+@app.get("/diagnostics/mobile")
+def mobile_diagnostics():
+    index_path = os.path.join(DATA_DIR, "history_index.json")
+    meta_path = os.path.join(DATA_DIR, "history_meta.json")
+    try:
+        with open(index_path, "r", encoding="utf-8") as fh:
+            index = json.load(fh)
+        files = index.get("files") or {}
+        sample = next(iter(files.values()), {})
+        sample_file = str(sample.get("file") or "").replace("./data/", "")
+        sample_path = os.path.join(DATA_DIR, sample_file) if sample_file else ""
+        return jsonify({
+            "ok": True,
+            "history_index": os.path.isfile(index_path),
+            "history_meta": os.path.isfile(meta_path),
+            "matches": index.get("matches", 0),
+            "leagues": index.get("leagues", len(files)),
+            "shards": len(files),
+            "sample_shard": sample_file,
+            "sample_shard_exists": bool(sample_path and os.path.isfile(sample_path)),
+        })
+    except Exception as exc:
+        return jsonify({"ok": False, "error": str(exc)}), 500
+
 @app.get("/icon.svg")
 def icon_file():
     return send_from_directory(".", "icon.svg", mimetype="image/svg+xml")
