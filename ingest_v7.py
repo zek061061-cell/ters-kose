@@ -11,6 +11,7 @@ from pathlib import Path
 from network_adapters import EspnAdapter, FootballDataCsvAdapter, SahadanAdapter, TffAdapter
 from shard_store import ShardStore
 from source_adapters import AdapterRegistry
+from provider_registry import football_data_auto_config
 
 
 ESPN_PRIORITY = {
@@ -43,22 +44,25 @@ def main() -> int:
     configured = {
         "tff": _json_env("V7_TFF_PAGES"),
         "sahadan": _json_env("V7_SAHADAN_URLS"),
-        "football-data": _json_env("V7_FOOTBALL_DATA_URLS"),
+        "football-data": {**football_data_auto_config(), **_json_env("V7_FOOTBALL_DATA_URLS")},
     }
+    league_ids = sorted(set(ESPN_PRIORITY) | set(configured["tff"]) | set(configured["sahadan"]) | set(configured["football-data"]))
     matches, audit = [], []
-    for league_id in ESPN_PRIORITY:
+    for league_id in league_ids:
         adapters = []
+        # Football-Data is the preferred free provider where it has a known division code.
+        if league_id in configured["football-data"]: adapters.append(FootballDataCsvAdapter(configured["football-data"]))
         if league_id in configured["tff"]: adapters.append(TffAdapter(configured["tff"]))
         if league_id in configured["sahadan"]: adapters.append(SahadanAdapter(configured["sahadan"]))
-        if league_id in configured["football-data"]: adapters.append(FootballDataCsvAdapter(configured["football-data"]))
         if league_id in ESPN_PRIORITY: adapters.append(EspnAdapter(ESPN_PRIORITY))
         registry = AdapterRegistry(adapters)
         rows = registry.fixtures(league_id, args.date_from, args.date_to)
         matches.extend(rows)
         audit.append({
             "league_id": league_id, "rows": len(rows),
-            "status": "ok" if rows else "source_error" if any(item.health.error_count for item in adapters) else "empty",
+            "status": "ok" if rows else "source_error" if any(item.health.error_count for item in adapters) else "manual_source_required",
             "attempts": registry.health(),
+            "football_data_requests": next((getattr(item, "last_requests", []) for item in adapters if item.source_id == "football-data"), []),
         })
     output = Path(args.output)
     # An unavailable provider must not erase a previous usable snapshot.
