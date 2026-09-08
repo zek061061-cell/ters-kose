@@ -116,11 +116,13 @@ for full in links:
             unmatched.append((home_slug, away_slug))
             continue
 
-        # Only keep games that can be tied to one of our analysis leagues.
-        league = home_league if home_league and home_league == away_league else (home_league or away_league)
-        if not league:
+        # Only keep domestic-league bulletin games when BOTH teams resolve to the
+        # same analysis league. Cross-league fixtures are usually Europe/cup/friendly
+        # matches; assigning them to one club's domestic league pollutes Radar.
+        if not home_league or not away_league or home_league != away_league:
             unmatched.append((home_slug, away_slug))
             continue
+        league = home_league
 
         # Find kickoff in the match card containing this link.
         kickoff_time = ""
