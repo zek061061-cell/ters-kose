@@ -17,7 +17,16 @@ from core57 import core57_ids, filter_coverage, load_core57
 from fixture_store import STORE
 from league_catalog import catalog_summary, load_league_catalog
 
-app = Flask(__name__)\n\n# Production startup self-check: log mobile warehouse availability once per process.\ntry:\n    _mobile_index_path = os.path.join(os.path.dirname(__file__), "data", "history_index.json")\n    with open(_mobile_index_path, "r", encoding="utf-8") as _fh:\n        _mobile_index = json.load(_fh)\n    print(f"[mobile-data] OK matches={_mobile_index.get('matches', 0)} leagues={_mobile_index.get('leagues', 0)} shards={len(_mobile_index.get('files') or {})}", flush=True)\nexcept Exception as _exc:\n    print(f"[mobile-data] ERROR {_exc}", flush=True)
+app = Flask(__name__)
+
+# Production startup self-check: log mobile warehouse availability once per process.
+try:
+    _mobile_index_path = os.path.join(os.path.dirname(__file__), "data", "history_index.json")
+    with open(_mobile_index_path, "r", encoding="utf-8") as _fh:
+        _mobile_index = json.load(_fh)
+    print(f"[mobile-data] OK matches={_mobile_index.get('matches', 0)} leagues={_mobile_index.get('leagues', 0)} shards={len(_mobile_index.get('files') or {})}", flush=True)
+except Exception as _exc:
+    print(f"[mobile-data] ERROR {_exc}", flush=True)
 DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 
 ALLOWED_HOSTS = {"www.football-data.co.uk", "football-data.co.uk"}
