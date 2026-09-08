@@ -82,13 +82,8 @@ class FixtureStore:
         self.catalog = load_league_catalog(root / "league_catalog.json")
         self._league_by_name = self._league_index(self.catalog)
         self._league_by_id = {row["league_id"]: row for row in self.catalog}
-        adapters = [
-            JsonFixtureAdapter("current-snapshot", root / "current_fixtures.json", 10),
-            JsonFixtureAdapter("future-snapshot", root / "future_fixtures.json", 20),
-            JsonFixtureAdapter("bulletin-archive", root / "bulletin_1y.json", 30),
-        ]
-        if (root / "v7_ingested_fixtures.json").exists():
-            adapters.insert(0, JsonFixtureAdapter("v7-ingested", root / "v7_ingested_fixtures.json", 5))
+        adapters = []
+
         private_path = Path(PRIVATE_FIXTURE_PATH).expanduser() if PRIVATE_FIXTURE_PATH else None
         if private_path and private_path.exists():
             if private_path.suffix == ".xz":
@@ -133,6 +128,10 @@ class FixtureStore:
         for adapter in self.registry.adapters:
             for source_row in adapter.fetch("", date_from, date_to):
                 league = self._league_by_name.get(canonical_key(source_row.get("league")))
+                if not league:
+                    source_country = str(source_row.get("source_country") or source_row.get("country") or "").strip()
+                    source_league = str(source_row.get("source_league") or "").strip()
+                    league = self._league_by_name.get(canonical_key(f"{source_country} {source_league}"))
                 if not league or (league_id and league["league_id"] != league_id):
                     continue
                 if country and canonical_key(league["country"]) != canonical_key(country):
