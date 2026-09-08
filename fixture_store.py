@@ -80,6 +80,47 @@ class RiskbudurSourceAdapter(JsonFixtureAdapter):
             return self._cached_rows
 
 
+class RiskbudurHtmlAdapter(JsonFixtureAdapter):
+    """Load the browser DATA array directly from the Riskbudur panel HTML."""
+
+    def __init__(self, source_id: str, url: str, priority: int) -> None:
+        self.url = url
+        self.source_id = source_id
+        self.priority = priority
+        self.path = Path(tempfile.gettempdir()) / "riskbudur_live_source.json"
+        self.health = AdapterHealth(source_id=source_id)
+        self._cached_rows = []
+        self._cached_mtime = None
+        self._cache_lock = Lock()
+
+    @staticmethod
+    def _extract_data(html: str):
+        import re
+        patterns = [
+            r"(?:window\\.)?DATA\\s*=\\s*(\\[.*?\\])\\s*;",
+            r"(?:const|let|var)\\s+DATA\\s*=\\s*(\\[.*?\\])\\s*;",
+        ]
+        for pattern in patterns:
+            match = re.search(pattern, html, re.S)
+            if match:
+                return json.loads(match.group(1))
+        raise ValueError("Riskbudur DATA array not found")
+
+    def _load(self) -> list[dict]:
+        with self._cache_lock:
+            if self._cached_rows:
+                return self._cached_rows
+            req = urllib.request.Request(self.url, headers={"User-Agent": "Mozilla/5.0"})
+            with urllib.request.urlopen(req, timeout=90) as response:
+                html = response.read().decode("utf-8", errors="replace")
+            source_rows = self._extract_data(html)
+            from riskbudur_data_import import convert
+            payload = convert(source_rows)
+            self._cached_rows = payload.get("matches", [])
+            self.health.covered_leagues = int(payload.get("mapped_leagues") or 0)
+            return self._cached_rows
+
+
 class RemoteGzipRiskbudurAdapter(GzipJsonFixtureAdapter):
     """Download the private Riskbudur master once per process and query it locally."""
 
