@@ -18,6 +18,7 @@ from fixture_store import STORE
 from league_catalog import catalog_summary, load_league_catalog
 
 app = Flask(__name__)
+DATA_DIR = os.path.join(os.path.dirname(__file__), "data")
 
 ALLOWED_HOSTS = {"www.football-data.co.uk", "football-data.co.uk"}
 APP_VERSION = "4.1"
