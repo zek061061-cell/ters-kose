@@ -10,7 +10,7 @@ from source_adapters import canonical_key
 from team_catalog import canonical_team_key
 
 
-INPUTS = ("history_10y.json", "future_fixtures.json", "current_fixtures.json", "bulletin_1y.json")
+INPUTS = ("history_10y.json", "riskbudur_57_history.json", "future_fixtures.json", "current_fixtures.json", "bulletin_1y.json")
 
 
 def build_team_catalog(data_dir: Path | str = DATA_DIR) -> dict:
