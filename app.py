@@ -137,6 +137,10 @@ def data_file(filename):
     """Serve generated mobile history shards and metadata from the repository data directory."""
     return send_from_directory(str(DATA_DIR), filename)
 
+@app.get("/icon.svg")
+def icon_file():
+    return send_from_directory(".", "icon.svg", mimetype="image/svg+xml")
+
 @app.get("/manifest.json")
 def manifest():
     return send_from_directory(".", "manifest.json", mimetype="application/manifest+json")
