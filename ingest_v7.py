@@ -23,6 +23,16 @@ ESPN_PRIORITY = {
 }
 
 
+def _json_env(name: str) -> dict:
+    raw = (os.environ.get(name) or "").strip()
+    if not raw:
+        return {}
+    value = json.loads(raw)
+    if not isinstance(value, dict):
+        raise ValueError(f"{name} must contain a JSON object")
+    return value
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--from", dest="date_from", default=(date.today() - timedelta(days=365)).isoformat())
@@ -31,9 +41,9 @@ def main() -> int:
     parser.add_argument("--mode", choices=("current", "future", "history"), default="current")
     args = parser.parse_args()
     configured = {
-        "tff": json.loads(os.environ.get("V7_TFF_PAGES", "{}")),
-        "sahadan": json.loads(os.environ.get("V7_SAHADAN_URLS", "{}")),
-        "football-data": json.loads(os.environ.get("V7_FOOTBALL_DATA_URLS", "{}")),
+        "tff": _json_env("V7_TFF_PAGES"),
+        "sahadan": _json_env("V7_SAHADAN_URLS"),
+        "football-data": _json_env("V7_FOOTBALL_DATA_URLS"),
     }
     matches, audit = [], []
     for league_id in ESPN_PRIORITY:
@@ -59,7 +69,9 @@ def main() -> int:
         shard_result = {"shards": 0, "matches": 0, "retained": 0}
     Path("data/source_audit.json").write_text(json.dumps({"mode": args.mode, "leagues": audit, "shards": shard_result}, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"matches": len(matches), "successful_leagues": sum(item["status"] == "ok" for item in audit)}, ensure_ascii=False))
-    return 0 if matches else 2
+    # No-data/provider outages are recorded in source_audit.json and must not
+    # turn the whole scheduled workflow red. Validation/test failures still fail later steps.
+    return 0
 
 
 if __name__ == "__main__":
